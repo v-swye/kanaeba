@@ -509,6 +509,7 @@ window.oldVersion = [
                         <p>最近帮导师处理大量数据文件，由于win本配置太低就想把Access数据库全导出成csv格式文件再换设备处理，但在读取csv文件时发现无法以utf-8格式解码，用Notepad++打开发现编码格式是GB2312，也就是ANSI编码（简体中文的锅），几经搜索终于得到正确的解码姿势：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For windows</span></span><br><span class="line">data = pd.read_csv(filepath, encoding = <span class="string">'gbk'</span>)</span><br><span class="line"><span class="comment"># For macOS</span></span><br><span class="line">data = pd.read_csv(filepath, encoding = <span class="string">'GB18030'</span>)</span><br></pre></td></tr></table></figure>
 
+
                     </article>
                     
 
