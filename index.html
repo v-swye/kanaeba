@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +70,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/kanaeba/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '7.1.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
@@ -252,9 +252,6 @@
   
 
   
-    
-
-  
 
   
 </nav>
@@ -274,6 +271,9 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
           
           <div id="content" class="content">
             
@@ -356,7 +356,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-20 14:15:41" itemprop="dateModified" datetime="2019-05-20T14:15:41+08:00">2019-05-20</time>
+                <time title="Modified: 2019-05-20 14:47:57" itemprop="dateModified" datetime="2019-05-20T14:47:57+08:00">2019-05-20</time>
               
             
           </span>
@@ -406,11 +406,28 @@
 <h3 id="我が流通俗理解"><a href="#我が流通俗理解" class="headerlink" title="我が流通俗理解"></a>我が流通俗理解</h3><h4 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h4><p>神经网络源于人脑的作用机制，因此在很多方面都可以进行类比。想象神经网络是一个三维空间大厦，每一个样本占领了空间中的一个平面（住进一层），然后在这个平面内经过多个神经元，最终输出结果，并与旁边已经建好的单元大厦接洽，接的越稳，整个楼就建得越好。<br>对某一个样本而言，其所在的神经网络平面往往可以简化为以下模式： input-hidden-output。注意output不一定是一维的，正如input也可以包含多个变量。输出多维向量时一般是multi-classfication问题。<br>因为所有训练都是从input开始，很自然地我们可以将一个传播定义为：输入值（例如$z^{(l)}$）-神经元处理（$g(·)$） -处理输出值($a^{(l)}$)-进入细胞介质，以某种权重（浓度）接入下一层某个节点的输入值（$\Theta^{(l)}$）。这个过程可以帮助我们理解<strong>l</strong>究竟是指哪一层的哪个部分。</p>
 <h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>直观上，我们可以理解为，某种梯度上的误差$\delta^{(l+1)}$从输入点出发，反向进入介质，以某种权重（浓度）（$\Theta^{(l)}$）传达到上一层的输出点，然后爬一个神经元的坡（$g’(z^{(l)})$），当到达l层的输入点时，误差更新为$\delta^{(l)}$。该误差与（l-1）层的输出值$a^{(l-1)}$网格化交叉相乘后，就得到了经过(l-1)层介质后产生的坡度（随着权重的一点点变化）。<br>由此可见，反向传播，传播的是误差$\delta^{(l)}$，而不是梯度本身，梯度=梯度误差.*走的步长（$a^{(l-1)}$），走的步长在向前传播时就已经确定了。</p>
 <h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><p>下面给出比较严谨的数学公式推导，以更严格的理解反向传播的基础原理。</p>
-<h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><p>整体成本函数：$J(\Theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{k=1}^{K}y_k^{(i)}log(h_{\Theta}(x^{(i)})_k+(1-y_k^{(i)})log(1-h_{\Theta}(x^{(i)})]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ij}^{(l)})^2 $<br>这个函数看上去很复杂，但实际背后仅仅是加总<strong>每个</strong>样本的<strong>所有</strong>最终输出值下产生的成本函数以及所有参数的平方和（除bias unit对应的参数），原理与logistic回归是一样的。<br>单样本成本函数：$cost^{(i)} = y^{(i)}log(h_{\Theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\Theta}(x^{(i)})$。<br>要计算的梯度：$\frac{\partial{J(\Theta)}}{\partial{\Theta}}$。</p>
+<h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><p>整体成本函数：</p>
+<script type="math/tex; mode=display">J(\Theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{k=1}^{K}y_k^{(i)}log(h_{\Theta}(x^{(i)})_k+(1-y_k^{(i)})log(1-h_{\Theta}(x^{(i)})]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ij}^{(l)})^2</script><p>这个函数看上去很复杂，但实际背后仅仅是加总<strong>每个</strong>样本的<strong>所有</strong>最终输出值下产生的成本函数以及所有参数的平方和（除bias unit对应的参数），原理与logistic回归是一样的。<br>单样本成本函数：</p>
+<script type="math/tex; mode=display">cost^{(i)} = y^{(i)}log(h_{\Theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\Theta}(x^{(i)})</script><p>要计算的梯度：<script type="math/tex">\frac{\partial{J(\Theta)}}{\partial{\Theta}}</script></p>
 <h3 id="梯度拆分"><a href="#梯度拆分" class="headerlink" title="梯度拆分"></a>梯度拆分</h3><p>简单起见，我们从单样本下的成本函数入手，并首先讨论最简单的最后输出层到倒数第二层，之后扩展到较复杂的、多对多的中间层情况。</p>
-<h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><p>注意到成本函数的定义，对样本i，有（以下省略公式上标i）：<br>$cost = ylog(a^{(L)})+(1-y)log(1-a^{(L)})$，其中，<br>$a^{(L)} = \frac{1}{1+e^{-z^{(L)}}}$，其中，<br>$z^{(L)} = \Theta^{(L-1)}a^{(L-1)}$<br>由于最终梯度函数是线性求和的，因此这一步我们要关注的是获得$\frac{\partial{cost}}{\partial{\Theta}} = \Delta$。<br>从L-1层进入L层时，我们经过了权重矩阵$\Theta^{(L-1)}$，由此可以对该矩阵中的每个元素求导。以$\Theta_{12}^{(L-1)}$为例，这个系数是对要得到第一个输出值$y_1$（本例中我们假设只有一个输出值），对L-1层输出值$a_2^{(L-1)}$，即第二个节点需要赋予的权重。<br>则有根据链式法则：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = \frac{\partial{cost}}{\partial{a^{(L)}}}<em> \frac{\partial{a^{(L)}}}{\partial{z^{(L)}}}</em>\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}}$<br>其中，<br>$\frac{\partial{cost}}{\partial{a^{(L)}}} = \frac{y}{a^{(L)}}+\frac{1-y}{1-a^{(L)}} = \frac{y-a^{(L)}}{a^{(L)}(1-a^{(L)})}$<br>$\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}} = a^{(L)}(1-a^{(L)})$<br>注意这一步是经典的Logistic函数求导结果，用a来表示的情况。<br>$\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}} = a_2^{(L-1)}$<br>得到最后的结果：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = (y-a^{(L)})a_2^{(L-1)} = \delta^{(L)}a_2^{(L-1)}$<br>这里用了$\delta^{(L)}$的定义，注意符号——我们之前的做法是取了负号，这样就可以跳过-1/m的问题。<br>将所有该层参数的偏导放到一个行向量里（这样如果存在多个输出值，就会形成多个行，即每个元素是成本函数对对应位置的参数求导，也就是说，偏导的结果与权重矩阵形状完全一致，详情参照矩阵求导的定义），得到L-1层的梯度：<br>$\Delta^{(L-1)} = \frac{\partial{cost}}{\partial{\Theta^{(L-1)}}} = \delta^{(L)}[a^{(L-1)}]^T $</p>
-<h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><p>矩阵求导是较为高阶的知识，因此这里依然从标量入手推导，有时间的话之后补充矩阵直接推导。<br>Notation: $\Theta_{ij}^{(l-1)}$为对应（l-1）层第i个输出值$a_i^{(l-1)}$与l层第j个输入值$z_j^{(l)}$的权重参数。这里我们依然只看单个样本，因此省略了样本序数的表示。由此，我们有关注的偏导对象：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \frac{\partial{cost}}{\partial{z_j^{(l)}}}<em>\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}}$，<br>其中，由$z_j^{(l)} = \Theta_j^{(l-1)}a^{(l-1)}$的定义知（为简洁，此处以矩阵形式表示该方程），<br>$\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}} = a_i^{(l-1)}$<br>接下来的计算重点就落在$\frac{\partial{cost}}{\partial{z_j^{(l)}}}$上，注意到这个式子也是我们对$\delta_j^{(l)}$的定义。<br>现在我们需要从（l+1）层来获得上式的值，因为<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\frac{\partial{cost}}{\partial{z_k^{(l+1)}}}</em>\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}}$<br>其中，k表示l+1层第k个输入值，l+1层总共有K个输入值。<br>（回顾一下：l层是j-J个，l-1层是i-I个）<br>根据$\delta$的定义，代入上式得$\frac{\partial{cost}}{\partial{z_k^{(l+1)}}} = \delta_k^{(l+1 )}$，<br>而$z_k^{(l+1)} = \Theta_{jk}^{(l)}a_j^{(l)} =  \Theta_{kj}^{(l)}g(z_j^{(l)})$，<br>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g’(z_j^{(l)}) = g’(z_j^{(l)}).<em>[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}$<br>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：<br>$\delta^{(l)} = g’(z^{(l)}).</em>[(\Theta^{(l)})^T\delta^{(l+1)}]$<br>最后整理成l-1层的梯度矩阵：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T$</p>
-
+<h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><p>注意到成本函数的定义，对样本i，有（以下省略公式上标i）：</p>
+<script type="math/tex; mode=display">cost = ylog(a^{(L)})+(1-y)log(1-a^{(L)})</script><p>其中，</p>
+<script type="math/tex; mode=display">a^{(L)} = \frac{1}{1+e^{-z^{(L)}}}</script><p>其中，</p>
+<script type="math/tex; mode=display">z^{(L)} = \Theta^{(L-1)}a^{(L-1)}</script><p>由于最终梯度函数是线性求和的，因此这一步我们要关注的是获得</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta}} = \Delta</script><p>从L-1层进入L层时，我们经过了权重矩阵$\Theta^{(L-1)}$，由此可以对该矩阵中的每个元素求导。以$\Theta_{12}^{(L-1)}$为例，这个系数是对要得到第一个输出值$y_1$（本例中我们假设只有一个输出值），对L-1层输出值$a_2^{(L-1)}$，即第二个节点需要赋予的权重。<br>则有根据链式法则：</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = \frac{\partial{cost}}{\partial{a^{(L)}}}*\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}}*\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}}</script><p>其中，</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{a^{(L)}}} = \frac{y}{a^{(L)}}+\frac{1-y}{1-a^{(L)}} = \frac{y-a^{(L)}}{a^{(L)}(1-a^{(L)})}</script><script type="math/tex; mode=display">\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}} = a^{(L)}(1-a^{(L)})</script><p>注意这一步是经典的Logistic函数求导结果，用a来表示的情况。</p>
+<script type="math/tex; mode=display">\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}} = a_2^{(L-1)}</script><p>得到最后的结果：</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = (y-a^{(L)})a_2^{(L-1)} = \delta^{(L)}a_2^{(L-1)}</script><p>这里用了$\delta^{(L)}$的定义，注意符号——我们之前的做法是取了负号，这样就可以跳过-1/m的问题。<br>将所有该层参数的偏导放到一个行向量里（这样如果存在多个输出值，就会形成多个行，即每个元素是成本函数对对应位置的参数求导，也就是说，偏导的结果与权重矩阵形状完全一致，详情参照矩阵求导的定义），得到L-1层的梯度：</p>
+<script type="math/tex; mode=display">\Delta^{(L-1)} = \frac{\partial{cost}}{\partial{\Theta^{(L-1)}}} = \delta^{(L)}[a^{(L-1)}]^T</script><h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><p>矩阵求导是较为高阶的知识，因此这里依然从标量入手推导，有时间的话之后补充矩阵直接推导。<br>Notation: $\Theta_{ij}^{(l-1)}$为对应（l-1）层第i个输出值$a_i^{(l-1)}$与l层第j个输入值$z_j^{(l)}$的权重参数。这里我们依然只看单个样本，因此省略了样本序数的表示。由此，我们有关注的偏导对象：</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}}=\frac{\partial{cost}}{\partial{z_j^{(l)}}}*\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}}</script><p>其中，由$z_j^{(l)} = \Theta_j^{(l-1)}a^{(l-1)}$的定义知（为简洁，此处以矩阵形式表示该方程），</p>
+<script type="math/tex; mode=display">\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}} = a_i^{(l-1)}</script><p>接下来的计算重点就落在$\frac{\partial{cost}}{\partial{z_j^{(l)}}}$上，注意到这个式子也是我们对$\delta_j^{(l)}$的定义。<br>现在我们需要从（l+1）层来获得上式的值，因为</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\frac{\partial{cost}}{\partial{z_k^{(l+1)}}}*\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}}</script><p>其中，k表示l+1层第k个输入值，l+1层总共有K个输入值。<br>（回顾一下：l层是j-J个，l-1层是i-I个）<br>根据$\delta$的定义，代入上式得$\frac{\partial{cost}}{\partial{z_k^{(l+1)}}} = \delta_k^{(l+1 )}$，</p>
+<p>而$z_k^{(l+1)} = \Theta_{jk}^{(l)}a_j^{(l)} =  \Theta_{kj}^{(l)}g(z_j^{(l)})$，</p>
+<p>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g'(z_j^{(l)}) = g'(z_j^{(l)}).*[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}</script><p>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：</p>
+<script type="math/tex; mode=display">\delta^{(l)} = g'(z^{(l)}).*[(\Theta^{(l)})^T\delta^{(l+1)}]</script><p>最后整理成l-1层的梯度矩阵：</p>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script>
           
         
       
@@ -938,153 +955,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/05/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-15 18:26:50" itemprop="dateCreated datePublished" datetime="2019-05-15T18:26:50+08:00">2019-05-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1127,7 +997,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1212,7 +1082,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
 
 
 
@@ -1300,7 +1170,9 @@
   
 
 
-  <script src="/kanaeba/js/schemes/muse.js?v=7.1.1"></script>
+  <script src="/kanaeba/js/affix.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/schemes/pisces.js?v=7.1.1"></script>
 
 
 
@@ -1339,8 +1211,6 @@
     
       
         
-      
-    
       
     
       
