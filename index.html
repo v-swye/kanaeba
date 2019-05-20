@@ -1,687 +1,1420 @@
 <!DOCTYPE html>
 
-<html lang="en">
-    <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
-    <!--
-        © SukkaW
-        GitHub: https://github.com/SukkaW/hexo-theme-suka
-        Version: 1.3.2
-    -->
-    <script>
-window.lsVersion = "1.3.2",
-window.oldVersion = [
-    
-        
-            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0"
-        
-    
-]
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
-    <!-- ### DNS Prefetch ### -->
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-<!-- busuanzi -->
 
-    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+  
 
 
-<!-- comment -->
 
 
-
-
-
-
-
-<!-- analytics -->
-
-
-
-
-
-
-
-
-    <!-- ### Preload ### -->
-    
-    <!-- Busuanzi -->
-    
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
-
-
-
-
-
-
-
-    <!-- ### Meta & Title & Info ### -->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
-<!-- Title -->
-<title>Kanaeba&#39;s Long Position</title>
-
-<!-- favicon -->
-<!-- Favicons -->
-
-    <link rel="shortcut icon" type="image/ico" href="/kanaeba/img/suka-favicon.ico">
-
-
-
-
-
-
-<!-- Android Chrome Color -->
-
-
-
-<meta name="format-detection" content="telephone=no">
-
-<!-- Description -->
-<meta name="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-
-<!-- Keywords -->
-<meta name="keywords" content>
-
-<!-- Disable Fucking Bloody Baidu Tranformation -->
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-    <!-- ### Import File ### -->
-    
-        <!-- spectre.css -->
-
-    <link rel="stylesheet" href="/kanaeba/lib/spectre/spectre.min.css">
-
-
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-
-    a, a:visited {
-        color: #0070ff;
-    }
-
-    a:active, a:focus, a:hover {
-        color: #0070ff;
-        opacity: .75;
-    }
-
-    #post-content a,
-    #post-content a:hover,
-    #post-content a:focus,
-    #post-content a:visited {
-        color: #005eb9;
-        opacity: 1;
-    }
-
-    .post-entry .card-body a {
-        color: #0070ff;
-    }
-
-    .avatar {
-        background: #444;
-    }
-
-    .navbar-link,
-    .navbar-link:visited,
-    .timeline .timeline-item .timeline-icon.icon-lg {
-        color: #0070ff;
-    }
-
-    .navbar-link:hover {
-        color: #0070ff;
-        opacity: .8;
-    }
-
-    #search-input .btn,
-    #disqus_click_btn,
-    #disqus-switch-to-direct,
-    #disqus-loadmore-button {
-        background: #727e96;
-        border-color: #727e96;
-        color: #fff;
-    }
-
-    #post-toc a.post-toc-link,
-    #post-toc a.post-toc-link:visited,
-    .share-menu.menu .menu-item>a {
-        color: #727e96;
-    }
-
-    .share-menu.menu .menu-item>a:hover,
-    .share-menu.menu .menu-item>a:focus,
-    .share-menu.menu .menu-item>a:visited {
-        color: #50596c;
-        background: #f8f9fa;
-        opacity: .85;
-    }
-</style>
-
-<!-- style.css -->
-
-    <link rel="stylesheet" href="/kanaeba/css/style.min.css">
-
-
-
-
-
-
-
-
-
-    <!-- Prettify Theme -->
-    
-
-
-    
-
-    <!-- ### Site Verification ### -->
-    
-
-
-    <!-- ### RSS ### -->
-    
-
-    <!-- ### WebApp ### -->
-    <meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="Kanaeba&#39;s Long Position">
-<meta name="msapplication-starturl" content="https://v-swye.github.io/kanaeba">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Kanaeba&#39;s Long Position">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<!-- Manifest Import -->
-
-<!-- Open Search -->
-
-
-    <!-- ### The Open Graph & Twitter Card Protocol ### -->
-    <meta property="og:title" content="Kanaeba&#39;s Long Position">
+  <meta name="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+<meta name="keywords" content="Economics, Data, Python, MATLAB, Analytics, Asia, Games, UrbanLife">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kanaeba&#39;s Long Position">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-
-<meta property="og:locale" content="en">
-
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/">
-<meta property="og:image" content="https://v-swye.github.io/kanaeba/img/suka-favicon.ico">
-
 <meta property="og:description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-
+<meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
-
-
-    <meta property="og:type" content="blog">
-
-
-
-
-
-    <!-- ### Analytics ### -->
-    
+<meta name="twitter:title" content="Kanaeba&#39;s Long Position">
+<meta name="twitter:description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
 
 
 
 
 
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/">
 
 
 
-    <!-- ### Canonical link ### -->
-    <link rel="canonical" href="https://v-swye.github.io/kanaeba/kanaeba/">
-
-    <!-- ### Structured Data ### -->
-    
-<script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "Blog",
-    "author": {
-        "@type": "Person",
-        "name": "Kanaeba",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://v-swye.github.io/kanaeba/img/default_avatar.png"
-        },
-        "description": "Life is short, so be sure to go long."
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "Kanaeba&#39;s Long Position",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico"
-        }
-    },
-    "url": "https://v-swye.github.io/kanaeba",
-    "logo": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico",
-    "image": {
-        "@type": "ImageObject",
-        "url": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico"
-    },
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://v-swye.github.io/kanaeba"
-    },
-    
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://v-swye.github.io/kanaeba/search?s={search_term_string}",
-        "query-input": "required name=search_term_string"
-    },
-    
-    "keywords": "",
-    "description": "如果生活要求你百般武艺，那就尽力做到样样精通。"
-}
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
 </script>
 
+  <title>Kanaeba's Long Position</title>
+  
 
 
 
 
-    <!-- ### Custom Head ### -->
-    
 
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-    <body>
-        
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-            
-
-            <!-- ### Main content ### -->
-            <!-- ## Header ##-->
-<header>
-    <h1 class="header-title text-center"><a href="/kanaeba/">Kanaeba&#39;s Long Position</a></h1>
-
-    <p class="text-center header-slogan">
-        
-            
-                Life is short, so be sure to go long.
-            
-        
-    </p>
-
-    <nav class="navbar-section text-center">
+  
+  
     
-        <a href="/kanaeba/" class="navbar-link">Home</a>
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
     
     
-        <a href="/kanaeba/archives/" class="navbar-link">Archives</a>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
     
     
-        <a href="/search" class="navbar-link">Search</a>
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
     
     
     
-        <div class="dropdown dropdown-right">
-    <a class="navbar-link dropdown-toggle" tabindex="0">Share</a>
-    <ul class="menu share-menu">
+      
+    
 
-        <!-- Share Weibo -->
-        
-        <li class="menu-item">
-            <a href="http://service.weibo.com/share/share.php?appkey=&title=Kanaeba's Long Position&url=https://v-swye.github.io/kanaeba&pic=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&searchPic=false&style=simple" target="_blank" rel="noopener noreferrer nofollow">Share to Weibo</a>
-        </li>
-        
+    
 
-        <!-- Share Twitter -->
-        
-        <li class="menu-item">
-            <a href="https://twitter.com/intent/tweet?text=Kanaeba's Long Position&url=https://v-swye.github.io/kanaeba&via=Kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Twitter</a>
-        </li>
-        
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
-        <!-- Share Facebook -->
-        
-        <li class="menu-item">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Facebook</a>
-        </li>
-        
+  </li>
 
-        <!-- Share Google+ -->
-        
-        <li class="menu-item">
-            <a href="https://plus.google.com/share?url=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Google+</a>
-        </li>
-        
-
-        <!-- Share LinkedIn -->
-        
-        <li class="menu-item">
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://v-swye.github.io/kanaeba&title=" target="_blank" rel="noopener noreferrer nofollow">Share to LinkedIn</a>
-        </li>
-        
-
-        <!-- Share QQ -->
-        
-        <li class="menu-item">
-            <a href="http://connect.qq.com/widget/shareqq/index.html?site=Kanaeba's Long Position&title=&summary=如果生活要求你百般武艺，那就尽力做到样样精通。&pics=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&url=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow"> Share to QQ</a>
-        </li>
-        
-
-        <!-- Share Telegram -->
-        
-        <li class="menu-item">
-            <a href="https://t.me/share/url?url=https://v-swye.github.io/kanaeba&text=" target="_blank" rel="noopener noreferrer nofollow">Share to Telegram</a>
-        </li>
-        
-
-        <!-- QRCode -->
-        
-        <li class="menu-item">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAAAAAB0L9x7AAABkklEQVR42u3aQY6DMBBEUe5/6WQziygyVWVgTBF9NpGCMG/RuN1tb6+CawMBAsQjEJu4hg/+/f95f/RMMi6IXkTyss/f72f2YGpcEP2I78BxgTd60QghxwXxE4jRpKRAIH4PMXp5AgTxfIRMNOEk9G9ZFMRyhFqQnvm9bLUNYikiKlx3iiG1+L28KgexDOECTE02LkG5gghEN0IVu27BMlMc2ywK4naEClAZVBNNtt3mGohKRBKYLkgT0OnJCsQyRFLgpoWyS2ry6wBRg1CTkgpatfiNxwRRiRgNmgTdzLPR1wGiBqEaIkmCcvdkEx5ELSKdtNSm/F6AxoEJogYxs9hNGyEq2YHoR6QL2HSz3m3EgOhHpItWVxC5e1FBDKICoQIq2XxNDv5NbbqAuB2RbMKp/2cnsUObsyCWItKDwklScotbEM9BpAd7Zg8Buc18EN2II430IwnsslOIIG5DuAaZ25yNExiIxyBmAtRBTn0dIJYjjhzqsoc+XaMFRC0ibXKkTfX4gDmISsSdFwgQIKoRb/G8qYnhunRqAAAAAElFTkSuQmCC" alr="QRCode">
-        </li>
-        
-
+      
+      
     </ul>
-</div>
+  
+
+  
     
-    
+
+  
+
+  
 </nav>
-</header>
-
-            <div class="container">
-    <div class="main-container">
-        <main>
-            <div class="post-stream-container">
-                <!-- # Post List # -->
-                
-                    
-                        
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
-
-<article class="post-entry container px-0 card">
-        <div class="columns col-gapless">
-            
-                <div class="column col-12">
-                    
-    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/kanaeba/2019/05/19/反向传播算法理解与推导/">反向传播算法理解与推导</a></h2>
-
-
-<p class="mb-0 card-body">
-    
-        业余人士的Coursera学习笔记，有误请见谅，欢迎指正。
-反向传播算法
-    <a href="/kanaeba/2019/05/19/反向传播算法理解与推导/">Read more</a>
-</p>
 
 
 
-
-    <!-- Date & Category -->
-    <div class="card-footer post-entry-info text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <time>2019-05-19</time>
-        
-        
-    </div>
-
-    
-                </div>
-            
-        </div>
-</article>
+  
 
 
 
-                    
-                
-                    
-                        
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
-
-<article class="post-entry container px-0 card">
-        <div class="columns col-gapless">
-            
-                <div class="column col-12">
-                    
-    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/">Pandas读取ANSI编码的CSV文件</a></h2>
-
-
-<p class="mb-0 card-body">
-    
-        最近帮导师处理大量数据文件，由于win本配置太低就想把Access数据库全导出成csv格式文件再换设备处理，但在读取csv文件时发现无法以utf-8格式解码，用Notepad++打开发现编码格式是GB2312，也就是ANSI编码...
-    <a href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/">Read more</a>
-</p>
-
-
-
-
-    <!-- Date & Category -->
-    <div class="card-footer post-entry-info text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <time>2019-05-17</time>
-        
-        
-    </div>
-
-    
-                </div>
-            
-        </div>
-</article>
-
-
-
-                    
-                
-                    
-                        
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
-
-<article class="post-entry container px-0 card">
-        <div class="columns col-gapless">
-            
-                <div class="column col-12">
-                    
-    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/kanaeba/2019/05/16/Econ Espresso 19M5W3/">Econ Espresso 19M5W3</a></h2>
-
-
-<p class="mb-0 card-body">
-    
-        The Guardian
-    <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W3/">Read more</a>
-</p>
-
-
-
-
-    <!-- Date & Category -->
-    <div class="card-footer post-entry-info text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <time>2019-05-16</time>
-        
-        
-    </div>
-
-    
-                </div>
-            
-        </div>
-</article>
-
-
-
-                    
-                
-                    
-                        
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
-
-<article class="post-entry container px-0 card">
-        <div class="columns col-gapless">
-            
-                <div class="column col-12">
-                    
-    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/">Econ Espresso 19M5W2</a></h2>
-
-
-<p class="mb-0 card-body">
-    
-        Eco...
-    <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/">Read more</a>
-</p>
-
-
-
-
-    <!-- Date & Category -->
-    <div class="card-footer post-entry-info text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <time>2019-05-16</time>
-        
-        
-    </div>
-
-    
-                </div>
-            
-        </div>
-</article>
-
-
-
-                    
-                
-                    
-                        
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
-
-<article class="post-entry container px-0 card">
-        <div class="columns col-gapless">
-            
-                <div class="column col-12">
-                    
-    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/kanaeba/2019/05/15/hello-world/">Hello World</a></h2>
-
-
-<p class="mb-0 card-body">
-    
-        Welcome to Hexo! This is your very first post. Check...
-    <a href="/kanaeba/2019/05/15/hello-world/">Read more</a>
-</p>
-
-
-
-
-    <!-- Date & Category -->
-    <div class="card-footer post-entry-info text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <time>2019-05-15</time>
-        
-        
-    </div>
-
-    
-                </div>
-            
-        </div>
-</article>
-
-
-
-                    
-                
-            </div>
-        </main>
-        
-
-    </div>
 </div>
+    </header>
 
-            <!-- ### Footer ### -->
-            <footer class="text-center">
-    <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
-        <a class="footer-copyright-a" href="https://v-swye.github.io/kanaeba">Kanaeba&#39;s Long Position</a>
-    </p>
-    <!-- footer custom text -->
-    <p class="footer-text mb-0">
     
-    </p>
-    <!-- footer develop info -->
-    <p class="footer-develop mb-0">
-        
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
             
-    <!-- Busuanzi User Views -->
-    <span id="busuanzi_container_site_uv" hidden>
-        <span></span>
-        <span id="busuanzi_value_site_uv"></span>
-        <span>Viewers</span>
-        
-            <span>|</span>
-        
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/19/反向传播算法理解与推导/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
     </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
 
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/19/反向传播算法理解与推导/" class="post-title-link" itemprop="url">反向传播算法理解与推导</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-19 10:17:21" itemprop="dateCreated datePublished" datetime="2019-05-19T10:17:21+08:00">2019-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-20 14:15:41" itemprop="dateModified" datetime="2019-05-20T14:15:41+08:00">2019-05-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>业余人士的Coursera学习笔记，有误请见谅，欢迎指正。</p>
+<h2 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h2><h3 id="算法定义，目的与适用场景"><a href="#算法定义，目的与适用场景" class="headerlink" title="算法定义，目的与适用场景"></a>算法定义，目的与适用场景</h3><blockquote>
+<p>反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科</p>
+</blockquote>
+<h3 id="步骤描述"><a href="#步骤描述" class="headerlink" title="步骤描述"></a>步骤描述</h3><ol>
+<li>对每个样本，基于初始权重矩阵$\Theta$正向传播（forward propagation）计算出每层的每个节点$a^{(l)}$，l代表layer层数。</li>
+<li>从末尾开始计算$\delta^{(L)}=a^{(L)}-y$，然后反向传播计算出各层次的$\delta^{(l)}=(\Theta^{(l)})^{T}\delta^{(l+ 1)}.*g’(z^{(l)})$。</li>
+<li>更新不含正则化部分的梯度：$\Delta^{(l)} := \Delta^{(l)}+\delta^{(l+ 1)}[a^{(l)}]^T $。</li>
+<li>得到对每个参数的梯度：$\frac{\partial{J(\Theta)}}{\partial{\Theta_{i j}^{(l)}}} = \frac{1}{m}(\Delta_{i j}^{(l)}+1(j!=0)\lambda\Theta_{i j}^{(l)}$。</li>
+<li>基于梯度和J的值，利用优化函数或梯度下降法得到参数的迭代解。</li>
+</ol>
+<h3 id="我が流通俗理解"><a href="#我が流通俗理解" class="headerlink" title="我が流通俗理解"></a>我が流通俗理解</h3><h4 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h4><p>神经网络源于人脑的作用机制，因此在很多方面都可以进行类比。想象神经网络是一个三维空间大厦，每一个样本占领了空间中的一个平面（住进一层），然后在这个平面内经过多个神经元，最终输出结果，并与旁边已经建好的单元大厦接洽，接的越稳，整个楼就建得越好。<br>对某一个样本而言，其所在的神经网络平面往往可以简化为以下模式： input-hidden-output。注意output不一定是一维的，正如input也可以包含多个变量。输出多维向量时一般是multi-classfication问题。<br>因为所有训练都是从input开始，很自然地我们可以将一个传播定义为：输入值（例如$z^{(l)}$）-神经元处理（$g(·)$） -处理输出值($a^{(l)}$)-进入细胞介质，以某种权重（浓度）接入下一层某个节点的输入值（$\Theta^{(l)}$）。这个过程可以帮助我们理解<strong>l</strong>究竟是指哪一层的哪个部分。</p>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>直观上，我们可以理解为，某种梯度上的误差$\delta^{(l+1)}$从输入点出发，反向进入介质，以某种权重（浓度）（$\Theta^{(l)}$）传达到上一层的输出点，然后爬一个神经元的坡（$g’(z^{(l)})$），当到达l层的输入点时，误差更新为$\delta^{(l)}$。该误差与（l-1）层的输出值$a^{(l-1)}$网格化交叉相乘后，就得到了经过(l-1)层介质后产生的坡度（随着权重的一点点变化）。<br>由此可见，反向传播，传播的是误差$\delta^{(l)}$，而不是梯度本身，梯度=梯度误差.*走的步长（$a^{(l-1)}$），走的步长在向前传播时就已经确定了。</p>
+<h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><p>下面给出比较严谨的数学公式推导，以更严格的理解反向传播的基础原理。</p>
+<h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><p>整体成本函数：$J(\Theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{k=1}^{K}y_k^{(i)}log(h_{\Theta}(x^{(i)})_k+(1-y_k^{(i)})log(1-h_{\Theta}(x^{(i)})]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ij}^{(l)})^2 $<br>这个函数看上去很复杂，但实际背后仅仅是加总<strong>每个</strong>样本的<strong>所有</strong>最终输出值下产生的成本函数以及所有参数的平方和（除bias unit对应的参数），原理与logistic回归是一样的。<br>单样本成本函数：$cost^{(i)} = y^{(i)}log(h_{\Theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\Theta}(x^{(i)})$。<br>要计算的梯度：$\frac{\partial{J(\Theta)}}{\partial{\Theta}}$。</p>
+<h3 id="梯度拆分"><a href="#梯度拆分" class="headerlink" title="梯度拆分"></a>梯度拆分</h3><p>简单起见，我们从单样本下的成本函数入手，并首先讨论最简单的最后输出层到倒数第二层，之后扩展到较复杂的、多对多的中间层情况。</p>
+<h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><p>注意到成本函数的定义，对样本i，有（以下省略公式上标i）：<br>$cost = ylog(a^{(L)})+(1-y)log(1-a^{(L)})$，其中，<br>$a^{(L)} = \frac{1}{1+e^{-z^{(L)}}}$，其中，<br>$z^{(L)} = \Theta^{(L-1)}a^{(L-1)}$<br>由于最终梯度函数是线性求和的，因此这一步我们要关注的是获得$\frac{\partial{cost}}{\partial{\Theta}} = \Delta$。<br>从L-1层进入L层时，我们经过了权重矩阵$\Theta^{(L-1)}$，由此可以对该矩阵中的每个元素求导。以$\Theta_{12}^{(L-1)}$为例，这个系数是对要得到第一个输出值$y_1$（本例中我们假设只有一个输出值），对L-1层输出值$a_2^{(L-1)}$，即第二个节点需要赋予的权重。<br>则有根据链式法则：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = \frac{\partial{cost}}{\partial{a^{(L)}}}<em> \frac{\partial{a^{(L)}}}{\partial{z^{(L)}}}</em>\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}}$<br>其中，<br>$\frac{\partial{cost}}{\partial{a^{(L)}}} = \frac{y}{a^{(L)}}+\frac{1-y}{1-a^{(L)}} = \frac{y-a^{(L)}}{a^{(L)}(1-a^{(L)})}$<br>$\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}} = a^{(L)}(1-a^{(L)})$<br>注意这一步是经典的Logistic函数求导结果，用a来表示的情况。<br>$\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}} = a_2^{(L-1)}$<br>得到最后的结果：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = (y-a^{(L)})a_2^{(L-1)} = \delta^{(L)}a_2^{(L-1)}$<br>这里用了$\delta^{(L)}$的定义，注意符号——我们之前的做法是取了负号，这样就可以跳过-1/m的问题。<br>将所有该层参数的偏导放到一个行向量里（这样如果存在多个输出值，就会形成多个行，即每个元素是成本函数对对应位置的参数求导，也就是说，偏导的结果与权重矩阵形状完全一致，详情参照矩阵求导的定义），得到L-1层的梯度：<br>$\Delta^{(L-1)} = \frac{\partial{cost}}{\partial{\Theta^{(L-1)}}} = \delta^{(L)}[a^{(L-1)}]^T $</p>
+<h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><p>矩阵求导是较为高阶的知识，因此这里依然从标量入手推导，有时间的话之后补充矩阵直接推导。<br>Notation: $\Theta_{ij}^{(l-1)}$为对应（l-1）层第i个输出值$a_i^{(l-1)}$与l层第j个输入值$z_j^{(l)}$的权重参数。这里我们依然只看单个样本，因此省略了样本序数的表示。由此，我们有关注的偏导对象：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \frac{\partial{cost}}{\partial{z_j^{(l)}}}<em>\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}}$，<br>其中，由$z_j^{(l)} = \Theta_j^{(l-1)}a^{(l-1)}$的定义知（为简洁，此处以矩阵形式表示该方程），<br>$\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}} = a_i^{(l-1)}$<br>接下来的计算重点就落在$\frac{\partial{cost}}{\partial{z_j^{(l)}}}$上，注意到这个式子也是我们对$\delta_j^{(l)}$的定义。<br>现在我们需要从（l+1）层来获得上式的值，因为<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\frac{\partial{cost}}{\partial{z_k^{(l+1)}}}</em>\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}}$<br>其中，k表示l+1层第k个输入值，l+1层总共有K个输入值。<br>（回顾一下：l层是j-J个，l-1层是i-I个）<br>根据$\delta$的定义，代入上式得$\frac{\partial{cost}}{\partial{z_k^{(l+1)}}} = \delta_k^{(l+1 )}$，<br>而$z_k^{(l+1)} = \Theta_{jk}^{(l)}a_j^{(l)} =  \Theta_{kj}^{(l)}g(z_j^{(l)})$，<br>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g’(z_j^{(l)}) = g’(z_j^{(l)}).<em>[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}$<br>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：<br>$\delta^{(l)} = g’(z^{(l)}).</em>[(\Theta^{(l)})^T\delta^{(l+1)}]$<br>最后整理成l-1层的梯度矩阵：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T$</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
-        Powered by&nbsp;<!--
-         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
-         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="noopener">Suka</a>
-    </p>
-</footer>
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/" class="post-title-link" itemprop="url">Pandas读取ANSI编码的CSV文件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-17 17:45:20 / Modified: 17:53:34" itemprop="dateCreated datePublished" datetime="2019-05-17T17:45:20+08:00">2019-05-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近帮导师处理大量数据文件，由于win本配置太低就想把Access数据库全导出成csv格式文件再换设备处理，但在读取csv文件时发现无法以utf-8格式解码，用Notepad++打开发现编码格式是GB2312，也就是ANSI编码（简体中文的锅），几经搜索终于得到正确的解码姿势：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For windows</span></span><br><span class="line">data = pd.read_csv(filepath, encoding = <span class="string">'gbk'</span>)</span><br><span class="line"><span class="comment"># For macOS</span></span><br><span class="line">data = pd.read_csv(filepath, encoding = <span class="string">'GB18030'</span>)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/16/Econ Espresso 19M5W3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W3/" class="post-title-link" itemprop="url">Econ Espresso 19M5W3</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-16 08:58:08" itemprop="dateCreated datePublished" datetime="2019-05-16T08:58:08+08:00">2019-05-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-19 21:22:07" itemprop="dateModified" datetime="2019-05-19T21:22:07+08:00">2019-05-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="The-Guardian"><a href="#The-Guardian" class="headerlink" title="The Guardian"></a>The Guardian</h2><h3 id="英国央行副主管称延迟退欧将损害长期经济前景"><a href="#英国央行副主管称延迟退欧将损害长期经济前景" class="headerlink" title="英国央行副主管称延迟退欧将损害长期经济前景"></a>英国央行副主管称延迟退欧将损害长期经济前景</h3><p>英国央行deputy governor Ben Broadbent（元高盛银行家）称继续延迟退欧并非好事，公司正在等待确定性消息的到来，而这个等待的过程如此漫长，企业投资因谨慎而迟迟不能展开。<br>他认为，当完全宣布结果后，企业投资会强劲反弹——那些未被取消的投资项目将安然进行。</p>
+<blockquote>
+<p>If, as a business person, you’re assured that the worst thing is suddenly off the table, that has quite a powerful effect on your incentive to invest.”</p>
+</blockquote>
+<h2 id="WSJ-City"><a href="#WSJ-City" class="headerlink" title="WSJ City"></a>WSJ City</h2><h3 id="麦当劳发展手机点餐服务"><a href="#麦当劳发展手机点餐服务" class="headerlink" title="麦当劳发展手机点餐服务"></a>麦当劳发展手机点餐服务</h3><p>麦当劳想让手机点餐体验和亚马逊一样，同时智能对“点什么”提出建议（拯救选择困难症啊）<br>相比于其竞争者，麦当劳在数字化方面已经落后一步。</p>
+<h2 id="史丹利百得准备转移工厂"><a href="#史丹利百得准备转移工厂" class="headerlink" title="史丹利百得准备转移工厂"></a>史丹利百得准备转移工厂</h2><p>受贸易战影响，Stanley Black &amp; Decker（500强美国五金公司）准备将五金工厂从中国迁回美国。</p>
+<h3 id="迪士尼获得Hulu完全掌控权"><a href="#迪士尼获得Hulu完全掌控权" class="headerlink" title="迪士尼获得Hulu完全掌控权"></a>迪士尼获得Hulu完全掌控权</h3><p>迪士尼与Comcast达成协议，将Hulu的营运控制权转交迪士尼，Comcast最早可以在2024年1月将手中持有的1/3股权以当时市场价卖给迪士尼（现持有2/3），迪士尼承诺在该交易发生时所有者权益价值不低于27.5b美元。这一交易展示了迪士尼在发展自己的直接面向消费者播放流服务（direct-to-consumer streaming service）战略上的雄心（Disney+）。Hulu有超过25m的订阅用户，并且在过去一年大幅增长。</p>
+<h3 id="S-amp-P500-CEO薪资"><a href="#S-amp-P500-CEO薪资" class="headerlink" title="S&amp;P500 CEO薪资"></a>S&amp;P500 CEO薪资</h3><p>2018年，S&amp;P500公司中CEO薪资中位数为12.4m美元。大多数top earners属于healthcare, media和financial comp. 与往年不同，tech公司老板们在top25中仅占3席。<br>有意思的是，20家女老板的薪资中位数为13.7m美元，超过男性。<br>Best return top25中，tech公司占有10位。最低收益率的公司中带头者是GE和制药公司Perrigo。</p>
+<h3 id="S-amp-P-500-大量回购股票"><a href="#S-amp-P-500-大量回购股票" class="headerlink" title="S&amp;P 500 大量回购股票"></a>S&amp;P 500 大量回购股票</h3><p>美国公司在2019年Q1回购股票总额达1998年以来第二高——180bn。第一高为2018年Q4。2018年回购最多的公司为Apple, Oracle和Cisco Systems，总额达到126bn。<br><strong>回购困境（buyback dilemma）</strong>：当市场急速下落时，公司可能想在手上保留更多的现金，但同时熊市中公司股票变得更便宜，所以它们又往往把现金用来回购股票。一些分析师认为这样做能稳固市场，帮助从熊市中走出。股票回购助力了最近十年的牛市。但另一方面，如果收购是源自更广意义上的经济问题的话，那可能就是另一回事了。</p>
+<blockquote>
+<p>Companies will do a lot to avoid cutting or suspending a dividend, so if prospects deteriorate, buybacks are the first thing they take away.——Ed Clissold, chief US strategist at Ned Davis Research Group</p>
+</blockquote>
+<h3 id="经济学家认为贸易关税不会过于影响美国通胀"><a href="#经济学家认为贸易关税不会过于影响美国通胀" class="headerlink" title="经济学家认为贸易关税不会过于影响美国通胀"></a>经济学家认为贸易关税不会过于影响美国通胀</h3><p>新关税为政府带来每年30bn美元的收入——当然，以消费者受损为代价。关税与fed决策息息相关，因美联储长期以2%通胀率为目标。但经济学家估计关税并不会过分影响通胀（消费者在服务而非物品上消费的多），另一方面即使通胀上升，央行也未必会调升利率，目前决策者更关注通胀长期走低的问题而非暂时走高的可能性。</p>
+<h2 id="日经中文网"><a href="#日经中文网" class="headerlink" title="日经中文网"></a>日经中文网</h2><h3 id="中美贸易战下物价变动"><a href="#中美贸易战下物价变动" class="headerlink" title="中美贸易战下物价变动"></a>中美贸易战下物价变动</h3><p>一般认为关税提高会推高进口物价并刺激通胀（外部输入型），但美国似乎并没有受损。</p>
+<blockquote>
+<p>美国消费者物价保持稳定。2019年4月比上年同月提高2.0％。虽然油价走低的影响减弱，物价略微上升，但低于第1轮对华惩罚性关税启动之前（2018年6月的2.9％）。</p>
+</blockquote>
+<p><img src="media/15577058352862/15578322657971.jpg" alt><br>另一方面，中国的生产者物价变动剧烈，2018年6月之后迅速下降，此间汇率并没有太大变化。虽说物价受很多因素影响，但在美国看不到来自中国的进口商品销售价格因关税而被推高的情况，反而感受到中国企业下调出口价格的可能性。<br>结合世界银行和美国贸易代表办公室（USTR）的数据进行调查，成为美国前三轮加征关税对象中，约7成“价格弹性”超过1，“不易上涨”。<em>“价格弹性”如果超过1，则涨价容易导致需求下降，可视为“不易出现价格上升”。替代品能轻易找到的低附加值产品等属于这种情况。</em><br>EconPol Europe进行了推算。针对对象品类，美国的消费者物价仅提高4.5％，另一方面，中国的生产者物价将下降20.5％。实际上中国企业承担了关税负担的约8成。<br>美国政府在前三轮加征关税中避免难以用他国商品代替的产品，在战略上选择了额外关税的品类。<br>注：即使需求弹性很大，关键在于其他国家企业的供给是否能跟进，如果产能跟不上，相关替代品是否能轻易找到呢。比如目前鸡肉对猪肉的替代效应就是有限的。也就是说供给弹性？<br>再往下阅读，的确是这样哈哈哈。。</p>
+<blockquote>
+<p>如果美国启动第4轮惩罚性关税，EconPol Europe的Benedikt Zoller-Rydzek表示：包括美国苹果的“iPhone”等在内，“难以找到中国以外供应企业的电子产品等也将成为对象，对美国物价和经济的打击将变得巨大”。物价上涨将导致实际收入缩水，挤压经济，另一方面，美国联邦储备委员会（FRB）也将难以维持“鸽派”姿态，股市将失去支撑因素。</p>
+</blockquote>
+<h2 id="The-Economist"><a href="#The-Economist" class="headerlink" title="The Economist"></a>The Economist</h2><h3 id="数字化如何铸就地产大亨"><a href="#数字化如何铸就地产大亨" class="headerlink" title="数字化如何铸就地产大亨"></a>数字化如何铸就地产大亨</h3><p>工业REITs发展势头迅猛。过去三年，工业REITs复合年化收益率几近20%（而本地购物商城REITs几乎每年亏损6%）。起源于新加坡的REIT GLP不到五年前进入美国市场，而现在它已经即将以20bn估值IPO它的美国运营部门。<br>一部分原因：电商巨头或是零售转电商的巨头追求快速物流，仓库搬得离大城市中心越来越近；云计算服务等高科技公司租赁大量场地作为数据仓库或是放置维护服务器的地方；手机等服务提供商则要建基站——密集分布的5G基础设施，而且离城市越近越好，尽可能让信号遍布每一个角落。**</p>
+<h3 id="欧洲股票平静水面下的极端分裂"><a href="#欧洲股票平静水面下的极端分裂" class="headerlink" title="欧洲股票平静水面下的极端分裂"></a>欧洲股票平静水面下的极端分裂</h3><p>与美国股市相比，欧洲股市主要由价值股（value stocks，如Daimler，PE=8）和质量股（quality stocks，如Nestle，PE=29）组成，而缺少本土巨头崛起产生的增长股（growth stocks，如Google）。在相对平静的股票指数之下，价值股和质量股之间的鸿沟却越来越不可逾越。<br>在欧洲，质量股受到欢迎，而美国则以增长型股票为追逐的热点。<br>价值股指的是被低估、价格便宜的股票，在过去它们往往是周期性股票，而现在则主要集中在工业，例如汽车制造商和传统银行。质量股则因为稳定而受欢迎，包括稳定的净利润、高资本收益率、合理的债务和低员工周转率。在欧洲，这类公司主要是处于消费行业的著名公司。<br>两种股票之间的巨大鸿沟推进了消极投资的盛行：An investor in a low-cost index fund can own both types of stock without worrying too much about relative value. 也因此，很多来自美国的主动型投资人都退出了欧洲市场：价值股看上去没什么希望，质量股又太贵。<br>与伦敦房地产市场对比：你可以在市中心高层杀出一条血路但没准就踩在了高点，也可以选择在荒郊野外买一处说不定哪天会升值的房地产，不过最安全的还是在市郊接壤处买一套漂亮的洋房，这洋房可能不算便宜，但至少不会变得更便宜。</p>
+<h3 id="特朗普进一步打击华为"><a href="#特朗普进一步打击华为" class="headerlink" title="特朗普进一步打击华为"></a>特朗普进一步打击华为</h3><p>早在2012年，华为就已经被禁止在美国销售设备。大型美国移动运营商也完全禁止引入华为的5G网络技术。美国一直在暗示其盟友采取相同手段，不过目前为止应和的只有澳大利亚。2019年5月15日，特朗普针对华为，商务部调查认定华为涉及威胁国家安全，认定生效时（时期未定），华为的附属公司将被禁止在没有政府批准的情况下向美国公司购买硬软件。<br>2018年4月，中兴曾遭遇完全相同的境地，2017年净利润4.6bn人民币的ZTE2018年净损失7bn人民币，濒临破产边缘，最后靠xi个人与特朗普联系才获得缓刑。</p>
+<h3 id="硅谷的睡眠科技"><a href="#硅谷的睡眠科技" class="headerlink" title="硅谷的睡眠科技"></a>硅谷的睡眠科技</h3><p>睡眠科技或许是下一轮的“健康追踪技术”——一开始并没有人相信有用，但现在社交网站上遍布的锻炼记录分享已经是见怪不怪了。至少，它是迈向“量化自我”的一步，可以在一定程度上帮助改善睡眠缺乏（而非失眠症状）。<br>电子毛毯、调温床单、声音设备、智能铃声、智能枕头、睡眠追踪手表手环、智能睡眠眼罩、大脑刺激头带、床边睡眠感应器和无数的睡眠监控app共同构成了庞大的睡眠科技市场。根据市场研究公司报告，该市场2014年价值58bn美元，并预计在2020年增长至81bn美元。</p>
+<h3 id="经济学家重新审视财政政策"><a href="#经济学家重新审视财政政策" class="headerlink" title="经济学家重新审视财政政策"></a>经济学家重新审视财政政策</h3><p>目前，美国国债占GDP78%。如果不增税或控制支出，预计2029年会达到GDP的92%，1947年以来的最高值。<br>公共债务的传统理论受到挑战，比如，经济理论认为公共债务对私人投资存在挤出效应，但当公司有大量现金和极低借债成本时，这种说法未必令人信服。<br>现在我们正处于利率史低且短时间内预计不会反弹的时期，因此，即使债务占GDP的比重稳步上升，每年付息额却基本接近历史均值。<br><img src="media/15577058352862/15581419005030.jpg" alt></p>
+<p>最重要的是，现在的利率甚至低于名义利率——这意味着随着时间推移，债务会缩水，只要经济体增长超过该利率，政府就可以永远保有少量的赤字状况。<br>这一现象有一些反直觉，一般认为在长期中预算应保持平衡。但经济学家Blanchard指出，美国名义增长速度超过政府债券利率的现象在历史上十分常见。低利率表明风险调整资本收益率（即额外私人投资所得）很低，因此，即使公共部门投资错配，对社会福利的影响也是很微小的。<br>哈佛大学经济学家Mr Furman和Mr Summers指出，对公共部门会挤出私人投资的恐惧源自“对当今经济问题的荒唐诊断”。真正的问题在于美国的利率已经非常低，并且可能再次跌回零利率，到那时美联储将无法再降低利率。如今，任何想要削减债务或政府赤字的做法都可能拖累经济，使上述假想成为可能。Summers认为从19世纪70年代开始赤字就一直在支撑利率上行，试图削减赤字可能使利率显著下降。<br>2017年，Mr Elmendorf and Louise Sheiner 在JEP上论述道，过量储蓄和资本回报率下降使政府债务没有看上去那么有害。<br>现在MMT正在兴起（Modern Monetary Theory，现代货币理论）。这一前沿经济学说认为，债务GDP比（debt-to-GDP ratio）对那些以本国货币发行国债的国家来说无关紧要，且唯一约束支出的是通货膨胀。在通货膨胀率极低的现在，正是增加在促进平等和改善气候变化方面支出的好机会。<br>不过，这一理论只获得了很少一部分主流经济学家的支持。</p>
+<h2 id="The-Economist-Espresso"><a href="#The-Economist-Espresso" class="headerlink" title="The Economist Espresso"></a>The Economist Espresso</h2><h3 id="特朗普推迟对欧日征税"><a href="#特朗普推迟对欧日征税" class="headerlink" title="特朗普推迟对欧日征税"></a>特朗普推迟对欧日征税</h3><p>特朗普决定将对欧盟和日本的汽车及零部件的关税征收推迟六个月。显然在与中国准备贸易战的同时他并不想和所有盟友也打个全面的贸易战。市场受到鼓舞。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/16/Econ Espresso 19M5W2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/" class="post-title-link" itemprop="url">Econ Espresso 19M5W2</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-16 08:55:08 / Modified: 08:57:43" itemprop="dateCreated datePublished" datetime="2019-05-16T08:55:08+08:00">2019-05-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Econ-Espresso-19M5W2"><a href="#Econ-Espresso-19M5W2" class="headerlink" title="Econ Espresso 19M5W2"></a>Econ Espresso 19M5W2</h1><h2 id="Economist-Espresso"><a href="#Economist-Espresso" class="headerlink" title="Economist Espresso"></a>Economist Espresso</h2><h3 id="宜家在法国探索新业务模式"><a href="#宜家在法国探索新业务模式" class="headerlink" title="宜家在法国探索新业务模式"></a>宜家在法国探索新业务模式</h3><p>宜家在5月6日于法国巴黎中心开了第一家店，店铺规模是目前所有宜家店面里最小的，而且会主要销售更小的产品——以与当代住在城市小房子里的年轻人需求匹配。宜家一般将仓库放在郊外，而年轻人既没有时间也没有车可以开去郊外的仓库取货。<br>同时，宜家在伦敦，莫斯科，纽约和悉尼开展“panning studios”，提供一对一咨询，帮助客户设计他们的房子。宜家也在筹备在30个国家开展家具出租业务，保护环境。（<em>感觉很适合国内租房的年轻人——如果同时提供家具运输的话，那么搬新家就不用搬掉所有的家具了，还可以换新</em>）<br>2018年宜家利润下跌40%。</p>
+<h2 id="The-Economist"><a href="#The-Economist" class="headerlink" title="The Economist"></a>The Economist</h2><h3 id="英国的追随力（followership）问题"><a href="#英国的追随力（followership）问题" class="headerlink" title="英国的追随力（followership）问题"></a>英国的追随力（followership）问题</h3><blockquote>
+<p>“I don’t know why people are so fixated on the subject of leadership,” he said, or words to that effect. “What we really need to think about is followership.”</p>
+</blockquote>
+<p>获得公民支持的三个要点：deference（顺从），支持者认为领导人是优秀的；class-loyalty（阶级忠诚），支持者为代表自己的领导者投票；competence（能力），支持是因为认为领导人可以解决问题。随着精英政治的衰败，问题凸显。<br>当代，唯一能重建领导人与追随者之间的纽带的方法是恢复当权者在能力方面的声誉。不过梅姨看来是比较失败的。但更黑暗的事实是：一段时间内，the politics of resentment will trump the politics of problem-solving for some time.</p>
+<h3 id="美国警察部门为911报警电话配备社会工作者"><a href="#美国警察部门为911报警电话配备社会工作者" class="headerlink" title="美国警察部门为911报警电话配备社会工作者"></a>美国警察部门为911报警电话配备社会工作者</h3><p>近十年来，纽约市报警电话中涉及精神病的案件数量几乎翻倍。根据研究，1/4因报警而最后被警察射杀的案件涉及精神病，而大部分警察并不知道怎么正确处理精神病人。因此，部分州已经开始引入合作团队——警察+心理治疗师。不过，警察一般比较排外，所以这些心理治疗师要融入进去并不容易，而且由于时间较短实施州不多，还无法进行有效的成本-利益的分析。</p>
+<h3 id="Lyft收益翻倍却亏损5倍，前景灰暗"><a href="#Lyft收益翻倍却亏损5倍，前景灰暗" class="headerlink" title="Lyft收益翻倍却亏损5倍，前景灰暗"></a>Lyft收益翻倍却亏损5倍，前景灰暗</h3><p>2019.3.29，Lyft成为第一个叫车行业的上市公司，上市当日股价上涨9%。然而，5月7日一季度财报公开后，股价次日暴跌11%。<br>一季度收益776m美元，同比翻倍，然而亏损1.14b，超过2018年全年亏损。亏损的主要来源是雇员补贴计划——CFO认为2019会是亏损峰年，之后会平缓过度到盈利状态。但是，即使去掉这部分，销售、市场营销和保险的成本都在上升。调整营业亏损230m显示过去一年该公司在成本控制上并没有什么进步。而在top-line growth方面，Lyft预计二季度销售增长率会显著下降。<br>更令投资者忧心的应该是即将在5月10日上市的Uber。Uber的市值将会是Lyft的数倍，但它的亏损额也会更大。Uber未经审计的一季度财报显示亏损1b——从2009年成立以来共计亏损9b。<br>两家公司目前都还有足够的资金支持运转，但要想转亏为盈，要么提价（不太可能，Bertrand），要么减少司机补贴（但两家平台的司机已经经常在抱怨工资不够cover生活必需）。因此，两公司现在都在探索研发无人驾驶技术。<br>update: 5月9日，uber遭遇美国、英国和澳洲（澳洲同时包括lyft）司机游行，要求更好的Pay和conditions。</p>
+<h3 id="退欧如何影响英国FDI？"><a href="#退欧如何影响英国FDI？" class="headerlink" title="退欧如何影响英国FDI？"></a>退欧如何影响英国FDI？</h3><p>留欧派指责退欧使日本汽车制造商、美国的银行及其他公司取消投资计划；但退欧派则认为英国比过去更受欢迎：上个月EY投资者吸引力国家排名中，英国列首位；这周Facebook更是选择了伦敦作为WhatsApp发展计划的大本营。<br>国家之间互相竞争FDI：一方面，海外公司进入国内市场可以提升市场竞争，有利于消费者；另一方面，海外国家如果能收购本土业务，则通常可以提升本土公司的生产率，从而提高公司。<br>1995-2015年十年间，英国吸引了全球跨境并购交易的10%。从2016年退欧公投以来，这个比率并未受多大影响，巴菲特最近还告诉FT他“准备在英国买点什么”。英国有着较低的公司税和稳定的法制体系。<br>不过，在某些行业，FDI的热情已经在消退。2014-2017年英国是美国科技公司最喜欢的跨境并购交易目的地，但2018年英国已落至第八位。uk Trade Policy Observatory at Sussex University的反事实研究表明，相比留欧，退欧减少了1/5的inward FDI。<br>退欧也影响了国内公司。1月巴克莱获得准许转移$213bn资产到都柏林，因其担忧没有交易可做。LSE研究发现退欧投票导致了英国公司向EU其他国家的投资增加了12%，而这些资本原本可以被用在国内。</p>
+<blockquote>
+<p>FDI remains strong, but it would be stronger minus Brexit. And Britain has not even left yet.</p>
+</blockquote>
+<h2 id="WSJ-City"><a href="#WSJ-City" class="headerlink" title="WSJ City"></a>WSJ City</h2><h3 id="特斯拉创立自品牌保险项目"><a href="#特斯拉创立自品牌保险项目" class="headerlink" title="特斯拉创立自品牌保险项目"></a>特斯拉创立自品牌保险项目</h3><p>特斯拉拥有自己产品更好的数据，可以以更低成本提供保险服务。<br>汽车保险服务行业正在发生巨大变化：随着自动驾驶技术发展，传统汽车事故率会下降，汽车保险提供商的premium下降，利润会受损。特斯拉提供了一个新的方向——lower cost。</p>
+<h3 id="Uber-IPO不顺"><a href="#Uber-IPO不顺" class="headerlink" title="Uber IPO不顺"></a>Uber IPO不顺</h3><p>IPO price$45，or 估值82b，但开始交易后开盘价下滑到$42,这对科技股IPO来说很少见，主要原因包括最近该公司负面消息较多，估值预期下降，以及因为贸易战整个故事不振。</p>
+<h3 id="San-Francisco提出增加IPO税"><a href="#San-Francisco提出增加IPO税" class="headerlink" title="San Francisco提出增加IPO税"></a>San Francisco提出增加IPO税</h3><p>SF领导者计划将科技公司IPO税增加三倍，以解决该州日益增长的贫富不均矛盾。最近硅谷正接受调查，因最近加州遭遇房地产危机，很多人认为主要原因是科技部门就业和收入快速增长。</p>
+<h3 id="法国加强国际科技公司监控"><a href="#法国加强国际科技公司监控" class="headerlink" title="法国加强国际科技公司监控"></a>法国加强国际科技公司监控</h3><p>法国政府计划授予监管机构审计和向大型社交媒体公司罚款的权力，如果他们没有充分去除不适宜的（hateful）内容的话。</p>
+<h3 id="新ESG基金上市交易，表现优异"><a href="#新ESG基金上市交易，表现优异" class="headerlink" title="新ESG基金上市交易，表现优异"></a>新ESG基金上市交易，表现优异</h3><p>BlackRock’s iShares ESG MSCI USA Leaders基金周四开始交易，可能是历史上最成功的基金发行，首日发行融资851m。今年以来，基于环境、社会和治理模块的ETF已经融资1.9bn。人们认为年轻的投资者会格外重视可持续战略。The BlackRock ETF fits into a small but increasingly crowded corner of the market devoted to responsible investing. 过去这方面的ETF增长很慢，但现在情况有所转变。</p>
+<h2 id="日经中文网"><a href="#日经中文网" class="headerlink" title="日经中文网"></a>日经中文网</h2><h3 id="日本少子化进程持续"><a href="#日本少子化进程持续" class="headerlink" title="日本少子化进程持续"></a>日本少子化进程持续</h3><p>日本总务省5.4公布儿童人口推算数据显示，日本儿童人口数量连续38年出现减少。各都道府县只有东京儿童人口增加8000，冲绳持平，其他45个全部下降。</p>
+<h2 id="FT中文网"><a href="#FT中文网" class="headerlink" title="FT中文网"></a>FT中文网</h2><h3 id="美中贸易僵局中的石油行业"><a href="#美中贸易僵局中的石油行业" class="headerlink" title="美中贸易僵局中的石油行业"></a>美中贸易僵局中的石油行业</h3><p>两周前，特朗普政府宣布取消对伊朗石油买家的一切制裁豁免，导致原油价格飙升。地缘政治威胁是看涨的主要原因。<br>要想回到石油低价，从最大买家中国入手似乎是个不错的选择——周一原油价格与股市齐跌，布伦特原油一度跌至每桶70美元以下。<br>美国+中国在石油市场占有量将近1/3。<br>随着贸易战加剧，中国大幅削减从美国的能源进口，两年前每日超43万桶，现在不足10万桶。<br>如果仅仅将对华原油出口恢复到一年多以前的水平，就能增加约120亿美元的对华贸易额，再加上液化天然气供应，可大幅改善美国贸易赤字情况。短期美国相信其石油行业有其他海外市场，不过长远看与中国切断联系将有损其不断扩大的页岩油行业。</p>
+<h3 id="中国科技巨擘获得香港数字银行牌照"><a href="#中国科技巨擘获得香港数字银行牌照" class="headerlink" title="中国科技巨擘获得香港数字银行牌照"></a>中国科技巨擘获得香港数字银行牌照</h3><p>腾讯(Tencent)和阿里巴巴(Alibaba)获得香港金融管理局(HKMA)颁发的银行牌照，同时获得牌照的还有世界第四大智能手机制造商小米(Xiaomi)和世界最大保险公司平安(Ping An)。它们将向金融业发起各方等待已久的进军，威胁汇丰(HSBC)和渣打(Standard Chartered)等香港银行。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/15/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-15 18:26:50" itemprop="dateCreated datePublished" datetime="2019-05-15T18:26:50+08:00">2019-05-15</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
+
+
+
 
         
 
-        <!-- ### Import File ### -->
-        <!-- ### Footer JS Import ### -->
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
 
 <script>
-window.lazyLoadOptions = {
-    elements_selector: ".lazyload",
-    threshold: 50
-};
-
-
-
-    /* Copyright */
-    var copyrightNow = new Date().getFullYear();
-    var copyrightContent = document.querySelector('span[data-year]')
-    
-        copyrightContent.textContent = copyrightNow
-    
-
-
-
-/* Cnosole Log */
-console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.2 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-<!-- vanilla-lazyload -->
-
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
 
-    <!-- Busuanzi -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
     
-    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
 
 
-<!-- Offset -->
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
-<!-- gallery.js -->
+  
 
+  
 
-<!-- Comment -->
+  
 
+  
 
-<!-- ### Custom Footer ### -->
-
-
-    </body>
-
+</body>
 </html>

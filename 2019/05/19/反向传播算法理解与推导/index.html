@@ -1,519 +1,394 @@
 <!DOCTYPE html>
 
-<html lang="en">
-    <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
-    <!--
-        © SukkaW
-        GitHub: https://github.com/SukkaW/hexo-theme-suka
-        Version: 1.3.2
-    -->
-    <script>
-window.lsVersion = "1.3.2",
-window.oldVersion = [
-    
-        
-            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0"
-        
-    
-]
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
 </script>
 
-    <!-- ### DNS Prefetch ### -->
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-<!-- busuanzi -->
 
-    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+  
 
 
-<!-- comment -->
 
 
-
-
-
-
-
-<!-- analytics -->
-
-
-
-
-
-
-
-
-    <!-- ### Preload ### -->
-    
-    <!-- Busuanzi -->
-    
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
-
-
-
-
-
-
-
-    <!-- ### Meta & Title & Info ### -->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
-<!-- Title -->
-<title>反向传播算法理解与推导 | Kanaeba&#39;s Long Position</title>
-
-<!-- favicon -->
-<!-- Favicons -->
-
-    <link rel="shortcut icon" type="image/ico" href="/kanaeba/img/suka-favicon.ico">
-
-
-
-
-
-
-<!-- Android Chrome Color -->
-
-
-
-<meta name="format-detection" content="telephone=no">
-
-<!-- Description -->
-<meta name="description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。
-反向传播算法">
-
-<!-- Keywords -->
-<meta name="keywords" content=", 机器学习">
-
-<!-- Disable Fucking Bloody Baidu Tranformation -->
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-    <!-- ### Import File ### -->
-    
-        <!-- spectre.css -->
-
-    <link rel="stylesheet" href="/kanaeba/lib/spectre/spectre.min.css">
-
-
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-
-    a, a:visited {
-        color: #0070ff;
-    }
-
-    a:active, a:focus, a:hover {
-        color: #0070ff;
-        opacity: .75;
-    }
-
-    #post-content a,
-    #post-content a:hover,
-    #post-content a:focus,
-    #post-content a:visited {
-        color: #005eb9;
-        opacity: 1;
-    }
-
-    .post-entry .card-body a {
-        color: #0070ff;
-    }
-
-    .avatar {
-        background: #444;
-    }
-
-    .navbar-link,
-    .navbar-link:visited,
-    .timeline .timeline-item .timeline-icon.icon-lg {
-        color: #0070ff;
-    }
-
-    .navbar-link:hover {
-        color: #0070ff;
-        opacity: .8;
-    }
-
-    #search-input .btn,
-    #disqus_click_btn,
-    #disqus-switch-to-direct,
-    #disqus-loadmore-button {
-        background: #727e96;
-        border-color: #727e96;
-        color: #fff;
-    }
-
-    #post-toc a.post-toc-link,
-    #post-toc a.post-toc-link:visited,
-    .share-menu.menu .menu-item>a {
-        color: #727e96;
-    }
-
-    .share-menu.menu .menu-item>a:hover,
-    .share-menu.menu .menu-item>a:focus,
-    .share-menu.menu .menu-item>a:visited {
-        color: #50596c;
-        background: #f8f9fa;
-        opacity: .85;
-    }
-</style>
-
-<!-- style.css -->
-
-    <link rel="stylesheet" href="/kanaeba/css/style.min.css">
-
-
-
-
-
-
-
-
-
-    <!-- Prettify Theme -->
-    
-    
-        <link rel="stylesheet" href="/kanaeba/css/highlight/github.min.css">
-    
-
-
-
-    
-
-    <!-- ### Site Verification ### -->
-    
-
-
-    <!-- ### RSS ### -->
-    
-
-    <!-- ### WebApp ### -->
-    <meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="Kanaeba&#39;s Long Position">
-<meta name="msapplication-starturl" content="https://v-swye.github.io/kanaeba">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Kanaeba&#39;s Long Position">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-<!-- Manifest Import -->
-
-<!-- Open Search -->
-
-
-    <!-- ### The Open Graph & Twitter Card Protocol ### -->
-    <meta property="og:title" content="反向传播算法理解与推导 | Kanaeba&#39;s Long Position">
+  <meta name="description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反向传播算法理解与推导">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-
+<meta property="og:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
 <meta property="og:locale" content="en">
-
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/">
-<meta property="og:image" content="https://v-swye.github.io/kanaeba/img/suka-favicon.ico">
-
-<meta property="og:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。
-反向传播算法">
-
+<meta property="og:updated_time" content="2019-05-20T06:15:41.979Z">
 <meta name="twitter:card" content="summary">
-
-
-    <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2019-05-19T02:17:21.000Z">
-    <meta property="article:modified_time" content="2019-05-19T02:17:21.000Z">
-    <meta property="article:author" content="Kanaeba">
-    <meta property="og:article:tag" content=", 机器学习"> 
+<meta name="twitter:title" content="反向传播算法理解与推导">
+<meta name="twitter:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
 
 
 
 
 
-    <!-- ### Analytics ### -->
-    
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/">
 
 
 
-
-
-
-
-
-    <!-- ### Canonical link ### -->
-    <link rel="canonical" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/19/反向传播算法理解与推导/">
-
-    <!-- ### Structured Data ### -->
-    
-
-
-
-<script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "url": "https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/",
-    "@type": "BlogPosting",
-    "logo": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/"
-    },
-    "headline": "反向传播算法理解与推导 | Kanaeba&#39;s Long Position",
-    
-    "image": {
-        "@type": "ImageObject",
-        "url": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico"
-    },
-    
-    "datePublished": "2019-05-19T02:17:21.000Z",
-    "dateModified": "2019-05-19T04:20:30.801Z",
-    "author": {
-        "@type": "Person",
-        "name": "Kanaeba",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://v-swye.github.io/kanaeba/img/default_avatar.png"
-        },
-        "description": "Life is short, so be sure to go long."
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "Kanaeba&#39;s Long Position",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://v-swye.github.io/kanaeba/img/suka-favicon.ico"
-        }
-    },
-    
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://v-swye.github.io/kanaeba/search?s={search_term_string}",
-        "query-input": "required name=search_term_string"
-    },
-    
-    "keywords": ", 机器学习",
-    "description": "业余人士的Coursera学习笔记，有误请见谅，欢迎指正。
-反向传播算法"
-}
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
 </script>
 
+  <title>反向传播算法理解与推导 | Kanaeba's Long Position</title>
+  
 
 
-    <!-- ### Custom Head ### -->
-    
 
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-    <body>
-        
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-            
-
-            <!-- ### Main content ### -->
-            <!-- ## Header ##-->
-<header>
-    <h1 class="header-title text-center"><a href="/kanaeba/">Kanaeba&#39;s Long Position</a></h1>
-
-    <p class="text-center header-slogan">
-        
-            
-                Life is short, so be sure to go long.
-            
-        
-    </p>
-
-    <nav class="navbar-section text-center">
+  
+  
     
-        <a href="/kanaeba/" class="navbar-link">Home</a>
-    
-    
-        <a href="/kanaeba/archives/" class="navbar-link">Archives</a>
-    
-    
-        <a href="/search" class="navbar-link">Search</a>
-    
-    
-    
-        <div class="dropdown dropdown-right">
-    <a class="navbar-link dropdown-toggle" tabindex="0">Share</a>
-    <ul class="menu share-menu">
+  
 
-        <!-- Share Weibo -->
-        
-        <li class="menu-item">
-            <a href="http://service.weibo.com/share/share.php?appkey=&title=Kanaeba's Long Position&url=https://v-swye.github.io/kanaeba&pic=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&searchPic=false&style=simple" target="_blank" rel="noopener noreferrer nofollow">Share to Weibo</a>
-        </li>
-        
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
 
-        <!-- Share Twitter -->
-        
-        <li class="menu-item">
-            <a href="https://twitter.com/intent/tweet?text=Kanaeba's Long Position&url=https://v-swye.github.io/kanaeba&via=Kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Twitter</a>
-        </li>
-        
-
-        <!-- Share Facebook -->
-        
-        <li class="menu-item">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Facebook</a>
-        </li>
-        
-
-        <!-- Share Google+ -->
-        
-        <li class="menu-item">
-            <a href="https://plus.google.com/share?url=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Google+</a>
-        </li>
-        
-
-        <!-- Share LinkedIn -->
-        
-        <li class="menu-item">
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://v-swye.github.io/kanaeba&title=反向传播算法理解与推导" target="_blank" rel="noopener noreferrer nofollow">Share to LinkedIn</a>
-        </li>
-        
-
-        <!-- Share QQ -->
-        
-        <li class="menu-item">
-            <a href="http://connect.qq.com/widget/shareqq/index.html?site=Kanaeba's Long Position&title=反向传播算法理解与推导&summary=如果生活要求你百般武艺，那就尽力做到样样精通。&pics=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&url=https://v-swye.github.io/kanaeba" target="_blank" rel="noopener noreferrer nofollow"> Share to QQ</a>
-        </li>
-        
-
-        <!-- Share Telegram -->
-        
-        <li class="menu-item">
-            <a href="https://t.me/share/url?url=https://v-swye.github.io/kanaeba&text=反向传播算法理解与推导" target="_blank" rel="noopener noreferrer nofollow">Share to Telegram</a>
-        </li>
-        
-
-        <!-- QRCode -->
-        
-        <li class="menu-item">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACLUlEQVR42u2a0W4CMQwE+f+fbl9bKfGO05MK8dwLEiRkDl3Cer2vrw+4XkIKKaSQbwD5Kq5fE368txtH5nTWFXIu5PKhXSy++8LqvRUgXlfI0ZCrRcgDnsat1iHrCilktfhqI5GNsxpL1xVSSAJJDu3VnB2ckEKeCIz0wFcCYbfRHldBQl4HSQXE06+PVYtCXgUZTSNgFFSiYzf+UVdNyKsgk4CoBG+aQwyw3edCClkOBiZUAklm2FLMCDkSMhmmRBxUwpaCL29cyLGQVbPoL+Y/Mb4qASLkTEhiRFVgHQGR5raqRSGvhqygOiYV2SSkCSrkbEgibk8LMLo5t4atkCMhU2Moidb48AcT66haFPJ6yK65Xwnk7g2VP5KQoyE7hlLaCCS8hEJ3Qo6ErA7gjllQiRJkBHQboEKOg+w0Ojs3mcxWIYUkAeFKaCQBS6C2poSQYyE7RRcJERMhTIwrIedCUlPqtOlORPJyrpDjIUkYpBNAIgd61cQXcjZkCoXQwNJJc2p78As5FrJr4qfijIaVouEg5HjIbniEfEaCT+gwF3IcJGlKngQ4aUAEbRwhx0ESYyAVbJXgbRd6Qo6ETBdp0FOztJqHE1ZCXg/ZCckRo+mpVyFnQ5ImaAp9JMFCN46QQqZmewp2VAYr2ZytjSOkkM3QSCreSNBESCE7kCTsRIz7VPwJKWQyOTsNI9RsL8InQgpJ/vipeEiiuRMqEXIu5DtfQgoppJD/eH0DkCQXNb2WY5wAAAAASUVORK5CYII=" alr="QRCode">
-        </li>
-        
-
-    </ul>
-</div>
-    
-    
-</nav>
-</header>
-
-            
-    <!-- ## Post ## -->
-    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
     
 
-
-<div class="post-container">
-    <div id="post-card" class="card">
-        
-        <div class="card-item-container">
-            <div class="card-inner-cell">
-                <!-- # Post Header Info # -->
-                <div class="card-header">
-                    
-    <h1 class="card-title h3 mb-2">反向传播算法理解与推导</h1>
-
-
-
-
-<div class="post-header-info">
-    <p class="post-header-info-left text-gray">
-        <img class="author-thumb lazyload" data-src="/kanaeba/img/default_avatar.png" src="/kanaeba/img/suka-lazyload.gif" alt="Kanaeba's Avatar">
-        <span>2019-05-19</span>
-        
-        
-            <!-- Busuanzi Post Views -->
-<span id="busuanzi_container_page_pv" hidden>
-    <span class="suka-devide-dot"></span>
-    <span></span>
-    <span id="busuanzi_value_page_pv"></span>
-    <span>Views</span>
-</span>
-        
-        
-    </p>
-    <div class="post-header-info-right">
-        
-            <div class="dropdown dropdown-right">
-<a class="dropdown-toggle" tabindex="0">Share the post</a>
-<ul class="menu share-menu">
-    <!-- Share Weibo -->
-    
-    <li class="menu-item">
-        <a href="http://service.weibo.com/share/share.php?appkey=&title=反向传播算法理解与推导&url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/&pic=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&searchPic=false&style=simple" target="_blank" rel="noopener noreferrer nofollow">Share to Weibo</a>
-    </li>
-    
-
-    <!-- Share Twitter -->
-    
-    <li class="menu-item">
-        <a href="https://twitter.com/intent/tweet?text=反向传播算法理解与推导&url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/&via=Kanaeba" target="_blank" rel="noopener noreferrer nofollow">Share to Twitter</a>
-    </li>
-    
-
-    <!-- Share Facebook -->
-    
-    <li class="menu-item">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/" target="_blank" rel="noopener noreferrer nofollow">Share to Facebook</a>
-    </li>
-    
-
-    <!-- Share Google+ -->
-    
-    <li class="menu-item">
-        <a href="https://plus.google.com/share?url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/" target="_blank" rel="noopener noreferrer nofollow">Share to Google+</a>
-    </li>
-    
-
-    <!-- Share LinkedIn -->
-    
-    <li class="menu-item">
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/&title=Kanaeba's Long Position" target="_blank" rel="noopener noreferrer nofollow">Share to LinkedIn</a>
-    </li>
-    
-
-    <!-- Share QQ -->
-    
-    <li class="menu-item">
-        <a href="http://connect.qq.com/widget/shareqq/index.html?site=Kanaeba's Long Position&title=Kanaeba's Long Position&summary=如果生活要求你百般武艺，那就尽力做到样样精通。&pics=https://v-swye.github.io/kanaeba/img/suka-favicon.ico&url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/" target="_blank" rel="noopener noreferrer nofollow"> Share to QQ</a>
-    </li>
-    
-
-    <!-- Share Telegram -->
-    
-    <li class="menu-item">
-        <a href="https://t.me/share/url?url=https://v-swye.github.io/kanaeba/2019/05/19/反向传播算法理解与推导/&text=Kanaeba's Long Position" target="_blank" rel="noopener noreferrer nofollow">Share to Telegram</a>
-    </li>
-    
-
-    <!-- QRCode -->
-    
-    <li class="menu-item">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACLUlEQVR42u2a0W4CMQwE+f+fbl9bKfGO05MK8dwLEiRkDl3Cer2vrw+4XkIKKaSQbwD5Kq5fE368txtH5nTWFXIu5PKhXSy++8LqvRUgXlfI0ZCrRcgDnsat1iHrCilktfhqI5GNsxpL1xVSSAJJDu3VnB2ckEKeCIz0wFcCYbfRHldBQl4HSQXE06+PVYtCXgUZTSNgFFSiYzf+UVdNyKsgk4CoBG+aQwyw3edCClkOBiZUAklm2FLMCDkSMhmmRBxUwpaCL29cyLGQVbPoL+Y/Mb4qASLkTEhiRFVgHQGR5raqRSGvhqygOiYV2SSkCSrkbEgibk8LMLo5t4atkCMhU2Moidb48AcT66haFPJ6yK65Xwnk7g2VP5KQoyE7hlLaCCS8hEJ3Qo6ErA7gjllQiRJkBHQboEKOg+w0Ojs3mcxWIYUkAeFKaCQBS6C2poSQYyE7RRcJERMhTIwrIedCUlPqtOlORPJyrpDjIUkYpBNAIgd61cQXcjZkCoXQwNJJc2p78As5FrJr4qfijIaVouEg5HjIbniEfEaCT+gwF3IcJGlKngQ4aUAEbRwhx0ESYyAVbJXgbRd6Qo6ETBdp0FOztJqHE1ZCXg/ZCckRo+mpVyFnQ5ImaAp9JMFCN46QQqZmewp2VAYr2ZytjSOkkM3QSCreSNBESCE7kCTsRIz7VPwJKWQyOTsNI9RsL8InQgpJ/vipeEiiuRMqEXIu5DtfQgoppJD/eH0DkCQXNb2WY5wAAAAASUVORK5CYII=" alt="QRCode">
-    </li>
-    
-
-</ul>
-</div>
-        
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-                </div>
-                <div class="card-body">
-                    
-                        
-                            <div id="post-toc">
-                                <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#反向传播算法"><span class="post-toc-number">1.</span> <span class="post-toc-text">反向传播算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#算法定义，目的与适用场景"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">算法定义，目的与适用场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#步骤描述"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">步骤描述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#我が流通俗理解"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">我が流通俗理解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#正向传播"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">正向传播</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#反向传播"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">反向传播</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法推导"><span class="post-toc-number">2.</span> <span class="post-toc-text">算法推导</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基准计算公式"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">基准计算公式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#梯度拆分"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">梯度拆分</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#hidden-layer-gt-output-layer"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">hidden layer -&gt; output layer</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#hidden-layer-gt-hidden-layer"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">hidden layer -&gt; hidden layer</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#公式总结"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">公式总结</span></a></li></ol></li></ol>
-                            </div>
-                        
-                    
-                    <article id="post-content">
-                        <p>业余人士的Coursera学习笔记，有误请见谅，欢迎指正。</p>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/19/反向传播算法理解与推导/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">反向传播算法理解与推导
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-19 10:17:21" itemprop="dateCreated datePublished" datetime="2019-05-19T10:17:21+08:00">2019-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-20 14:15:41" itemprop="dateModified" datetime="2019-05-20T14:15:41+08:00">2019-05-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>业余人士的Coursera学习笔记，有误请见谅，欢迎指正。</p>
 <h2 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h2><h3 id="算法定义，目的与适用场景"><a href="#算法定义，目的与适用场景" class="headerlink" title="算法定义，目的与适用场景"></a>算法定义，目的与适用场景</h3><blockquote>
 <p>反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科</p>
 </blockquote>
@@ -526,159 +401,421 @@ window.oldVersion = [
 </ol>
 <h3 id="我が流通俗理解"><a href="#我が流通俗理解" class="headerlink" title="我が流通俗理解"></a>我が流通俗理解</h3><h4 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h4><p>神经网络源于人脑的作用机制，因此在很多方面都可以进行类比。想象神经网络是一个三维空间大厦，每一个样本占领了空间中的一个平面（住进一层），然后在这个平面内经过多个神经元，最终输出结果，并与旁边已经建好的单元大厦接洽，接的越稳，整个楼就建得越好。<br>对某一个样本而言，其所在的神经网络平面往往可以简化为以下模式： input-hidden-output。注意output不一定是一维的，正如input也可以包含多个变量。输出多维向量时一般是multi-classfication问题。<br>因为所有训练都是从input开始，很自然地我们可以将一个传播定义为：输入值（例如$z^{(l)}$）-神经元处理（$g(·)$） -处理输出值($a^{(l)}$)-进入细胞介质，以某种权重（浓度）接入下一层某个节点的输入值（$\Theta^{(l)}$）。这个过程可以帮助我们理解<strong>l</strong>究竟是指哪一层的哪个部分。</p>
 <h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>直观上，我们可以理解为，某种梯度上的误差$\delta^{(l+1)}$从输入点出发，反向进入介质，以某种权重（浓度）（$\Theta^{(l)}$）传达到上一层的输出点，然后爬一个神经元的坡（$g’(z^{(l)})$），当到达l层的输入点时，误差更新为$\delta^{(l)}$。该误差与（l-1）层的输出值$a^{(l-1)}$网格化交叉相乘后，就得到了经过(l-1)层介质后产生的坡度（随着权重的一点点变化）。<br>由此可见，反向传播，传播的是误差$\delta^{(l)}$，而不是梯度本身，梯度=梯度误差.*走的步长（$a^{(l-1)}$），走的步长在向前传播时就已经确定了。</p>
-<h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><h3 id="梯度拆分"><a href="#梯度拆分" class="headerlink" title="梯度拆分"></a>梯度拆分</h3><h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><h3 id="公式总结"><a href="#公式总结" class="headerlink" title="公式总结"></a>公式总结</h3>
-                    </article>
-                    
+<h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><p>下面给出比较严谨的数学公式推导，以更严格的理解反向传播的基础原理。</p>
+<h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><p>整体成本函数：$J(\Theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{k=1}^{K}y_k^{(i)}log(h_{\Theta}(x^{(i)})_k+(1-y_k^{(i)})log(1-h_{\Theta}(x^{(i)})]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ij}^{(l)})^2 $<br>这个函数看上去很复杂，但实际背后仅仅是加总<strong>每个</strong>样本的<strong>所有</strong>最终输出值下产生的成本函数以及所有参数的平方和（除bias unit对应的参数），原理与logistic回归是一样的。<br>单样本成本函数：$cost^{(i)} = y^{(i)}log(h_{\Theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\Theta}(x^{(i)})$。<br>要计算的梯度：$\frac{\partial{J(\Theta)}}{\partial{\Theta}}$。</p>
+<h3 id="梯度拆分"><a href="#梯度拆分" class="headerlink" title="梯度拆分"></a>梯度拆分</h3><p>简单起见，我们从单样本下的成本函数入手，并首先讨论最简单的最后输出层到倒数第二层，之后扩展到较复杂的、多对多的中间层情况。</p>
+<h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><p>注意到成本函数的定义，对样本i，有（以下省略公式上标i）：<br>$cost = ylog(a^{(L)})+(1-y)log(1-a^{(L)})$，其中，<br>$a^{(L)} = \frac{1}{1+e^{-z^{(L)}}}$，其中，<br>$z^{(L)} = \Theta^{(L-1)}a^{(L-1)}$<br>由于最终梯度函数是线性求和的，因此这一步我们要关注的是获得$\frac{\partial{cost}}{\partial{\Theta}} = \Delta$。<br>从L-1层进入L层时，我们经过了权重矩阵$\Theta^{(L-1)}$，由此可以对该矩阵中的每个元素求导。以$\Theta_{12}^{(L-1)}$为例，这个系数是对要得到第一个输出值$y_1$（本例中我们假设只有一个输出值），对L-1层输出值$a_2^{(L-1)}$，即第二个节点需要赋予的权重。<br>则有根据链式法则：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = \frac{\partial{cost}}{\partial{a^{(L)}}}<em> \frac{\partial{a^{(L)}}}{\partial{z^{(L)}}}</em>\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}}$<br>其中，<br>$\frac{\partial{cost}}{\partial{a^{(L)}}} = \frac{y}{a^{(L)}}+\frac{1-y}{1-a^{(L)}} = \frac{y-a^{(L)}}{a^{(L)}(1-a^{(L)})}$<br>$\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}} = a^{(L)}(1-a^{(L)})$<br>注意这一步是经典的Logistic函数求导结果，用a来表示的情况。<br>$\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}} = a_2^{(L-1)}$<br>得到最后的结果：<br>$\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = (y-a^{(L)})a_2^{(L-1)} = \delta^{(L)}a_2^{(L-1)}$<br>这里用了$\delta^{(L)}$的定义，注意符号——我们之前的做法是取了负号，这样就可以跳过-1/m的问题。<br>将所有该层参数的偏导放到一个行向量里（这样如果存在多个输出值，就会形成多个行，即每个元素是成本函数对对应位置的参数求导，也就是说，偏导的结果与权重矩阵形状完全一致，详情参照矩阵求导的定义），得到L-1层的梯度：<br>$\Delta^{(L-1)} = \frac{\partial{cost}}{\partial{\Theta^{(L-1)}}} = \delta^{(L)}[a^{(L-1)}]^T $</p>
+<h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><p>矩阵求导是较为高阶的知识，因此这里依然从标量入手推导，有时间的话之后补充矩阵直接推导。<br>Notation: $\Theta_{ij}^{(l-1)}$为对应（l-1）层第i个输出值$a_i^{(l-1)}$与l层第j个输入值$z_j^{(l)}$的权重参数。这里我们依然只看单个样本，因此省略了样本序数的表示。由此，我们有关注的偏导对象：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \frac{\partial{cost}}{\partial{z_j^{(l)}}}<em>\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}}$，<br>其中，由$z_j^{(l)} = \Theta_j^{(l-1)}a^{(l-1)}$的定义知（为简洁，此处以矩阵形式表示该方程），<br>$\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}} = a_i^{(l-1)}$<br>接下来的计算重点就落在$\frac{\partial{cost}}{\partial{z_j^{(l)}}}$上，注意到这个式子也是我们对$\delta_j^{(l)}$的定义。<br>现在我们需要从（l+1）层来获得上式的值，因为<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\frac{\partial{cost}}{\partial{z_k^{(l+1)}}}</em>\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}}$<br>其中，k表示l+1层第k个输入值，l+1层总共有K个输入值。<br>（回顾一下：l层是j-J个，l-1层是i-I个）<br>根据$\delta$的定义，代入上式得$\frac{\partial{cost}}{\partial{z_k^{(l+1)}}} = \delta_k^{(l+1 )}$，<br>而$z_k^{(l+1)} = \Theta_{jk}^{(l)}a_j^{(l)} =  \Theta_{kj}^{(l)}g(z_j^{(l)})$，<br>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到<br>$\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g’(z_j^{(l)}) = g’(z_j^{(l)}).<em>[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}$<br>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：<br>$\delta^{(l)} = g’(z^{(l)}).</em>[(\Theta^{(l)})^T\delta^{(l+1)}]$<br>最后整理成l-1层的梯度矩阵：<br>$\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T$</p>
 
-
-    <blockquote id="date-expire-notification" class="post-expired-notify">This article was last updated on <span id="date-expire-num"></span> days ago, and the information described in the article may have changed.</blockquote>
-    <script>
-        var dateUpdate = Date.parse("2019-05-19");
-        var nowDate = new Date();
-        var a = nowDate.getTime();
-        var b = a - dateUpdate;
-        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
-        if (daysUpdateExpire >= 120) {
-            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
-        } else {
-            document.getElementById('date-expire-notification').style.display = 'none';
-        }
-    </script>
-
-
-<p class="post-footer-info mb-0 pt-0">Published at&nbsp;<time datetime="2019-05-19T02:17:21.000Z" itemprop="datePublished">2019-05-19</time>
-
-</p>
-<p class="post-footer-info mb-0 pt-2">
-
-
-
-<span class="post-tags-list mt-2">
-
-
-<a class="post-tags-list-item" href="/kanaeba/tags/机器学习/">#&nbsp;机器学习</a>
-
-</span>
-
-
-</p>
-
-                </div>
-                
-<div class="post-nav px-2 bg-gray">
-<ul class="pagination">
-    <!-- Prev Nav -->
-    
-
-    <!-- Next Nav -->
-    
-        <li class="page-item page-next">
-            <a href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/">
-                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
-                <div class="page-item-subtitle">Pandas读取ANSI编码的CSV文件</div>
-            </a>
-        </li>
-    
-</ul>
-</div>
-
-                
-                    <!-- # Comment # -->
-                    
-                
-            </div>
-        </div>
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kanaeba/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/" rel="next" title="Pandas读取ANSI编码的CSV文件">
+                <i class="fa fa-chevron-left"></i> Pandas读取ANSI编码的CSV文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播算法"><span class="nav-number">1.</span> <span class="nav-text">反向传播算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法定义，目的与适用场景"><span class="nav-number">1.1.</span> <span class="nav-text">算法定义，目的与适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤描述"><span class="nav-number">1.2.</span> <span class="nav-text">步骤描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我が流通俗理解"><span class="nav-number">1.3.</span> <span class="nav-text">我が流通俗理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正向传播"><span class="nav-number">1.3.1.</span> <span class="nav-text">正向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">1.3.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法推导"><span class="nav-number">2.</span> <span class="nav-text">算法推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基准计算公式"><span class="nav-number">2.1.</span> <span class="nav-text">基准计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度拆分"><span class="nav-number">2.2.</span> <span class="nav-text">梯度拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-output-layer"><span class="nav-number">2.2.1.</span> <span class="nav-text">hidden layer -&gt; output layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-hidden-layer"><span class="nav-number">2.2.2.</span> <span class="nav-text">hidden layer -&gt; hidden layer</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
 </div>
 
-            <!-- ### Footer ### -->
-            <footer class="text-center">
-    <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
-        <a class="footer-copyright-a" href="https://v-swye.github.io/kanaeba">Kanaeba&#39;s Long Position</a>
-    </p>
-    <!-- footer custom text -->
-    <p class="footer-text mb-0">
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
     
-    </p>
-    <!-- footer develop info -->
-    <p class="footer-develop mb-0">
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
         
-            
-    <!-- Busuanzi User Views -->
-    <span id="busuanzi_container_site_uv" hidden>
-        <span></span>
-        <span id="busuanzi_value_site_uv"></span>
-        <span>Viewers</span>
-        
-            <span>|</span>
-        
-    </span>
+      </div>
+    
 
+    
 
+    
 
-        
-        
-        Powered by&nbsp;<!--
-         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
-         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="noopener">Suka</a>
-    </p>
-</footer>
+    
+  </div>
 
-        
-
-        <!-- ### Import File ### -->
-        <!-- ### Footer JS Import ### -->
+  
 
 <script>
-window.lazyLoadOptions = {
-    elements_selector: ".lazyload",
-    threshold: 50
-};
-
-
-
-    /* Copyright */
-    var copyrightNow = new Date().getFullYear();
-    var copyrightContent = document.querySelector('span[data-year]')
-    
-        copyrightContent.textContent = copyrightNow
-    
-
-
-
-/* Cnosole Log */
-console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.2 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-<!-- vanilla-lazyload -->
-
-    <script src="/kanaeba/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
 
-    <!-- Busuanzi -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
     
-    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
 
 
-<!-- Offset -->
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
-<!-- gallery.js -->
+  
 
+  
 
-<!-- Comment -->
+  
 
+  
 
-<!-- ### Custom Footer ### -->
-
-
-    </body>
-
+</body>
 </html>
