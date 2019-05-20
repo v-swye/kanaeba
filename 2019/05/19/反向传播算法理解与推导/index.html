@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
 <meta property="og:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-20T06:47:57.184Z">
+<meta property="og:updated_time" content="2019-05-20T09:33:37.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反向传播算法理解与推导">
 <meta name="twitter:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
@@ -226,6 +226,40 @@
     
 
     <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -354,11 +388,29 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-20 14:47:57" itemprop="dateModified" datetime="2019-05-20T14:47:57+08:00">2019-05-20</time>
+                <time title="Modified: 2019-05-20 17:33:37" itemprop="dateModified" datetime="2019-05-20T17:33:37+08:00">2019-05-20</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -423,7 +475,7 @@
 <p>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到</p>
 <script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g'(z_j^{(l)}) = g'(z_j^{(l)}).*[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}</script><p>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：</p>
 <script type="math/tex; mode=display">\delta^{(l)} = g'(z^{(l)}).*[(\Theta^{(l)})^T\delta^{(l+1)}]</script><p>最后整理成l-1层的梯度矩阵：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script>
       
     </div>
 
@@ -543,6 +595,25 @@
               
 
               
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/kanaeba/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
 
               
                 
@@ -550,18 +621,20 @@
                 <div class="site-state-item site-state-tags">
                   
                     
+                      <a href="/kanaeba/tags/">
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">4</span>
-                    <span class="site-state-item-name">tags</span>
                   
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
                 </div>
               
             </nav>
