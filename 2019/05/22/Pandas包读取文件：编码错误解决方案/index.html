@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-<meta name="keywords" content="Economics, Data, Python, MATLAB, Analytics, Asia, Games, UrbanLife">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kanaeba&#39;s Long Position">
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/archives/index.html">
+  <meta name="description" content="尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。 检查编码在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别">
+<meta name="keywords" content="Python,数据清洗">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pandas包读取文件：编码错误解决方案">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-<meta property="og:description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+<meta property="og:description" content="尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。 检查编码在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-22T14:00:03.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kanaeba&#39;s Long Position">
-<meta name="twitter:description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+<meta name="twitter:title" content="Pandas包读取文件：编码错误解决方案">
+<meta name="twitter:description" content="尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。 检查编码在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别">
 
 
 
@@ -114,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://v-swye.github.io/kanaeba/archives/">
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title>Archive | Kanaeba's Long Position</title>
+  <title>Pandas包读取文件：编码错误解决方案 | Kanaeba's Long Position</title>
   
 
 
@@ -172,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -265,7 +266,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -307,311 +308,202 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Pandas包读取文件：编码错误解决方案
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-22 21:59:05 / Modified: 22:00:03" itemprop="dateCreated datePublished" datetime="2019-05-22T21:59:05+08:00">2019-05-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        Um..! 7 posts in total. Keep on posting.
-      </span>
-      
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/" itemprop="url">
+          
             
-              <span itemprop="name">Pandas包读取文件：编码错误解决方案</span>
             
-          </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-22T21:59:05+08:00" content="2019-05-22">
-          05-22
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/21/SCP分析框架/" itemprop="url">
-            
-              <span itemprop="name">SCP_framework</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-21T21:57:32+08:00" content="2019-05-21">
-          05-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/" itemprop="url">
-            
-              <span itemprop="name">Stata命令：将指定路径下所有dta文件合并导出</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-21T17:15:12+08:00" content="2019-05-21">
-          05-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。</p>
+<h2 id="检查编码"><a href="#检查编码" class="headerlink" title="检查编码"></a>检查编码</h2><p>在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别大的文件时，这两者就无能为力了。好在利用python的chardet，我们可以得到编码推断：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chardet</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'文件路径'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    result = chardet.detect(f.read()) <span class="comment"># 或对大文件：readline </span></span><br><span class="line">print(result[encoding])</span><br></pre></td></tr></table></figure></p>
+<p>中文数据往往采用ANSI编码，请多尝试<code>encoding = &#39;gbk&#39;/&#39;gb18030&#39;</code>来解码。一般都可以解码成功。</p>
+<h2 id="处理解码不成功"><a href="#处理解码不成功" class="headerlink" title="处理解码不成功"></a>处理解码不成功</h2><p>不知道什么原因，我的一部分数据就是解码不出来（其前后都可以），频频报错。如果这类数据比较少，不太重要，可以尝试下面的方法跳过：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = open(path,<span class="string">'r+'</span>, encoding = encoding, errors = <span class="string">'replace'</span>) <span class="comment">#replace会保留错误行，如果选择直接跳过，设置errors = 'ignore'</span></span><br><span class="line">data = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure></p>
+<p>完美~</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/19/反向传播算法理解与推导/" itemprop="url">
-            
-              <span itemprop="name">反向传播算法理解与推导</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-19T10:17:21+08:00" content="2019-05-19">
-          05-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/17/Pandas读取ANSI编码的CSV文件/" itemprop="url">
-            
-              <span itemprop="name">Pandas读取ANSI编码的CSV文件</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-17T17:45:20+08:00" content="2019-05-17">
-          05-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/16/Econ Espresso 19M5W3/" itemprop="url">
-            
-              <span itemprop="name">Econ Espresso 19M5W3</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-16T08:58:08+08:00" content="2019-05-16">
-          05-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/" itemprop="url">
-            
-              <span itemprop="name">Econ Espresso 19M5W2</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-16T08:55:08+08:00" content="2019-05-16">
-          05-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/kanaeba/tags/数据清洗/" rel="tag"># 数据清洗</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kanaeba/2019/05/21/SCP分析框架/" rel="next" title="SCP_framework">
+                <i class="fa fa-chevron-left"></i> SCP_framework
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -631,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -726,6 +627,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查编码"><span class="nav-number">1.</span> <span class="nav-text">检查编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理解码不成功"><span class="nav-number">2.</span> <span class="nav-text">处理解码不成功</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -856,6 +774,10 @@
 
 
   
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -871,6 +793,8 @@
 
   
 
+
+  
 
 
   
