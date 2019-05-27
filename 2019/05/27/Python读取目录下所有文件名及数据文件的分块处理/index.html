@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="下面代码可以将指定路径下所有dta文件合并导出成逗号分隔符的csv文件。12345678clearcd &quot;指定路径&quot;local ff : dir . files &quot;*.dta&quot; dis `&quot;`ff&apos;&quot;&apos;  //显示所有符合条件的dta文件名称foreach f of local ff&amp;#123;   append using &quot;`f&apos;&quot;   &amp;#125;export delimited using">
-<meta name="keywords" content="Stata">
+  <meta name="description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &amp;quot;&amp;quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Stata命令：将指定路径下所有dta文件合并导出">
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/index.html">
+<meta property="og:title" content="Python读取目录下所有文件名及数据文件的分块处理">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-<meta property="og:description" content="下面代码可以将指定路径下所有dta文件合并导出成逗号分隔符的csv文件。12345678clearcd &quot;指定路径&quot;local ff : dir . files &quot;*.dta&quot; dis `&quot;`ff&apos;&quot;&apos;  //显示所有符合条件的dta文件名称foreach f of local ff&amp;#123;   append using &quot;`f&apos;&quot;   &amp;#125;export delimited using">
+<meta property="og:description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &amp;quot;&amp;quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-21T11:22:22.399Z">
+<meta property="og:updated_time" content="2019-05-27T01:24:02.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stata命令：将指定路径下所有dta文件合并导出">
-<meta name="twitter:description" content="下面代码可以将指定路径下所有dta文件合并导出成逗号分隔符的csv文件。12345678clearcd &quot;指定路径&quot;local ff : dir . files &quot;*.dta&quot; dis `&quot;`ff&apos;&quot;&apos;  //显示所有符合条件的dta文件名称foreach f of local ff&amp;#123;   append using &quot;`f&apos;&quot;   &amp;#125;export delimited using">
+<meta name="twitter:title" content="Python读取目录下所有文件名及数据文件的分块处理">
+<meta name="twitter:description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &amp;quot;&amp;quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/">
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Stata命令：将指定路径下所有dta文件合并导出 | Kanaeba's Long Position</title>
+  <title>Python读取目录下所有文件名及数据文件的分块处理 | Kanaeba's Long Position</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Stata命令：将指定路径下所有dta文件合并导出
+          <h1 class="post-title" itemprop="name headline">Python读取目录下所有文件名及数据文件的分块处理
 
               
             
@@ -371,7 +371,7 @@
                 
               
 
-              <time title="Created: 2019-05-21 17:15:12 / Modified: 19:22:22" itemprop="dateCreated datePublished" datetime="2019-05-21T17:15:12+08:00">2019-05-21</time>
+              <time title="Created: 2019-05-27 09:23:27 / Modified: 09:24:02" itemprop="dateCreated datePublished" datetime="2019-05-27T09:23:27+08:00">2019-05-27</time>
             
 
             
@@ -381,6 +381,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -410,7 +428,10 @@
       
 
       
-        <p>下面代码可以将指定路径下所有dta文件合并导出成逗号分隔符的csv文件。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">clear</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">"指定路径"</span></span><br><span class="line"><span class="keyword">local</span> ff : <span class="keyword">dir</span> . files <span class="string">"*.dta"</span> </span><br><span class="line"><span class="keyword">dis</span> <span class="string">`"`ff'"'</span>  <span class="comment">//显示所有符合条件的dta文件名称</span></span><br><span class="line"><span class="keyword">foreach</span> f of <span class="keyword">local</span> ff&#123;</span><br><span class="line">   <span class="keyword">append</span> using <span class="string">"`f'"</span> </span><br><span class="line">  &#125;</span><br><span class="line">export delimited using <span class="string">"outputpath/fname.csv"</span>, <span class="keyword">replace</span></span><br></pre></td></tr></table></figure></p>
+        <h2 id="自动循环读取指定目录下的文件"><a href="#自动循环读取指定目录下的文件" class="headerlink" title="自动循环读取指定目录下的文件"></a>自动循环读取指定目录下的文件</h2><p>读取文件目录的关键是使用<code>os.listdir(path)</code>获得所有文件名称（组成的列表），然后可以写循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">path = &quot;&quot;</span><br><span class="line">files = os.listdir(path)</span><br><span class="line">for file in files:</span><br><span class="line">    #some processes</span><br></pre></td></tr></table></figure></p>
+<p>注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上<code>path+&#39;/&#39;+file</code>。<br>有时文件夹下面还有文件夹，此时可以使用<code>os.path.isdir(path)</code>来检查是不是文件夹，是文件时返回True。</p>
+<h2 id="分块读取处理"><a href="#分块读取处理" class="headerlink" title="分块读取处理"></a>分块读取处理</h2><p>下面介绍使用iterator分块读取、处理文件的文法，当在read_csv()函数中传入<code>iterator = True</code>时，需要配合后续<code>obj.get_chunk(size)</code>方法；另一方面可以直接传入<code>chunk_size = N</code>来直接得到生成器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">f = open(path, encoding=encoding, errors=<span class="string">'replace'</span>) </span><br><span class="line">reader = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines=<span class="literal">False</span>, iterator = <span class="literal">True</span>)</span><br><span class="line">data = pd.DataFrame()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">while</span> len(chunk) &gt; <span class="number">0</span>:</span><br><span class="line">        data = chunk</span><br><span class="line">        <span class="comment"># some data processing...</span></span><br><span class="line">        chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>) </span><br><span class="line">        print(<span class="string">'读取并处理10万条数据'</span>)</span><br><span class="line">        sys.stdout.flush() <span class="comment">#这句代码的意思是刷新输出，不加这句在Linux系统上要等程序执行完毕才会把print的内容一次性刷新出来</span></span><br><span class="line"><span class="keyword">except</span> (StopIteration, KeyboardInterrupt):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -434,7 +455,7 @@
       
         <div class="post-tags">
           
-            <a href="/kanaeba/tags/Stata/" rel="tag"># Stata</a>
+            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
           
         </div>
       
@@ -447,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kanaeba/2019/05/19/反向传播算法理解与推导/" rel="next" title="反向传播算法理解与推导">
-                <i class="fa fa-chevron-left"></i> 反向传播算法理解与推导
+              <a href="/kanaeba/2019/05/27/Econ-Espresso-19M5W4/" rel="next" title="Econ Espresso 19M5W4">
+                <i class="fa fa-chevron-left"></i> Econ Espresso 19M5W4
               </a>
             
           </div>
@@ -456,10 +477,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kanaeba/2019/05/21/SCP分析框架/" rel="prev" title="SCP分析框架">
-                SCP分析框架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -603,6 +629,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动循环读取指定目录下的文件"><span class="nav-number">1.</span> <span class="nav-text">自动循环读取指定目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分块读取处理"><span class="nav-number">2.</span> <span class="nav-text">分块读取处理</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -756,7 +799,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/'
+    refer: '2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
