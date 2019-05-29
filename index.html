@@ -328,6 +328,202 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/29/数据分析与机器学习中常用的模型评估指数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/29/数据分析与机器学习中常用的模型评估指数/" class="post-title-link" itemprop="url">数据分析与机器学习中常用的模型评估指数</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-29 14:54:45 / Modified: 14:55:46" itemprop="dateCreated datePublished" datetime="2019-05-29T14:54:45+08:00">2019-05-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://towardsdatascience.com/accuracy-precision-recall-or-f1-331fb37c5cb9" target="_blank" rel="noopener">reference</a><br>“如何得到最准确的模型？”<br>“那取决于你用这个模型想解决什么业务挑战。”<br>对数据分析而言，如何评估模型并不是那么简单，也没有唯一的标准。从一般逻辑上看，最直观的衡量方式是准确率（accuracy）：即，在所有样本中，准确预测中（0或1）的比率。<br>不过，在讲清楚准确率和其他模型评估方式之前，首先需要理解一个简单的情景矩阵。</p>
+<h2 id="预测的情景矩阵"><a href="#预测的情景矩阵" class="headerlink" title="预测的情景矩阵"></a>预测的情景矩阵</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>真实值↓/预测值→</th>
+<th>Positive</th>
+<th>Negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positive</td>
+<td>TP</td>
+<td>FN</td>
+</tr>
+<tr>
+<td>Negative</td>
+<td>FP</td>
+<td>TN</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>缩写解释：</p>
+<ul>
+<li>TP：True positive，指预测为真，实际确实为真</li>
+<li>FN：False negative, 指预测为假，但搞错了，实际应该是真</li>
+<li>FP，TN类推。</li>
+</ul>
+<p>回到准确率上，从这个矩阵我们可以将准确率写成更规范的公式，</p>
+<script type="math/tex; mode=display">Accuracy = \frac{TP+TN}{TP+TN+FP+FN}</script><p>从公式中已经可以看出准确率在评估模型上的不足——当（FP+FN）很小时，准确率接近100%，但如果预测错误时带来的损失很大会怎么样？比如，我们要解决一个预测一家大型上市公司未来一年内是否会破产的问题，样本中实际上破产的公司是非常少的，最后模型准确度可能高达99.9%，但如果真的破产了，<strong>FN的成本将会非常高</strong>。在FN或FP的成本很高的情况下，准确率并不是最好的方案。</p>
+<h2 id="其他模型度量方式（metrics）"><a href="#其他模型度量方式（metrics）" class="headerlink" title="其他模型度量方式（metrics）"></a>其他模型度量方式（metrics）</h2><h3 id="精确率与召回率"><a href="#精确率与召回率" class="headerlink" title="精确率与召回率"></a>精确率与召回率</h3><p>有了情景矩阵，计算和理解精确率（Precision）和召回率（Recall）就变得简单了：</p>
+<script type="math/tex; mode=display">Precision = \frac{TP}{TP+FP}</script><script type="math/tex; mode=display">Recall = \frac{TP}{TP+FN }</script><blockquote>
+<p>来自Kanaeba的Tips：要记住二者差别，记住Precision的首字母P——它将出现在分子分母的每个元素里。</p>
+</blockquote>
+<p>二者分子都是TP，即正确预测到真值的情况，区别只在分母上。对精确率而言，其分母指的是所有预测为真的情况；而召回率的分母则强调所有<strong>应当</strong>被预测为真的情况。</p>
+<ul>
+<li>精确率：预测为真时，正确的比率。重视情景矩阵的第一列（啊，我弄错了）</li>
+<li>召回率：在应当被预测为真时做到这一点的比率。重视情景矩阵的第一行。（我本该弄对的）</li>
+</ul>
+<p>我们再与准确率的公式对比，可以看出分子上精确率和召回率都更重视TP的比率，而不再去考虑TN的干扰；分母上这两者也主要探讨与真值有关的情况。相比于准确率，可以说精确率和召回率的天平明显倾向于预测值和真实集中为1的那些部分。</p>
+<ul>
+<li>FP成本高：使用精确率，去掉TN和FN的干扰。例如，识别垃圾邮件（Spam = 1）的问题中，将正常邮件识别成垃圾邮件（FP）是我们最不期望发生的，那么我们就用FP去惩罚。</li>
+<li>FN成本高：使用召回率，去掉TN和FP的干扰。例如之前的破产（破产=1）预测问题，用FN去惩罚。</li>
+</ul>
+<h3 id="F1分数（F1-Score）"><a href="#F1分数（F1-Score）" class="headerlink" title="F1分数（F1 Score）"></a>F1分数（F1 Score）</h3><p>F1 score实质上是精确率和召回率的调和平均值。</p>
+<script type="math/tex; mode=display">\frac{2}{F1} = \frac{1}{P}+\frac{1}{R}</script><p>相比准确率，F1依然不在意TN的值。所以，当我们所研究的问题中样本分类分布极度不平衡（例如，有大量真实为0的值，这也是业务中很常见的情况），而FN和FP的成本又难分伯仲时，F1给我们一个在精确率和召回率之间找到平衡的机会。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>最简单普通的情况：准确率</li>
+<li>FP成本很高：精确率</li>
+<li>FN成本很高：召回率</li>
+<li>分类分布不均衡，FP/FN均有一定成本：F1分数</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2017,200 +2213,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/16/Econ Espresso 19M5W2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/" class="post-title-link" itemprop="url">Econ Espresso 19M5W2</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-16 08:55:08" itemprop="dateCreated datePublished" datetime="2019-05-16T08:55:08+08:00">2019-05-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-20 17:32:36" itemprop="dateModified" datetime="2019-05-20T17:32:36+08:00">2019-05-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/时事简报/" itemprop="url" rel="index"><span itemprop="name">时事简报</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Econ-Espresso-19M5W2"><a href="#Econ-Espresso-19M5W2" class="headerlink" title="Econ Espresso 19M5W2"></a>Econ Espresso 19M5W2</h1><h2 id="Economist-Espresso"><a href="#Economist-Espresso" class="headerlink" title="Economist Espresso"></a>Economist Espresso</h2><h3 id="宜家在法国探索新业务模式"><a href="#宜家在法国探索新业务模式" class="headerlink" title="宜家在法国探索新业务模式"></a>宜家在法国探索新业务模式</h3><p>宜家在5月6日于法国巴黎中心开了第一家店，店铺规模是目前所有宜家店面里最小的，而且会主要销售更小的产品——以与当代住在城市小房子里的年轻人需求匹配。宜家一般将仓库放在郊外，而年轻人既没有时间也没有车可以开去郊外的仓库取货。<br>同时，宜家在伦敦，莫斯科，纽约和悉尼开展“panning studios”，提供一对一咨询，帮助客户设计他们的房子。宜家也在筹备在30个国家开展家具出租业务，保护环境。（<em>感觉很适合国内租房的年轻人——如果同时提供家具运输的话，那么搬新家就不用搬掉所有的家具了，还可以换新</em>）<br>2018年宜家利润下跌40%。</p>
-<h2 id="The-Economist"><a href="#The-Economist" class="headerlink" title="The Economist"></a>The Economist</h2><h3 id="英国的追随力（followership）问题"><a href="#英国的追随力（followership）问题" class="headerlink" title="英国的追随力（followership）问题"></a>英国的追随力（followership）问题</h3><blockquote>
-<p>“I don’t know why people are so fixated on the subject of leadership,” he said, or words to that effect. “What we really need to think about is followership.”</p>
-</blockquote>
-<p>获得公民支持的三个要点：deference（顺从），支持者认为领导人是优秀的；class-loyalty（阶级忠诚），支持者为代表自己的领导者投票；competence（能力），支持是因为认为领导人可以解决问题。随着精英政治的衰败，问题凸显。<br>当代，唯一能重建领导人与追随者之间的纽带的方法是恢复当权者在能力方面的声誉。不过梅姨看来是比较失败的。但更黑暗的事实是：一段时间内，the politics of resentment will trump the politics of problem-solving for some time.</p>
-<h3 id="美国警察部门为911报警电话配备社会工作者"><a href="#美国警察部门为911报警电话配备社会工作者" class="headerlink" title="美国警察部门为911报警电话配备社会工作者"></a>美国警察部门为911报警电话配备社会工作者</h3><p>近十年来，纽约市报警电话中涉及精神病的案件数量几乎翻倍。根据研究，1/4因报警而最后被警察射杀的案件涉及精神病，而大部分警察并不知道怎么正确处理精神病人。因此，部分州已经开始引入合作团队——警察+心理治疗师。不过，警察一般比较排外，所以这些心理治疗师要融入进去并不容易，而且由于时间较短实施州不多，还无法进行有效的成本-利益的分析。</p>
-<h3 id="Lyft收益翻倍却亏损5倍，前景灰暗"><a href="#Lyft收益翻倍却亏损5倍，前景灰暗" class="headerlink" title="Lyft收益翻倍却亏损5倍，前景灰暗"></a>Lyft收益翻倍却亏损5倍，前景灰暗</h3><p>2019.3.29，Lyft成为第一个叫车行业的上市公司，上市当日股价上涨9%。然而，5月7日一季度财报公开后，股价次日暴跌11%。<br>一季度收益776m美元，同比翻倍，然而亏损1.14b，超过2018年全年亏损。亏损的主要来源是雇员补贴计划——CFO认为2019会是亏损峰年，之后会平缓过度到盈利状态。但是，即使去掉这部分，销售、市场营销和保险的成本都在上升。调整营业亏损230m显示过去一年该公司在成本控制上并没有什么进步。而在top-line growth方面，Lyft预计二季度销售增长率会显著下降。<br>更令投资者忧心的应该是即将在5月10日上市的Uber。Uber的市值将会是Lyft的数倍，但它的亏损额也会更大。Uber未经审计的一季度财报显示亏损1b——从2009年成立以来共计亏损9b。<br>两家公司目前都还有足够的资金支持运转，但要想转亏为盈，要么提价（不太可能，Bertrand），要么减少司机补贴（但两家平台的司机已经经常在抱怨工资不够cover生活必需）。因此，两公司现在都在探索研发无人驾驶技术。<br>update: 5月9日，uber遭遇美国、英国和澳洲（澳洲同时包括lyft）司机游行，要求更好的Pay和conditions。</p>
-<h3 id="退欧如何影响英国FDI？"><a href="#退欧如何影响英国FDI？" class="headerlink" title="退欧如何影响英国FDI？"></a>退欧如何影响英国FDI？</h3><p>留欧派指责退欧使日本汽车制造商、美国的银行及其他公司取消投资计划；但退欧派则认为英国比过去更受欢迎：上个月EY投资者吸引力国家排名中，英国列首位；这周Facebook更是选择了伦敦作为WhatsApp发展计划的大本营。<br>国家之间互相竞争FDI：一方面，海外公司进入国内市场可以提升市场竞争，有利于消费者；另一方面，海外国家如果能收购本土业务，则通常可以提升本土公司的生产率，从而提高公司。<br>1995-2015年十年间，英国吸引了全球跨境并购交易的10%。从2016年退欧公投以来，这个比率并未受多大影响，巴菲特最近还告诉FT他“准备在英国买点什么”。英国有着较低的公司税和稳定的法制体系。<br>不过，在某些行业，FDI的热情已经在消退。2014-2017年英国是美国科技公司最喜欢的跨境并购交易目的地，但2018年英国已落至第八位。uk Trade Policy Observatory at Sussex University的反事实研究表明，相比留欧，退欧减少了1/5的inward FDI。<br>退欧也影响了国内公司。1月巴克莱获得准许转移$213bn资产到都柏林，因其担忧没有交易可做。LSE研究发现退欧投票导致了英国公司向EU其他国家的投资增加了12%，而这些资本原本可以被用在国内。</p>
-<blockquote>
-<p>FDI remains strong, but it would be stronger minus Brexit. And Britain has not even left yet.</p>
-</blockquote>
-<h2 id="WSJ-City"><a href="#WSJ-City" class="headerlink" title="WSJ City"></a>WSJ City</h2><h3 id="特斯拉创立自品牌保险项目"><a href="#特斯拉创立自品牌保险项目" class="headerlink" title="特斯拉创立自品牌保险项目"></a>特斯拉创立自品牌保险项目</h3><p>特斯拉拥有自己产品更好的数据，可以以更低成本提供保险服务。<br>汽车保险服务行业正在发生巨大变化：随着自动驾驶技术发展，传统汽车事故率会下降，汽车保险提供商的premium下降，利润会受损。特斯拉提供了一个新的方向——lower cost。</p>
-<h3 id="Uber-IPO不顺"><a href="#Uber-IPO不顺" class="headerlink" title="Uber IPO不顺"></a>Uber IPO不顺</h3><p>IPO price$45，or 估值82b，但开始交易后开盘价下滑到$42,这对科技股IPO来说很少见，主要原因包括最近该公司负面消息较多，估值预期下降，以及因为贸易战整个故事不振。</p>
-<h3 id="San-Francisco提出增加IPO税"><a href="#San-Francisco提出增加IPO税" class="headerlink" title="San Francisco提出增加IPO税"></a>San Francisco提出增加IPO税</h3><p>SF领导者计划将科技公司IPO税增加三倍，以解决该州日益增长的贫富不均矛盾。最近硅谷正接受调查，因最近加州遭遇房地产危机，很多人认为主要原因是科技部门就业和收入快速增长。</p>
-<h3 id="法国加强国际科技公司监控"><a href="#法国加强国际科技公司监控" class="headerlink" title="法国加强国际科技公司监控"></a>法国加强国际科技公司监控</h3><p>法国政府计划授予监管机构审计和向大型社交媒体公司罚款的权力，如果他们没有充分去除不适宜的（hateful）内容的话。</p>
-<h3 id="新ESG基金上市交易，表现优异"><a href="#新ESG基金上市交易，表现优异" class="headerlink" title="新ESG基金上市交易，表现优异"></a>新ESG基金上市交易，表现优异</h3><p>BlackRock’s iShares ESG MSCI USA Leaders基金周四开始交易，可能是历史上最成功的基金发行，首日发行融资851m。今年以来，基于环境、社会和治理模块的ETF已经融资1.9bn。人们认为年轻的投资者会格外重视可持续战略。The BlackRock ETF fits into a small but increasingly crowded corner of the market devoted to responsible investing. 过去这方面的ETF增长很慢，但现在情况有所转变。</p>
-<h2 id="日经中文网"><a href="#日经中文网" class="headerlink" title="日经中文网"></a>日经中文网</h2><h3 id="日本少子化进程持续"><a href="#日本少子化进程持续" class="headerlink" title="日本少子化进程持续"></a>日本少子化进程持续</h3><p>日本总务省5.4公布儿童人口推算数据显示，日本儿童人口数量连续38年出现减少。各都道府县只有东京儿童人口增加8000，冲绳持平，其他45个全部下降。</p>
-<h2 id="FT中文网"><a href="#FT中文网" class="headerlink" title="FT中文网"></a>FT中文网</h2><h3 id="美中贸易僵局中的石油行业"><a href="#美中贸易僵局中的石油行业" class="headerlink" title="美中贸易僵局中的石油行业"></a>美中贸易僵局中的石油行业</h3><p>两周前，特朗普政府宣布取消对伊朗石油买家的一切制裁豁免，导致原油价格飙升。地缘政治威胁是看涨的主要原因。<br>要想回到石油低价，从最大买家中国入手似乎是个不错的选择——周一原油价格与股市齐跌，布伦特原油一度跌至每桶70美元以下。<br>美国+中国在石油市场占有量将近1/3。<br>随着贸易战加剧，中国大幅削减从美国的能源进口，两年前每日超43万桶，现在不足10万桶。<br>如果仅仅将对华原油出口恢复到一年多以前的水平，就能增加约120亿美元的对华贸易额，再加上液化天然气供应，可大幅改善美国贸易赤字情况。短期美国相信其石油行业有其他海外市场，不过长远看与中国切断联系将有损其不断扩大的页岩油行业。</p>
-<h3 id="中国科技巨擘获得香港数字银行牌照"><a href="#中国科技巨擘获得香港数字银行牌照" class="headerlink" title="中国科技巨擘获得香港数字银行牌照"></a>中国科技巨擘获得香港数字银行牌照</h3><p>腾讯(Tencent)和阿里巴巴(Alibaba)获得香港金融管理局(HKMA)颁发的银行牌照，同时获得牌照的还有世界第四大智能手机制造商小米(Xiaomi)和世界最大保险公司平安(Ping An)。它们将向金融业发起各方等待已久的进军，威胁汇丰(HSBC)和渣打(Standard Chartered)等香港银行。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/kanaeba/page/2/">2</a><a class="extend next" rel="next" href="/kanaeba/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2250,7 +2259,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2302,7 +2311,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2496,9 +2507,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
       
