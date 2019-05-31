@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
 <meta property="og:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-05-20T09:33:37.350Z">
+<meta property="og:updated_time" content="2019-05-31T04:26:16.173Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反向传播算法理解与推导">
 <meta name="twitter:description" content="业余人士的Coursera学习笔记，有误请见谅，欢迎指正。 反向传播算法算法定义，目的与适用场景 反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科  步骤描述 对每个样本，基于初始权重矩阵$\The">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-20 17:33:37" itemprop="dateModified" datetime="2019-05-20T17:33:37+08:00">2019-05-20</time>
+                <time title="Modified: 2019-05-31 12:26:16" itemprop="dateModified" datetime="2019-05-31T12:26:16+08:00">2019-05-31</time>
               
             
           </span>
@@ -475,7 +475,23 @@
 <p>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到</p>
 <script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g'(z_j^{(l)}) = g'(z_j^{(l)}).*[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}</script><p>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：</p>
 <script type="math/tex; mode=display">\delta^{(l)} = g'(z^{(l)}).*[(\Theta^{(l)})^T\delta^{(l+1)}]</script><p>最后整理成l-1层的梯度矩阵：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script>
+<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script><h3 id="实战：MATLAB中的矩阵计算与常见问题"><a href="#实战：MATLAB中的矩阵计算与常见问题" class="headerlink" title="实战：MATLAB中的矩阵计算与常见问题"></a>实战：MATLAB中的矩阵计算与常见问题</h3><p>Update: 在完成coursera中的作业时遇到了不少令人抓狂的问题，这里做一个简单的记录。本部分会尽量在课程规定的范围内描述总结. If I violate the Code,  contact me to delete the improper part.<br>在使用MATLAB时，最好的方式是<strong>避免循环，尽可能使用矩阵计算</strong>——这将大大提高运算速度并解决一些精度上的问题。<br>下面介绍成本函数和梯度计算的向量化方法。</p>
+<h4 id="正向传播-1"><a href="#正向传播-1" class="headerlink" title="正向传播"></a>正向传播</h4><p>首先完成forward propagation，对于三层的简单神经网络而言，我们需要计算：<br>X = [ 1 X]; %添加bias元素<br>z2 = X<em>Theta1’; %注意矩阵乘法的维度问题，Theta1’转置对应的是类似Y = X\</em>beta中的beta<br>a2 = [1 sigmoid(z2)]; % 将z2和a2区分开是很重要的<br>z3, a_out不再赘述，注意如果y是mx1矩阵，但每个元素的取值是多分类的——例如不限于0，1，而是包括多层0，1，2，3，4等，则需要先将y转换成mx(label数)的矩阵Y。</p>
+<h4 id="计算成本函数"><a href="#计算成本函数" class="headerlink" title="计算成本函数"></a>计算成本函数</h4><p>正则化部分相对简单，只需注意不要计算bias元素的权重平方即可。因此这里我们只看成本函数的第一部分，即(-1/m*cost）的部分。<br>我们注意到是对每个样本m中每个label对应的cost求和，做到这一点有三个方法：</p>
+<ol>
+<li>全部压为一列后求矩阵积：如Y(:)*log(a_out(:))’；</li>
+<li>先求矩阵积，再取迹，如：trace(Y*log(a_out)’);</li>
+<li>元素级点积后二次求和：sum(sum(Y.*log(a_out))); </li>
+</ol>
+<h4 id="计算梯度"><a href="#计算梯度" class="headerlink" title="计算梯度"></a>计算梯度</h4><p>笔者在做这部分代码时，先使用了for loop 1:m，结果检查梯度时始终有0.003的差距，虽然微小但对于机器学习算法来说结果是致命的——precision才10%。。最后在改成直接矩阵计算后才将差距缩小到e-9级以下，成功得到90+%的准确率，因此，尽可能使用矩阵计算而非循环。</p>
+<p>第一步，计算delta。<br>delta3 = a_out-Y; %为mxlabel数矩阵<br>delta2 = delta3*Theta2(,2:end).*g’(z2); %<strong>这一步非常关键！！</strong>对于多层神经网络，凡是隐藏层的delta都必须注意这部分的问题，主要包括：</p>
+<ol>
+<li>Theta2不需要第一列，即bias部分的权重，这是因为我们在得到这一层的输出值时，bias元素是我们手动加上去的，与z2如何经过X加权得到无关。注意delta2的数学含义是成本函数对z2的导数，z2不能通过a2中的bias部分来影响最终的成本函数，因此这条路径应该被砍掉。</li>
+<li>g’(z2)不是a2.*(1-a2)，而是g(z2).*(1-g(z2))。a2是手动添加了bias之后的激活节点。我们在反向“爬坡”的过程中并不经过bias点。</li>
+<li>Tips for 无转置：delta3是类X的组成，反向传播以Theta2加权。</li>
+</ol>
+<p>最后计算梯度：<br>Theta2_grad = 1/m*delta3’*a2;<br>Theta1_grad = 1/m*delta2’*X;<br>加入正则化部分：注意先把Theta1和2的第一列去掉，我们不需要计算bias部分；但这里的去掉并不是完全删去，他们并不是没有正则化，而是正则化下为0而已。<br>Theta1(:,1) = 0;<br>Theta1_grad = Theta1_grad+lambda/m*Theta1;</p>
+
       
     </div>
 
@@ -689,7 +705,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播算法"><span class="nav-number">1.</span> <span class="nav-text">反向传播算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法定义，目的与适用场景"><span class="nav-number">1.1.</span> <span class="nav-text">算法定义，目的与适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤描述"><span class="nav-number">1.2.</span> <span class="nav-text">步骤描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我が流通俗理解"><span class="nav-number">1.3.</span> <span class="nav-text">我が流通俗理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正向传播"><span class="nav-number">1.3.1.</span> <span class="nav-text">正向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">1.3.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法推导"><span class="nav-number">2.</span> <span class="nav-text">算法推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基准计算公式"><span class="nav-number">2.1.</span> <span class="nav-text">基准计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度拆分"><span class="nav-number">2.2.</span> <span class="nav-text">梯度拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-output-layer"><span class="nav-number">2.2.1.</span> <span class="nav-text">hidden layer -&gt; output layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-hidden-layer"><span class="nav-number">2.2.2.</span> <span class="nav-text">hidden layer -&gt; hidden layer</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播算法"><span class="nav-number">1.</span> <span class="nav-text">反向传播算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法定义，目的与适用场景"><span class="nav-number">1.1.</span> <span class="nav-text">算法定义，目的与适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤描述"><span class="nav-number">1.2.</span> <span class="nav-text">步骤描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我が流通俗理解"><span class="nav-number">1.3.</span> <span class="nav-text">我が流通俗理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正向传播"><span class="nav-number">1.3.1.</span> <span class="nav-text">正向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">1.3.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法推导"><span class="nav-number">2.</span> <span class="nav-text">算法推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基准计算公式"><span class="nav-number">2.1.</span> <span class="nav-text">基准计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度拆分"><span class="nav-number">2.2.</span> <span class="nav-text">梯度拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-output-layer"><span class="nav-number">2.2.1.</span> <span class="nav-text">hidden layer -&gt; output layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hidden-layer-gt-hidden-layer"><span class="nav-number">2.2.2.</span> <span class="nav-text">hidden layer -&gt; hidden layer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战：MATLAB中的矩阵计算与常见问题"><span class="nav-number">2.3.</span> <span class="nav-text">实战：MATLAB中的矩阵计算与常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正向传播-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">正向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算成本函数"><span class="nav-number">2.3.2.</span> <span class="nav-text">计算成本函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算梯度"><span class="nav-number">2.3.3.</span> <span class="nav-text">计算梯度</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
