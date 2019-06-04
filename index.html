@@ -556,12 +556,24 @@
                 
               
 
-              <time title="Created: 2019-06-02 17:12:39 / Modified: 17:13:32" itemprop="dateCreated datePublished" datetime="2019-06-02T17:12:39+08:00">2019-06-02</time>
+              <time title="Created: 2019-06-02 17:12:39" itemprop="dateCreated datePublished" datetime="2019-06-02T17:12:39+08:00">2019-06-02</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-04 21:59:11" itemprop="dateModified" datetime="2019-06-04T21:59:11+08:00">2019-06-04</time>
               
             
           </span>
@@ -880,7 +892,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/27/Python读取目录下所有文件名及大型数据文件处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -900,7 +912,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/kanaeba/2019/05/27/Python读取目录下所有文件名及数据文件的分块处理/" class="post-title-link" itemprop="url">Python读取目录下所有文件名及数据文件的分块处理</a>
+                <a href="/kanaeba/2019/05/27/Python读取目录下所有文件名及大型数据文件处理/" class="post-title-link" itemprop="url">Python读取目录下所有文件名及数据文件的分块处理</a>
               
             
           </h1>
@@ -925,12 +937,24 @@
                 
               
 
-              <time title="Created: 2019-05-27 09:23:27 / Modified: 09:26:01" itemprop="dateCreated datePublished" datetime="2019-05-27T09:23:27+08:00">2019-05-27</time>
+              <time title="Created: 2019-05-27 09:23:27" itemprop="dateCreated datePublished" datetime="2019-05-27T09:23:27+08:00">2019-05-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-04 21:58:54" itemprop="dateModified" datetime="2019-06-04T21:58:54+08:00">2019-06-04</time>
               
             
           </span>
@@ -986,8 +1010,20 @@
           
             <h2 id="自动循环读取指定目录下的文件"><a href="#自动循环读取指定目录下的文件" class="headerlink" title="自动循环读取指定目录下的文件"></a>自动循环读取指定目录下的文件</h2><p>读取文件目录的关键是使用<code>os.listdir(path)</code>获得所有文件名称（组成的列表），然后可以写循环。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">path = <span class="string">""</span></span><br><span class="line">files = os.listdir(path)</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">    <span class="comment">#some processes</span></span><br></pre></td></tr></table></figure></p>
 <p>注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上<code>path+&#39;/&#39;+file</code>。<br>有时文件夹下面还有文件夹，此时可以使用<code>os.path.isdir(path)</code>来检查是不是文件夹，是文件时返回True。</p>
-<h2 id="分块读取处理"><a href="#分块读取处理" class="headerlink" title="分块读取处理"></a>分块读取处理</h2><p>下面介绍使用iterator分块读取、处理文件的文法，当在read_csv()函数中传入<code>iterator = True</code>时，需要配合后续<code>obj.get_chunk(size)</code>方法；另一方面可以直接传入<code>chunk_size = N</code>来直接得到生成器。</p>
+<h2 id="大型数据文件处理"><a href="#大型数据文件处理" class="headerlink" title="大型数据文件处理"></a>大型数据文件处理</h2><h3 id="迭代器与分块读取处理"><a href="#迭代器与分块读取处理" class="headerlink" title="迭代器与分块读取处理"></a>迭代器与分块读取处理</h3><p>分块读取处理的基本步骤如下：</p>
+<ol>
+<li>读取一个文件块</li>
+<li>对该文件块执行处理</li>
+<li>存储处理结果</li>
+<li>重复1-3直到文件全部读取和处理完毕</li>
+<li>将分块处理结果组合成最终结果</li>
+</ol>
+<h4 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h4><p>下面介绍使用iterator分块读取、处理文件的方法，当在read_csv()函数中传入<code>iterator = True</code>时，需要配合后续<code>obj.get_chunk(size)</code>方法；另一方面可以直接传入<code>chunk_size = N</code>来直接得到生成器。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">f = open(path, encoding=encoding, errors=<span class="string">'replace'</span>) </span><br><span class="line">reader = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines=<span class="literal">False</span>, iterator = <span class="literal">True</span>)</span><br><span class="line">data = pd.DataFrame()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">while</span> len(chunk) &gt; <span class="number">0</span>:</span><br><span class="line">        data = chunk</span><br><span class="line">        <span class="comment"># some data processing...</span></span><br><span class="line">        chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>) </span><br><span class="line">        print(<span class="string">'读取并处理10万条数据'</span>)</span><br><span class="line">        sys.stdout.flush() <span class="comment">#这句代码的意思是刷新输出，不加这句在Linux系统上要等程序执行完毕才会把print的内容一次性刷新出来</span></span><br><span class="line"><span class="keyword">except</span> (StopIteration, KeyboardInterrupt):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h4 id="chunksize"><a href="#chunksize" class="headerlink" title="chunksize"></a>chunksize</h4><p>通过在pd.read_csv()中传入chunksize参数，可以直接指定每次迭代器生成的数据数量，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">results = []</span><br><span class="line">data_iter = pd.read_csv(path, chunksize = <span class="number">100</span>*<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> data_chunk <span class="keyword">in</span> data_iter:</span><br><span class="line">    <span class="comment"># some processing...</span></span><br><span class="line">   results.append(xxx)</span><br><span class="line"></span><br><span class="line">final_result = pd.concat(results)</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除不必要的数据"><a href="#删除不必要的数据" class="headerlink" title="删除不必要的数据"></a>删除不必要的数据</h3><p>对于不必要的数据，在读取前提前过滤掉是可以很好提高效率的方法。或者，只指定我们想要的列数据：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use_cols = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>] <span class="comment"># 或use_cols = [0,1,2,3]</span></span><br><span class="line">data = pd.read_csv(path, usecols = use_cols)</span><br></pre></td></tr></table></figure></p>
+<h3 id="为每列指定数据类型"><a href="#为每列指定数据类型" class="headerlink" title="为每列指定数据类型"></a>为每列指定数据类型</h3><p>例如，有些默认为float64的列数据其实只需要float16就够了，我们并不需要那么高的精度：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(path,dtype = &#123;<span class="string">'col1'</span>:np.int,<span class="string">'col2'</span>,:np.float16&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>(3 simple ways to handle large data with Pandas)[<a href="https://towardsdatascience.com/3-simple-ways-to-handle-large-data-with-pandas-d9164a3c02c1" target="_blank" rel="noopener">https://towardsdatascience.com/3-simple-ways-to-handle-large-data-with-pandas-d9164a3c02c1</a>]</p>
 
           
         
@@ -2314,9 +2350,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
