@@ -328,6 +328,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/06/27/泊松分布笔记：理解与推导/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/06/27/泊松分布笔记：理解与推导/" class="post-title-link" itemprop="url">泊松分布笔记：理解与推导</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-27 18:51:48 / Modified: 19:13:09" itemprop="dateCreated datePublished" datetime="2019-06-27T18:51:48+08:00">2019-06-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://medium.com/@aerinykim/poisson-distribution-intuition-and-derivation-1059aeab90d" target="_blank" rel="noopener">reference</a></p>
+<h2 id="为什么创造泊松分布？"><a href="#为什么创造泊松分布？" class="headerlink" title="为什么创造泊松分布？"></a>为什么创造泊松分布？</h2><p>因为要预测未来<strong>一段时间</strong>内事件<strong>发生K次</strong>的概率。<br>有这种需求，第一个映入我们脑海的，想必通常都是二项分布。</p>
+<h3 id="从二项分布开始"><a href="#从二项分布开始" class="headerlink" title="从二项分布开始"></a>从二项分布开始</h3><p>来看一个二项分布的概率公式：</p>
+<script type="math/tex; mode=display">P(X=k) = C_n^k p^k (1-p)^{n-k}</script><p>其中，<br>n对应“一段时间”：在一段时间内，我们可以进行n次试验（trial）<br>k对应“发生k次”：在n次试验所代表的一段时间中，事件成功发生的次数<br>p：对应<strong>每次试验</strong>中事件发生的概率（时间点而非时间段的视角是之后讨论泊松分布的关键）<br>由此可以看出，要用二项分布模型估计事件发生的概率，至少需要知道两个参数：试验总次数n和单次试验中事件发生的概率p。</p>
+<h4 id="二项分布的基本假设"><a href="#二项分布的基本假设" class="headerlink" title="二项分布的基本假设"></a>二项分布的基本假设</h4><ol>
+<li>事件之间相互独立</li>
+<li>每次试验（trial）只会有<strong>两种</strong>结果：成功（发生），1；或是不成功，0</li>
+<li>每次试验中，成功的概率不变（constant）</li>
+</ol>
+<p>这几个假设中，1和3同样对泊松分布有约束，而2则是发明泊松分布的关键动机。</p>
+<h4 id="二项分布的性质"><a href="#二项分布的性质" class="headerlink" title="二项分布的性质"></a>二项分布的性质</h4><p>在统计特征上，至少关注一阶矩（期望）和二阶矩（方差）。二项分布的期望和方差分别为：</p>
+<script type="math/tex; mode=display">E(X)=np, var(X) = np(1-p)</script><p>推导：对于单次试验，有期望和方差</p>
+<script type="math/tex; mode=display">\mu = 1·p+0·(1-p) = p, \sigma^2 = p·(1-p)^2+(1-p)(0-p)^2 = p(1-p)(1-p+p) = p(1-p)</script><p>再由相互独立假设及期望/方差求和性质可得。</p>
+<p>另一方面，我们也可以关注一些“几何特征”，例如对称性。一般而言，二项分布是右偏而非对称的（除非p=0.5），但随着n增大，分布的的偏度下降，接近正态分布$N(np,np(1-p))$（示例见下图）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> binom,norm</span><br><span class="line">%matplotlib inline</span><br><span class="line">sns.set(style=<span class="string">'darkgrid'</span>, color_codes=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genBinomialDist</span><span class="params">(n,p,ax,size=<span class="number">10000</span>)</span>:</span></span><br><span class="line">    data_binom = binom.rvs(n,p,size = size)</span><br><span class="line">    sns.distplot(data_binom, kde = <span class="literal">False</span>,hist_kws =      &#123;<span class="string">'linewidth'</span>:<span class="number">1</span>,<span class="string">'width'</span>:<span class="number">0.5</span>&#125;,fit = norm,fit_kws = &#123;<span class="string">'color'</span>:<span class="string">'r'</span>,<span class="string">'label'</span>:<span class="string">'norm'</span>&#125;,ax =ax)</span><br><span class="line">    ax.set(xlabel = <span class="string">'number of events'</span>,ylabel = <span class="string">'density'</span>,title = <span class="string">'Binomial Distribution: n = &#123;0&#125;, p = &#123;1&#125;'</span>.format(n,p))</span><br><span class="line">    ax.legend()</span><br><span class="line"></span><br><span class="line">fig,axes = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize = (<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">plt.subplots_adjust(wspace =<span class="number">0.2</span>, hspace =<span class="number">0.4</span>)</span><br><span class="line">genBinomialDist(<span class="number">10</span>,<span class="number">0.2</span>,axes[<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">genBinomialDist(<span class="number">10</span>,<span class="number">0.5</span>,axes[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">genBinomialDist(<span class="number">20</span>,<span class="number">0.2</span>,axes[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">genBinomialDist(<span class="number">50</span>,<span class="number">0.2</span>,axes[<span class="number">1</span>,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://dm2302files.storage.live.com/y4pUYLSZGvESqflSgDdpgUcj-CKLsySj3KOD47aCxvzjrF4yDo8nqq6ZoTdUWOqJhGWR_SYFkuz2KD5dgIVSQG1x-ZyyyWjn29W__RTVT6og7v_CsaHQXCHIXDxJ22ojTNXu_Xt2GQlSXm59sLabdc8vAtGbpGKLuDpVRPYAkvA9fxiSQzUA_NYU2jGuRhRPhSi/Binomial%26%20Possion%20Distribution_img1.png" alt="binomial.png"></p>
+<h4 id="二项分布的和"><a href="#二项分布的和" class="headerlink" title="二项分布的和"></a>二项分布的和</h4><p>假设X和Y相互独立，且$X~B(n,p),Y~B(m,p)$，则X+Y也服从二项分布：$X+Y~B(n+m,p)$<br>(X和Y相互独立，p又相同-&gt;可以看做一个n+m次试验下服从二项分布的事件Z，P(X+Y)=P(X)+P(Y))</p>
+<h3 id="二项分布的局限性与泊松分布"><a href="#二项分布的局限性与泊松分布" class="headerlink" title="二项分布的局限性与泊松分布"></a>二项分布的局限性与泊松分布</h3><p>如之前所述，二项分布的基本假设第二条要求每次试验只能有两个结果，而每次试验的发生都需要时间——对于离散模型，大多数时候，我们可以把观测n次试验的时间段分割成多个更短的时间段，从而保证每个时间段里只有一次试验发生，并且结果仅为成功事件或是不成功事件。然而，在某些时候我们必须把时间段划分得足够小——例如，如果你的文章被大V转发，可能在一分钟内会有多次点赞，这样将单位时间段定义为一分钟就不够满足假设要求了：那么，一秒呢？一毫秒呢？甚至，取一个极限？</p>
+<p>当把时间段无限分割、从而逼近时间点时，二项分布就开始向泊松分布进发了。这时，n-&gt;无穷，与此对应，我们知道二项分布的期望是np，为保证np收敛，p-&gt;0，$np = \lambda$——由此，我们避免再对n和p进行讨论，而只需关注一个参数$\lambda$。</p>
+<h3 id="从二项分布推导泊松分布"><a href="#从二项分布推导泊松分布" class="headerlink" title="从二项分布推导泊松分布"></a>从二项分布推导泊松分布</h3><p>本节将从纯数学的角度推导泊松分布的概率公式。<br>对二项分布而言，我们知道：</p>
+<script type="math/tex; mode=display">P(X=k) = C_n^k p^k (1-p)^{n-k}</script><p>对n取极限，令$p = \lambda/n$，有：</p>
+<script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n!}{(n-k)!k!}(\lambda/n)^k(1-\lambda/n)^{(n-k)}</script><script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n!}{(n-k)!k!}*(\lambda/n)^k*e^{-\lambda}</script><script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n(n-1)···(n-k+1)}{n^k}*\lambda^k*e^{-\lambda}/{k!}</script><p>当n趋近无穷时，$\frac{n(n-1)···(n-k+1)}{n^k}$趋近1。因此，</p>
+<script type="math/tex; mode=display">P(X = k) =\frac{\lambda^k}{k!}e^{-\lambda}</script><p>这就是泊松分布的概率公式。</p>
+<h3 id="泊松分布的假设"><a href="#泊松分布的假设" class="headerlink" title="泊松分布的假设"></a>泊松分布的假设</h3><p>由于泊松分布可以看作二项分布的极限情况，泊松分布的假设条件也与二项分布很类似。具体包括：</p>
+<ol>
+<li>单位时间事件的平均发生概率为常数：因此，在使用泊松分布模型时，选择合适的总时间段作为估计目标是有必要的。例如，台风主要在夏季发生，那么在不同季度台风发生的平均概率是不一样的，选择用泊松分布来模拟每年的台风发生率更科学。</li>
+<li>事件之间相互独立（对应二项分布的假设1）</li>
+</ol>
+<h3 id="泊松分布的性质"><a href="#泊松分布的性质" class="headerlink" title="泊松分布的性质"></a>泊松分布的性质</h3><p>统计性质：<br>泊松分布的期望值为$\lambda$（对应二项分布中的np），方差也为$\lambda$（对应二项分布中的np(1-p)，注意p趋近0）。<br>图形性质：和二项分布类似，但泊松分布总是非对称且右偏的（毕竟p不可能等于0.5）。当$\lambda$逐渐增大时，泊松分布逐渐逼近正态分布。<br>最后，和二项分布一样，服从泊松分布的随机变量X必然取非负值——事件不可能发生负数次。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> poisson</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPoissonDist</span><span class="params">(lbda,ax,size=<span class="number">10000</span>)</span>:</span></span><br><span class="line">    data_poisson = poisson.rvs(lbda,size = size)</span><br><span class="line">    sns.distplot(data_poisson, kde = <span class="literal">False</span>,hist_kws = &#123;<span class="string">'linewidth'</span>:<span class="number">1</span>,<span class="string">'width'</span>:<span class="number">0.5</span>&#125;,fit = norm,fit_kws = &#123;<span class="string">'color'</span>:<span class="string">'r'</span>,<span class="string">'label'</span>:<span class="string">'norm'</span>&#125;,ax =ax)</span><br><span class="line">    ax.set(xlabel = <span class="string">'number of events'</span>,ylabel = <span class="string">'density'</span>,title = <span class="string">'Poisson Distribution: lambda = &#123;0&#125;'</span>.format(lbda))</span><br><span class="line">    ax.legend()</span><br><span class="line">fig,axes = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize = (<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">plt.subplots_adjust(wspace =<span class="number">0.2</span>, hspace =<span class="number">0.4</span>)</span><br><span class="line">genPoissonDist(<span class="number">3</span>,axes[<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">genPoissonDist(<span class="number">5</span>,axes[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">genPoissonDist(<span class="number">10</span>,axes[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">genPoissonDist(<span class="number">40</span>,axes[<span class="number">1</span>,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>!(poisson.png)[<a href="https://dm2302files.storage.live.com/y4pKZ3iZgLYd16soKVNhdG8m5xW8MagvxkD0OPQncpl3Ub8c-5o3WMuIaZkYacXo6WR37H-1AJfUC1wQdrQTjfaOYM-vhvbGu11jszYczrErihZMuMzkNIZxeLw7ggzPErTSgogesAc9QuN1WzmEsHGfBaVjmbU6s90jEsoVqZoKbVJzPl88qQg7HWoUR8aNpWH/Binomial%26%20Possion%20Distribution_img2.png" target="_blank" rel="noopener">https://dm2302files.storage.live.com/y4pKZ3iZgLYd16soKVNhdG8m5xW8MagvxkD0OPQncpl3Ub8c-5o3WMuIaZkYacXo6WR37H-1AJfUC1wQdrQTjfaOYM-vhvbGu11jszYczrErihZMuMzkNIZxeLw7ggzPErTSgogesAc9QuN1WzmEsHGfBaVjmbU6s90jEsoVqZoKbVJzPl88qQg7HWoUR8aNpWH/Binomial%26%20Possion%20Distribution_img2.png</a>]</p>
+<h3 id="泊松分布的应用"><a href="#泊松分布的应用" class="headerlink" title="泊松分布的应用"></a>泊松分布的应用</h3><p>满足事件发生相互独立且各个时间段内平均发生次数不变的问题都可以用泊松分布来模拟，例如某客服中心工作日每小时打进来的电话数量。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/06/03/机器学习笔记：回归问题中的常用损失函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -373,12 +565,24 @@
                 
               
 
-              <time title="Created: 2019-06-03 20:26:37 / Modified: 20:36:49" itemprop="dateCreated datePublished" datetime="2019-06-03T20:26:37+08:00">2019-06-03</time>
+              <time title="Created: 2019-06-03 20:26:37" itemprop="dateCreated datePublished" datetime="2019-06-03T20:26:37+08:00">2019-06-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-27 18:55:12" itemprop="dateModified" datetime="2019-06-27T18:55:12+08:00">2019-06-27</time>
               
             
           </span>
@@ -746,7 +950,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-03 20:28:14" itemprop="dateModified" datetime="2019-06-03T20:28:14+08:00">2019-06-03</time>
+                <time title="Modified: 2019-06-27 18:53:50" itemprop="dateModified" datetime="2019-06-27T18:53:50+08:00">2019-06-27</time>
               
             
           </span>
@@ -2024,230 +2228,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/19/反向传播算法理解与推导/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/05/19/反向传播算法理解与推导/" class="post-title-link" itemprop="url">反向传播算法理解与推导</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-19 10:17:21" itemprop="dateCreated datePublished" datetime="2019-05-19T10:17:21+08:00">2019-05-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-01 20:48:47" itemprop="dateModified" datetime="2019-06-01T20:48:47+08:00">2019-06-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>业余人士的Coursera学习笔记，有误请见谅，欢迎指正。</p>
-<h2 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h2><h3 id="算法定义，目的与适用场景"><a href="#算法定义，目的与适用场景" class="headerlink" title="算法定义，目的与适用场景"></a>算法定义，目的与适用场景</h3><blockquote>
-<p>反向传播算法（backpropagation，缩写BP）是一种与最优化方法（如梯度下降法）结合使用的，用来训练人工神经网络的常见方法。该方法对网络中所有权重计算损失函数的梯度。这个梯度会反馈给最优化方法，用来更新权值以最小化损失函数。——wiki百科</p>
-</blockquote>
-<h3 id="步骤描述"><a href="#步骤描述" class="headerlink" title="步骤描述"></a>步骤描述</h3><ol>
-<li>对每个样本，基于初始权重矩阵$\Theta$正向传播（forward propagation）计算出每层的每个节点$a^{(l)}$，l代表layer层数。</li>
-<li>从末尾开始计算$\delta^{(L)}=a^{(L)}-y$，然后反向传播计算出各层次的$\delta^{(l)}=(\Theta^{(l)})^{T}\delta^{(l+ 1)}.*g’(z^{(l)})$。</li>
-<li>更新不含正则化部分的梯度：$\Delta^{(l)} := \Delta^{(l)}+\delta^{(l+ 1)}[a^{(l)}]^T $。</li>
-<li>得到对每个参数的梯度：$\frac{\partial{J(\Theta)}}{\partial{\Theta_{i j}^{(l)}}} = \frac{1}{m}(\Delta_{i j}^{(l)}+1(j!=0)\lambda\Theta_{i j}^{(l)}$。</li>
-<li>基于梯度和J的值，利用优化函数或梯度下降法得到参数的迭代解。</li>
-</ol>
-<h3 id="我が流通俗理解"><a href="#我が流通俗理解" class="headerlink" title="我が流通俗理解"></a>我が流通俗理解</h3><h4 id="正向传播"><a href="#正向传播" class="headerlink" title="正向传播"></a>正向传播</h4><p>神经网络源于人脑的作用机制，因此在很多方面都可以进行类比。想象神经网络是一个三维空间大厦，每一个样本占领了空间中的一个平面（住进一层），然后在这个平面内经过多个神经元，最终输出结果，并与旁边已经建好的单元大厦接洽，接的越稳，整个楼就建得越好。<br>对某一个样本而言，其所在的神经网络平面往往可以简化为以下模式： input-hidden-output。注意output不一定是一维的，正如input也可以包含多个变量。输出多维向量时一般是multi-classfication问题。<br>因为所有训练都是从input开始，很自然地我们可以将一个传播定义为：输入值（例如$z^{(l)}$）-神经元处理（$g(·)$） -处理输出值($a^{(l)}$)-进入细胞介质，以某种权重（浓度）接入下一层某个节点的输入值（$\Theta^{(l)}$）。这个过程可以帮助我们理解<strong>l</strong>究竟是指哪一层的哪个部分。</p>
-<h4 id="为什么要增加Bias元素？"><a href="#为什么要增加Bias元素？" class="headerlink" title="为什么要增加Bias元素？"></a>为什么要增加Bias元素？</h4><p>如果不加，很容易过拟合——神经网络只是在做输入值的线性变换。添加bias可以减少方差，使训练的神经网络更具广泛适用性。</p>
-<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>直观上，我们可以理解为，某种梯度上的误差$\delta^{(l+1)}$从输入点出发，反向进入介质，以某种权重（浓度）（$\Theta^{(l)}$）传达到上一层的输出点，然后爬一个神经元的坡（$g’(z^{(l)})$），当到达l层的输入点时，误差更新为$\delta^{(l)}$。该误差与（l-1）层的输出值$a^{(l-1)}$网格化交叉相乘后，就得到了经过(l-1)层介质后产生的坡度（随着权重的一点点变化）。<br>由此可见，反向传播，传播的是误差$\delta^{(l)}$，而不是梯度本身，梯度=梯度误差.*走的步长（$a^{(l-1)}$），走的步长在向前传播时就已经确定了。</p>
-<h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><p>下面给出比较严谨的数学公式推导，以更严格的理解反向传播的基础原理。</p>
-<h3 id="基准计算公式"><a href="#基准计算公式" class="headerlink" title="基准计算公式"></a>基准计算公式</h3><p>整体成本函数：</p>
-<script type="math/tex; mode=display">J(\Theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{k=1}^{K}y_k^{(i)}log(h_{\Theta}(x^{(i)})_k+(1-y_k^{(i)})log(1-h_{\Theta}(x^{(i)})]+\frac{\lambda}{2m}\sum_{l=1}^{L-1}\sum_{i=1}^{s_l}\sum_{j=1}^{s_{l+1}}(\Theta_{ij}^{(l)})^2</script><p>这个函数看上去很复杂，但实际背后仅仅是加总<strong>每个</strong>样本的<strong>所有</strong>最终输出值下产生的成本函数以及所有参数的平方和（除bias unit对应的参数），原理与logistic回归是一样的。<br>单样本成本函数：</p>
-<script type="math/tex; mode=display">cost^{(i)} = y^{(i)}log(h_{\Theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\Theta}(x^{(i)})</script><p>要计算的梯度：<script type="math/tex">\frac{\partial{J(\Theta)}}{\partial{\Theta}}</script></p>
-<h3 id="梯度拆分"><a href="#梯度拆分" class="headerlink" title="梯度拆分"></a>梯度拆分</h3><p>简单起见，我们从单样本下的成本函数入手，并首先讨论最简单的最后输出层到倒数第二层，之后扩展到较复杂的、多对多的中间层情况。</p>
-<h4 id="hidden-layer-gt-output-layer"><a href="#hidden-layer-gt-output-layer" class="headerlink" title="hidden layer -&gt; output layer"></a>hidden layer -&gt; output layer</h4><p>注意到成本函数的定义，对样本i，有（以下省略公式上标i）：</p>
-<script type="math/tex; mode=display">cost = ylog(a^{(L)})+(1-y)log(1-a^{(L)})</script><p>其中，</p>
-<script type="math/tex; mode=display">a^{(L)} = \frac{1}{1+e^{-z^{(L)}}}</script><p>其中，</p>
-<script type="math/tex; mode=display">z^{(L)} = \Theta^{(L-1)}a^{(L-1)}</script><p>由于最终梯度函数是线性求和的，因此这一步我们要关注的是获得</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta}} = \Delta</script><p>从L-1层进入L层时，我们经过了权重矩阵$\Theta^{(L-1)}$，由此可以对该矩阵中的每个元素求导。以$\Theta_{12}^{(L-1)}$为例，这个系数是对要得到第一个输出值$y_1$（本例中我们假设只有一个输出值），对L-1层输出值$a_2^{(L-1)}$，即第二个节点需要赋予的权重。<br>则有根据链式法则：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = \frac{\partial{cost}}{\partial{a^{(L)}}}*\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}}*\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}}</script><p>其中，</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{a^{(L)}}} = \frac{y}{a^{(L)}}+\frac{1-y}{1-a^{(L)}} = \frac{y-a^{(L)}}{a^{(L)}(1-a^{(L)})}</script><script type="math/tex; mode=display">\frac{\partial{a^{(L)}}}{\partial{z^{(L)}}} = a^{(L)}(1-a^{(L)})</script><p>注意这一步是经典的Logistic函数求导结果，用a来表示的情况。</p>
-<script type="math/tex; mode=display">\frac{\partial{z^{(L)}}}{\partial{\Theta_{12}^{(L-1)}}} = a_2^{(L-1)}</script><p>得到最后的结果：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{12}^{(L-1)}}} = (y-a^{(L)})a_2^{(L-1)} = \delta^{(L)}a_2^{(L-1)}</script><p>这里用了$\delta^{(L)}$的定义，注意符号——我们之前的做法是取了负号，这样就可以跳过-1/m的问题。<br>将所有该层参数的偏导放到一个行向量里（这样如果存在多个输出值，就会形成多个行，即每个元素是成本函数对对应位置的参数求导，也就是说，偏导的结果与权重矩阵形状完全一致，详情参照矩阵求导的定义），得到L-1层的梯度：</p>
-<script type="math/tex; mode=display">\Delta^{(L-1)} = \frac{\partial{cost}}{\partial{\Theta^{(L-1)}}} = \delta^{(L)}[a^{(L-1)}]^T</script><h4 id="hidden-layer-gt-hidden-layer"><a href="#hidden-layer-gt-hidden-layer" class="headerlink" title="hidden layer -&gt; hidden layer"></a>hidden layer -&gt; hidden layer</h4><p>矩阵求导是较为高阶的知识，因此这里依然从标量入手推导，有时间的话之后补充矩阵直接推导。<br>Notation: $\Theta_{ij}^{(l-1)}$为对应（l-1）层第i个输出值$a_i^{(l-1)}$与l层第j个输入值$z_j^{(l)}$的权重参数。这里我们依然只看单个样本，因此省略了样本序数的表示。由此，我们有关注的偏导对象：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta_{ij}^{(l-1)}}}=\frac{\partial{cost}}{\partial{z_j^{(l)}}}*\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}}</script><p>其中，由$z_j^{(l)} = \Theta_j^{(l-1)}a^{(l-1)}$的定义知（为简洁，此处以矩阵形式表示该方程），</p>
-<script type="math/tex; mode=display">\frac{\partial{z_j^{(l)}}}{\partial{\Theta_{ij}^{(l-1)}}} = a_i^{(l-1)}</script><p>接下来的计算重点就落在$\frac{\partial{cost}}{\partial{z_j^{(l)}}}$上，注意到这个式子也是我们对$\delta_j^{(l)}$的定义。<br>现在我们需要从（l+1）层来获得上式的值，因为</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\frac{\partial{cost}}{\partial{z_k^{(l+1)}}}*\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}}</script><p>其中，k表示l+1层第k个输入值，l+1层总共有K个输入值。<br>（回顾一下：l层是j-J个，l-1层是i-I个）<br>根据$\delta$的定义，代入上式得$\frac{\partial{cost}}{\partial{z_k^{(l+1)}}} = \delta_k^{(l+1 )}$，</p>
-<p>而$z_k^{(l+1)} = \Theta_{jk}^{(l)}a_j^{(l)} =  \Theta_{kj}^{(l)}g(z_j^{(l)})$，</p>
-<p>故$\frac{\partial{z_k^{(l+1)}}}{\partial{z_j^{(l)}}} =\Theta_{kj}^{(l)}g’(z_j^{(l)})$。<br>整合上面所有公式，得到</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{z_j^{(l)}}}=\sum_{k=1}^{K}\delta_k^{(l+1)}\Theta_{kj}^{(l)}g'(z_j^{(l)}) = g'(z_j^{(l)}).*[\Theta_{j}^{(l)}]^T\delta^{(l+1 )}</script><p>将l层中的J个节点对应的误差纵向堆叠整合成一个误差列向量：</p>
-<script type="math/tex; mode=display">\delta^{(l)} = g'(z^{(l)}).*[(\Theta^{(l)})^T\delta^{(l+1)}]</script><p>最后整理成l-1层的梯度矩阵：</p>
-<script type="math/tex; mode=display">\frac{\partial{cost}}{\partial{\Theta^{(l-1)}}} = \Delta^{(l-1)} = \delta^{(l)}[a^{(l-1)}]^T</script><h3 id="实战：MATLAB中的矩阵计算与常见问题"><a href="#实战：MATLAB中的矩阵计算与常见问题" class="headerlink" title="实战：MATLAB中的矩阵计算与常见问题"></a>实战：MATLAB中的矩阵计算与常见问题</h3><p>Update: 在完成coursera中的作业时遇到了不少令人抓狂的问题，这里做一个简单的记录。本部分会尽量在课程规定的范围内描述总结. If I violate the Code,  contact me to delete the improper part.<br>在使用MATLAB时，最好的方式是<strong>避免循环，尽可能使用矩阵计算</strong>——这将大大提高运算速度并解决一些精度上的问题。<br>下面介绍成本函数和梯度计算的向量化方法。</p>
-<h4 id="正向传播-1"><a href="#正向传播-1" class="headerlink" title="正向传播"></a>正向传播</h4><p>首先完成forward propagation，对于三层的简单神经网络而言，我们需要计算：<br>X = [ 1 X]; %添加bias元素<br>z2 = X<em>Theta1’; %注意矩阵乘法的维度问题，Theta1’转置对应的是类似Y = X\</em>beta中的beta<br>a2 = [1 sigmoid(z2)]; % 将z2和a2区分开是很重要的<br>z3, a_out不再赘述，注意如果y是mx1矩阵，但每个元素的取值是多分类的——例如不限于0，1，而是包括多层0，1，2，3，4等，则需要先将y转换成mx(label数)的矩阵Y。</p>
-<h4 id="计算成本函数"><a href="#计算成本函数" class="headerlink" title="计算成本函数"></a>计算成本函数</h4><p>正则化部分相对简单，只需注意不要计算bias元素的权重平方即可。因此这里我们只看成本函数的第一部分，即(-1/m*cost）的部分。<br>我们注意到是对每个样本m中每个label对应的cost求和，做到这一点有三个方法：</p>
-<ol>
-<li>全部压为一列后求矩阵积：如Y(:)*log(a_out(:))’；</li>
-<li>先求矩阵积，再取迹，如：trace(Y*log(a_out)’);</li>
-<li>元素级点积后二次求和：sum(sum(Y.*log(a_out))); </li>
-</ol>
-<h4 id="计算梯度"><a href="#计算梯度" class="headerlink" title="计算梯度"></a>计算梯度</h4><p>笔者在做这部分代码时，先使用了for loop 1:m，结果检查梯度时始终有0.003的差距，虽然微小但对于机器学习算法来说结果是致命的——precision才10%。。最后在改成直接矩阵计算后才将差距缩小到e-9级以下，成功得到90+%的准确率，因此，尽可能使用矩阵计算而非循环。</p>
-<p>第一步，计算delta。<br>delta3 = a_out-Y; %为mxlabel数矩阵<br>delta2 = delta3*Theta2(,2:end).*g’(z2); %<strong>这一步非常关键！！</strong>对于多层神经网络，凡是隐藏层的delta都必须注意这部分的问题，主要包括：</p>
-<ol>
-<li>Theta2不需要第一列，即bias部分的权重，这是因为我们在得到这一层的输出值时，bias元素是我们手动加上去的，与z2如何经过X加权得到无关。注意delta2的数学含义是成本函数对z2的导数，z2不能通过a2中的bias部分来影响最终的成本函数，因此这条路径应该被砍掉。</li>
-<li>g’(z2)不是a2.*(1-a2)，而是g(z2).*(1-g(z2))。a2是手动添加了bias之后的激活节点。我们在反向“爬坡”的过程中并不经过bias点。</li>
-<li>Tips for 无转置：delta3是类X的组成，反向传播以Theta2加权。</li>
-</ol>
-<p>最后计算梯度：<br>Theta2_grad = 1/m*delta3’*a2;<br>Theta1_grad = 1/m*delta2’*X;<br>加入正则化部分：注意先把Theta1和2的第一列去掉，我们不需要计算bias部分；但这里的去掉并不是完全删去，他们并不是没有正则化，而是正则化下为0而已。<br>Theta1(:,1) = 0;<br>Theta1_grad = Theta1_grad+lambda/m*Theta1;</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2294,7 +2274,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
