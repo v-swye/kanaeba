@@ -328,6 +328,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/08/04/预测与解释：统计建模的两面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/08/04/预测与解释：统计建模的两面/" class="post-title-link" itemprop="url">预测与解释：统计建模的两面</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-04 10:54:49" itemprop="dateCreated datePublished" datetime="2019-08-04T10:54:49+08:00">2019-08-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-10 22:16:16" itemprop="dateModified" datetime="2019-08-10T22:16:16+08:00">2019-08-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文为<a href="https://towardsdatascience.com/predicting-vs-explaining-69b516f90796" target="_blank" rel="noopener">Predicting vs. Explaining</a>的阅读笔记。</p>
+<h2 id="预测还是解释？"><a href="#预测还是解释？" class="headerlink" title="预测还是解释？"></a>预测还是解释？</h2><h3 id="Chomsky与Norvig之争"><a href="#Chomsky与Norvig之争" class="headerlink" title="Chomsky与Norvig之争"></a>Chomsky与Norvig之争</h3><p>现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践”，即通过精心设计的实验，去除无关的杂音和干扰，从而抽象出系统的本质。<br>另一方面，谷歌研究总监Peter Norvig则并不在意所谓的“科学性”。他认为，基本上语言处理中的所有主要应用都采用了经过训练的概率模型，理由很简单——它们比基于理论或是逻辑规则的老方法表现好得多。用更讽刺的话说，概率模型每年创造数十亿美元的收益，而乔姆斯基的理论追随者却只能贡献不到百万美金的收益。</p>
+<h3 id="统计建模的两个方向"><a href="#统计建模的两个方向" class="headerlink" title="统计建模的两个方向"></a>统计建模的两个方向</h3><p>Leo Breiman指出，统计建模一直都有两种“背道而驰”的文化。</p>
+<ul>
+<li>数据建模派：假设自然是一个黑箱，变量之间随机关联，而<strong>建模的目的就是找到拟合关联性的最佳模型</strong>。</li>
+<li>算法建模派：黑箱中的关联性过于复杂，无法用简单的模型去描述和拟合，<strong>建模的目的是使用算法来尽可能基于输入值来估计和预测输出值</strong>，而并不关心变量之间的关联性该如何理解。<br>很显然，Peter就是坚定的第二种。在复杂系统（如自然语言）面前，“我们应该停止以找到极度优雅的理论解释为目标，转而拥抱这种高度复杂性，并且与我们最好的伙伴——无比有效的数据——一同合作。”</li>
+</ul>
+<h2 id="预测-vs-因果推断"><a href="#预测-vs-因果推断" class="headerlink" title="预测 vs 因果推断"></a>预测 vs 因果推断</h2><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="预测建模"><a href="#预测建模" class="headerlink" title="预测建模"></a>预测建模</h4><p>预测建模的目标是给定X，尽可能准确地找到Y的估计值：$\hat Y = \hat {f(x)}$<br>显然，我们的估计值不可能与真实值完全一致，估计值与真实值之间的差距就形成了预测误差。常见的预测误差定义为$E(Y-\hat Y)^2 = E[f(x)+\epsilon - \hat {f(x)}]^2 = E[f(x)-\hat {f(x)}]^2 + var(\epsilon)$，即可进一步拆分为可降低误差和不可降低误差$var(\epsilon)$。于是，预测建模的目标的数学形式就转换为最小化可降低误差部分。</p>
+<h4 id="推断建模"><a href="#推断建模" class="headerlink" title="推断建模"></a>推断建模</h4><p>推断建模的目标是理解X和Y之间的关系，例如：$\Delta X-&gt; \Delta Y?$<br>推断建模一般都使用参数方法（parametric methods）。参数方法指的是首先假设函数f的函数形式，然后通过估计假设的参数来估计函数f。建模的基本步骤为：</p>
+<ol>
+<li>假设f的函数形式</li>
+<li>使用数据来拟合模型</li>
+</ol>
+<p>在第一步中，函数f的形式一般都是线性的。这是因为为了理解X和Y的关系，我们必须在准确模拟二者关系和能解释二者关系之间进行权衡，而线性模型一般能在不过于牺牲拟合性质的情况下提高模型的可解释性。</p>
+<h4 id="因果识别-反事实推理（causal-identification-counterfactual-reasoning）"><a href="#因果识别-反事实推理（causal-identification-counterfactual-reasoning）" class="headerlink" title="因果识别/反事实推理（causal identification/ counterfactual reasoning）"></a>因果识别/反事实推理（causal identification/ counterfactual reasoning）</h4><p>要如何识别因果性？理想情况下，随机试验（例如A/B testing）中我们可以假设treatment的各组之间除了是否接受treatment以外，其他性质在平均意义上是一样的，这就消除了其他变量对Y的影响，Y的所有变动都来源于X。<br>但现实一般充满了各种复杂性，特别是在无法真正做实验的社会科学领域。社科研究通常使用可观测数据（observational data）来估计X对Y的影响，而为了排除其他变量的影响，研究X和Y之间的因果关系，相关学者发明了一系列的识别方法（identification techniques，详见下一篇JEP因果推断阅读笔记）。</p>
+<h3 id="预测占优的现实"><a href="#预测占优的现实" class="headerlink" title="预测占优的现实"></a>预测占优的现实</h3><p>尽管学术界依然推崇因果推断和理论逻辑上的简洁有效，业界占大头的依然是算法建模派。这不仅仅是预测模型在可得商业收益上表现的更好，更是因为衡量一个预测模型是否成功的标准比起因果推断简单得多（例如准确率、精确率、召回率和F2分数）。<br>但同时，也许我们也需要反思：是否过于强调预测性，而忽视了逻辑和解释性上的进步？</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/06/27/泊松分布笔记：理解与推导/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2097,149 +2285,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/05/21/Stata命令：将指定路径下所有dta文件合并导出/" class="post-title-link" itemprop="url">Stata命令：将指定路径下所有dta文件合并导出</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-21 17:15:12 / Modified: 19:22:22" itemprop="dateCreated datePublished" datetime="2019-05-21T17:15:12+08:00">2019-05-21</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>下面代码可以将指定路径下所有dta文件合并导出成逗号分隔符的csv文件。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">clear</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">"指定路径"</span></span><br><span class="line"><span class="keyword">local</span> ff : <span class="keyword">dir</span> . files <span class="string">"*.dta"</span> </span><br><span class="line"><span class="keyword">dis</span> <span class="string">`"`ff'"'</span>  <span class="comment">//显示所有符合条件的dta文件名称</span></span><br><span class="line"><span class="keyword">foreach</span> f of <span class="keyword">local</span> ff&#123;</span><br><span class="line">   <span class="keyword">append</span> using <span class="string">"`f'"</span> </span><br><span class="line">  &#125;</span><br><span class="line">export delimited using <span class="string">"outputpath/fname.csv"</span>, <span class="keyword">replace</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2286,7 +2331,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2532,9 +2577,9 @@
   
     
       
-        
-      
     
+      
+        
       
     
       

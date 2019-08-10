@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &quot;&quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上path+&amp;#39">
-<meta name="keywords" content="Python">
+  <meta name="description" content="本文为Predicting vs. Explaining的阅读笔记。 预测还是解释？Chomsky与Norvig之争现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践">
+<meta name="keywords" content="数理统计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python读取目录下所有文件名及数据文件的分块处理">
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/05/27/Python读取目录下所有文件名及大型数据文件处理/index.html">
+<meta property="og:title" content="预测与解释：统计建模的两面">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/08/04/预测与解释：统计建模的两面/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-<meta property="og:description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &quot;&quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上path+&amp;#39">
+<meta property="og:description" content="本文为Predicting vs. Explaining的阅读笔记。 预测还是解释？Chomsky与Norvig之争现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-04T13:58:54.607Z">
+<meta property="og:updated_time" content="2019-08-10T14:16:16.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python读取目录下所有文件名及数据文件的分块处理">
-<meta name="twitter:description" content="自动循环读取指定目录下的文件读取文件目录的关键是使用os.listdir(path)获得所有文件名称（组成的列表），然后可以写循环。12345import ospath = &quot;&quot;files = os.listdir(path)for file in files:    #some processes 注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上path+&amp;#39">
+<meta name="twitter:title" content="预测与解释：统计建模的两面">
+<meta name="twitter:description" content="本文为Predicting vs. Explaining的阅读笔记。 预测还是解释？Chomsky与Norvig之争现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/05/27/Python读取目录下所有文件名及大型数据文件处理/">
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/08/04/预测与解释：统计建模的两面/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Python读取目录下所有文件名及数据文件的分块处理 | Kanaeba's Long Position</title>
+  <title>预测与解释：统计建模的两面 | Kanaeba's Long Position</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/27/Python读取目录下所有文件名及大型数据文件处理/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/08/04/预测与解释：统计建模的两面/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python读取目录下所有文件名及数据文件的分块处理
+          <h1 class="post-title" itemprop="name headline">预测与解释：统计建模的两面
 
               
             
@@ -371,7 +371,7 @@
                 
               
 
-              <time title="Created: 2019-05-27 09:23:27" itemprop="dateCreated datePublished" datetime="2019-05-27T09:23:27+08:00">2019-05-27</time>
+              <time title="Created: 2019-08-04 10:54:49" itemprop="dateCreated datePublished" datetime="2019-08-04T10:54:49+08:00">2019-08-04</time>
             
 
             
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-04 21:58:54" itemprop="dateModified" datetime="2019-06-04T21:58:54+08:00">2019-06-04</time>
+                <time title="Modified: 2019-08-10 22:16:16" itemprop="dateModified" datetime="2019-08-10T22:16:16+08:00">2019-08-10</time>
               
             
           </span>
@@ -440,22 +440,22 @@
       
 
       
-        <h2 id="自动循环读取指定目录下的文件"><a href="#自动循环读取指定目录下的文件" class="headerlink" title="自动循环读取指定目录下的文件"></a>自动循环读取指定目录下的文件</h2><p>读取文件目录的关键是使用<code>os.listdir(path)</code>获得所有文件名称（组成的列表），然后可以写循环。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">path = <span class="string">""</span></span><br><span class="line">files = os.listdir(path)</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">    <span class="comment">#some processes</span></span><br></pre></td></tr></table></figure></p>
-<p>注意这里file只包括文件名，不包括原有绝对路径path，如果要处理文件，要加上<code>path+&#39;/&#39;+file</code>。<br>有时文件夹下面还有文件夹，此时可以使用<code>os.path.isdir(path)</code>来检查是不是文件夹，是文件时返回True。</p>
-<h2 id="大型数据文件处理"><a href="#大型数据文件处理" class="headerlink" title="大型数据文件处理"></a>大型数据文件处理</h2><h3 id="迭代器与分块读取处理"><a href="#迭代器与分块读取处理" class="headerlink" title="迭代器与分块读取处理"></a>迭代器与分块读取处理</h3><p>分块读取处理的基本步骤如下：</p>
+        <p>本文为<a href="https://towardsdatascience.com/predicting-vs-explaining-69b516f90796" target="_blank" rel="noopener">Predicting vs. Explaining</a>的阅读笔记。</p>
+<h2 id="预测还是解释？"><a href="#预测还是解释？" class="headerlink" title="预测还是解释？"></a>预测还是解释？</h2><h3 id="Chomsky与Norvig之争"><a href="#Chomsky与Norvig之争" class="headerlink" title="Chomsky与Norvig之争"></a>Chomsky与Norvig之争</h3><p>现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践”，即通过精心设计的实验，去除无关的杂音和干扰，从而抽象出系统的本质。<br>另一方面，谷歌研究总监Peter Norvig则并不在意所谓的“科学性”。他认为，基本上语言处理中的所有主要应用都采用了经过训练的概率模型，理由很简单——它们比基于理论或是逻辑规则的老方法表现好得多。用更讽刺的话说，概率模型每年创造数十亿美元的收益，而乔姆斯基的理论追随者却只能贡献不到百万美金的收益。</p>
+<h3 id="统计建模的两个方向"><a href="#统计建模的两个方向" class="headerlink" title="统计建模的两个方向"></a>统计建模的两个方向</h3><p>Leo Breiman指出，统计建模一直都有两种“背道而驰”的文化。</p>
+<ul>
+<li>数据建模派：假设自然是一个黑箱，变量之间随机关联，而<strong>建模的目的就是找到拟合关联性的最佳模型</strong>。</li>
+<li>算法建模派：黑箱中的关联性过于复杂，无法用简单的模型去描述和拟合，<strong>建模的目的是使用算法来尽可能基于输入值来估计和预测输出值</strong>，而并不关心变量之间的关联性该如何理解。<br>很显然，Peter就是坚定的第二种。在复杂系统（如自然语言）面前，“我们应该停止以找到极度优雅的理论解释为目标，转而拥抱这种高度复杂性，并且与我们最好的伙伴——无比有效的数据——一同合作。”</li>
+</ul>
+<h2 id="预测-vs-因果推断"><a href="#预测-vs-因果推断" class="headerlink" title="预测 vs 因果推断"></a>预测 vs 因果推断</h2><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><h4 id="预测建模"><a href="#预测建模" class="headerlink" title="预测建模"></a>预测建模</h4><p>预测建模的目标是给定X，尽可能准确地找到Y的估计值：$\hat Y = \hat {f(x)}$<br>显然，我们的估计值不可能与真实值完全一致，估计值与真实值之间的差距就形成了预测误差。常见的预测误差定义为$E(Y-\hat Y)^2 = E[f(x)+\epsilon - \hat {f(x)}]^2 = E[f(x)-\hat {f(x)}]^2 + var(\epsilon)$，即可进一步拆分为可降低误差和不可降低误差$var(\epsilon)$。于是，预测建模的目标的数学形式就转换为最小化可降低误差部分。</p>
+<h4 id="推断建模"><a href="#推断建模" class="headerlink" title="推断建模"></a>推断建模</h4><p>推断建模的目标是理解X和Y之间的关系，例如：$\Delta X-&gt; \Delta Y?$<br>推断建模一般都使用参数方法（parametric methods）。参数方法指的是首先假设函数f的函数形式，然后通过估计假设的参数来估计函数f。建模的基本步骤为：</p>
 <ol>
-<li>读取一个文件块</li>
-<li>对该文件块执行处理</li>
-<li>存储处理结果</li>
-<li>重复1-3直到文件全部读取和处理完毕</li>
-<li>将分块处理结果组合成最终结果</li>
+<li>假设f的函数形式</li>
+<li>使用数据来拟合模型</li>
 </ol>
-<h4 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h4><p>下面介绍使用iterator分块读取、处理文件的方法，当在read_csv()函数中传入<code>iterator = True</code>时，需要配合后续<code>obj.get_chunk(size)</code>方法；另一方面可以直接传入<code>chunk_size = N</code>来直接得到生成器。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">f = open(path, encoding=encoding, errors=<span class="string">'replace'</span>) </span><br><span class="line">reader = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines=<span class="literal">False</span>, iterator = <span class="literal">True</span>)</span><br><span class="line">data = pd.DataFrame()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">while</span> len(chunk) &gt; <span class="number">0</span>:</span><br><span class="line">        data = chunk</span><br><span class="line">        <span class="comment"># some data processing...</span></span><br><span class="line">        chunk = reader.get_chunk(<span class="number">100</span>*<span class="number">1000</span>) </span><br><span class="line">        print(<span class="string">'读取并处理10万条数据'</span>)</span><br><span class="line">        sys.stdout.flush() <span class="comment">#这句代码的意思是刷新输出，不加这句在Linux系统上要等程序执行完毕才会把print的内容一次性刷新出来</span></span><br><span class="line"><span class="keyword">except</span> (StopIteration, KeyboardInterrupt):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<h4 id="chunksize"><a href="#chunksize" class="headerlink" title="chunksize"></a>chunksize</h4><p>通过在pd.read_csv()中传入chunksize参数，可以直接指定每次迭代器生成的数据数量，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">results = []</span><br><span class="line">data_iter = pd.read_csv(path, chunksize = <span class="number">100</span>*<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> data_chunk <span class="keyword">in</span> data_iter:</span><br><span class="line">    <span class="comment"># some processing...</span></span><br><span class="line">   results.append(xxx)</span><br><span class="line"></span><br><span class="line">final_result = pd.concat(results)</span><br></pre></td></tr></table></figure></p>
-<h3 id="删除不必要的数据"><a href="#删除不必要的数据" class="headerlink" title="删除不必要的数据"></a>删除不必要的数据</h3><p>对于不必要的数据，在读取前提前过滤掉是可以很好提高效率的方法。或者，只指定我们想要的列数据：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use_cols = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>] <span class="comment"># 或use_cols = [0,1,2,3]</span></span><br><span class="line">data = pd.read_csv(path, usecols = use_cols)</span><br></pre></td></tr></table></figure></p>
-<h3 id="为每列指定数据类型"><a href="#为每列指定数据类型" class="headerlink" title="为每列指定数据类型"></a>为每列指定数据类型</h3><p>例如，有些默认为float64的列数据其实只需要float16就够了，我们并不需要那么高的精度：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(path,dtype = &#123;<span class="string">'col1'</span>:np.int,<span class="string">'col2'</span>,:np.float16&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>(3 simple ways to handle large data with Pandas)[<a href="https://towardsdatascience.com/3-simple-ways-to-handle-large-data-with-pandas-d9164a3c02c1" target="_blank" rel="noopener">https://towardsdatascience.com/3-simple-ways-to-handle-large-data-with-pandas-d9164a3c02c1</a>]</p>
+<p>在第一步中，函数f的形式一般都是线性的。这是因为为了理解X和Y的关系，我们必须在准确模拟二者关系和能解释二者关系之间进行权衡，而线性模型一般能在不过于牺牲拟合性质的情况下提高模型的可解释性。</p>
+<h4 id="因果识别-反事实推理（causal-identification-counterfactual-reasoning）"><a href="#因果识别-反事实推理（causal-identification-counterfactual-reasoning）" class="headerlink" title="因果识别/反事实推理（causal identification/ counterfactual reasoning）"></a>因果识别/反事实推理（causal identification/ counterfactual reasoning）</h4><p>要如何识别因果性？理想情况下，随机试验（例如A/B testing）中我们可以假设treatment的各组之间除了是否接受treatment以外，其他性质在平均意义上是一样的，这就消除了其他变量对Y的影响，Y的所有变动都来源于X。<br>但现实一般充满了各种复杂性，特别是在无法真正做实验的社会科学领域。社科研究通常使用可观测数据（observational data）来估计X对Y的影响，而为了排除其他变量的影响，研究X和Y之间的因果关系，相关学者发明了一系列的识别方法（identification techniques，详见下一篇JEP因果推断阅读笔记）。</p>
+<h3 id="预测占优的现实"><a href="#预测占优的现实" class="headerlink" title="预测占优的现实"></a>预测占优的现实</h3><p>尽管学术界依然推崇因果推断和理论逻辑上的简洁有效，业界占大头的依然是算法建模派。这不仅仅是预测模型在可得商业收益上表现的更好，更是因为衡量一个预测模型是否成功的标准比起因果推断简单得多（例如准确率、精确率、召回率和F2分数）。<br>但同时，也许我们也需要反思：是否过于强调预测性，而忽视了逻辑和解释性上的进步？</p>
 
       
     </div>
@@ -479,7 +479,7 @@
       
         <div class="post-tags">
           
-            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
+            <a href="/kanaeba/tags/数理统计/" rel="tag"># 数理统计</a>
           
         </div>
       
@@ -492,8 +492,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kanaeba/2019/05/27/Econ-Espresso-19M5W4/" rel="next" title="Econ Espresso 19M5W4">
-                <i class="fa fa-chevron-left"></i> Econ Espresso 19M5W4
+              <a href="/kanaeba/2019/06/27/泊松分布笔记：理解与推导/" rel="next" title="泊松分布笔记：理解与推导">
+                <i class="fa fa-chevron-left"></i> 泊松分布笔记：理解与推导
               </a>
             
           </div>
@@ -501,10 +501,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kanaeba/2019/05/29/数据分析与机器学习中常用的模型评估指数/" rel="prev" title="数据分析与机器学习中常用的模型评估指数">
-                数据分析与机器学习中常用的模型评估指数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -672,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动循环读取指定目录下的文件"><span class="nav-number">1.</span> <span class="nav-text">自动循环读取指定目录下的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大型数据文件处理"><span class="nav-number">2.</span> <span class="nav-text">大型数据文件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器与分块读取处理"><span class="nav-number">2.1.</span> <span class="nav-text">迭代器与分块读取处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator"><span class="nav-number">2.1.1.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chunksize"><span class="nav-number">2.1.2.</span> <span class="nav-text">chunksize</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除不必要的数据"><span class="nav-number">2.2.</span> <span class="nav-text">删除不必要的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为每列指定数据类型"><span class="nav-number">2.3.</span> <span class="nav-text">为每列指定数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预测还是解释？"><span class="nav-number">1.</span> <span class="nav-text">预测还是解释？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chomsky与Norvig之争"><span class="nav-number">1.1.</span> <span class="nav-text">Chomsky与Norvig之争</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计建模的两个方向"><span class="nav-number">1.2.</span> <span class="nav-text">统计建模的两个方向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测-vs-因果推断"><span class="nav-number">2.</span> <span class="nav-text">预测 vs 因果推断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">2.1.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预测建模"><span class="nav-number">2.1.1.</span> <span class="nav-text">预测建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推断建模"><span class="nav-number">2.1.2.</span> <span class="nav-text">推断建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#因果识别-反事实推理（causal-identification-counterfactual-reasoning）"><span class="nav-number">2.1.3.</span> <span class="nav-text">因果识别/反事实推理（causal identification/ counterfactual reasoning）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预测占优的现实"><span class="nav-number">2.2.</span> <span class="nav-text">预测占优的现实</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -831,7 +827,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/05/27/Python读取目录下所有文件名及大型数据文件处理/'
+    refer: '2019/08/04/预测与解释：统计建模的两面/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
