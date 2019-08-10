@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
 <meta property="og:description" content="本文为Predicting vs. Explaining的阅读笔记。 预测还是解释？Chomsky与Norvig之争现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T14:16:16.478Z">
+<meta property="og:updated_time" content="2019-08-10T14:20:09.461Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="预测与解释：统计建模的两面">
 <meta name="twitter:description" content="本文为Predicting vs. Explaining的阅读笔记。 预测还是解释？Chomsky与Norvig之争现代语言学之父Noam Chomsky（乔姆斯基）认为，当前诸如准确率等对成功的自然语言处理的定义并不是科学。将大量文本语料库扔进复杂机器的过程仅仅是在对未分析数据进行近似，却不能真正理解语言。科学的主要目标，应当是发现可解释系统如何运作的原理，而实现目标的正确手段是“让理论指导实践">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-10 22:16:16" itemprop="dateModified" datetime="2019-08-10T22:16:16+08:00">2019-08-10</time>
+                <time title="Modified: 2019-08-10 22:20:09" itemprop="dateModified" datetime="2019-08-10T22:20:09+08:00">2019-08-10</time>
               
             
           </span>
@@ -857,6 +857,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
