@@ -328,6 +328,202 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/08/17/Social-Connectedness-JEP-reading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/08/17/Social-Connectedness-JEP-reading/" class="post-title-link" itemprop="url">Social Connectedness: JEP reading</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-17 10:06:15 / Modified: 10:08:15" itemprop="dateCreated datePublished" datetime="2019-08-17T10:06:15+08:00">2019-08-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This is a summary note for the following paper:</p>
+<p>Bailey, M., Cao, R., Kuchler, T., Stroebel, J., &amp; Wong, A. (2018). Social connectedness: measurement, determinants, and effects. Journal of Economic Perspectives, 32(3), 259-80.</p>
+<h2 id="Introduction-of-the-new-measure-SCI"><a href="#Introduction-of-the-new-measure-SCI" class="headerlink" title="Introduction of the new measure:SCI"></a>Introduction of the new measure:SCI</h2><p>the normalized total number of friendship links for each geographic pair.</p>
+<h3 id="Construction-Method"><a href="#Construction-Method" class="headerlink" title="Construction Method"></a>Construction Method</h3><p>max: 1,000,000-&gt;Los Angeles Country, where people have the most friends with people from the same county.</p>
+<p>for county <strong>pairs</strong> C1 and C2: if the total num of friendship links are c1 and c2 respectively, then the SCI of C1 and C2, denoted as idx1 and idx2, would be constrained to the following relationship:</p>
+<script type="math/tex; mode=display">idx_1-idx_2 = c_1-c_2</script><p>total county pairs: 3,136.</p>
+<h3 id="Relative-Probability-of-Friendship"><a href="#Relative-Probability-of-Friendship" class="headerlink" title="Relative Probability of Friendship"></a>Relative Probability of Friendship</h3><p>the relative probability of friendship is defined as:</p>
+<script type="math/tex; mode=display">rp = \frac{idx_{ij}}{user_i*user_j}</script><p>Where $user_i$ represents the total Facebook users living in county i.</p>
+<p>Some facts: </p>
+<ul>
+<li>the geographic concentration of the friendship network of Kern County is similar to the US average while San Francisco County’s friendship network is extremely geographically dispersed.</li>
+<li>For the average(population-weighted) US county, 55.4 percent of friends live within 50 miles.</li>
+</ul>
+<h3 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h3><h4 id="Regression-Model"><a href="#Regression-Model" class="headerlink" title="Regression Model"></a>Regression Model</h4><ul>
+<li>dependent variable Y: log of SCI between i and j</li>
+<li>regression unit: county pairs</li>
+<li>independent X: log geographic distance and other fixed effects</li>
+</ul>
+<h4 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h4><ol>
+<li>geographic distance explains a significant amount of the cross-county-pair variation in social connectedness.</li>
+<li>SC is often strongest with other counties within the same state.</li>
+<li>The elasticity of social connectedness relative to geographic distance is less negative(or declines in terms of absolute value) as we include county-pairs that are progressively further apart. In other words, <strong>the appropriate elasticity depends on the geographic distances studied.</strong></li>
+<li>Adding homophily factors barely affects the coefficients of other explanatory variables or the R^2.</li>
+</ol>
+<h4 id="Hierarchical-Agglomerative-Linkage-Clustering"><a href="#Hierarchical-Agglomerative-Linkage-Clustering" class="headerlink" title="Hierarchical Agglomerative Linkage Clustering"></a>Hierarchical Agglomerative Linkage Clustering</h4><p>Object: to form borders artificially by grouping together US counties with the aim of maximizing within-community social connectedness,  and then compare the artificial borders with the real state borders.</p>
+<p>Grouping results: 20 distinct communities, all of which are spatially contiguous, a result of the strong dependence of social connectedness on geographic distance.</p>
+<p>Comparison results: many of the community borders line up with state borders. However, some states are split into separate communities.</p>
+<p>Possible explanation: </p>
+<ul>
+<li>physical obstacles: large rivers and mountain ranges</li>
+<li>Military bases</li>
+<li>Shale oil boom and in-migration</li>
+</ul>
+<p>Suggestion: study the economics/politics of US “regions” in terms of the social connectedness communities.</p>
+<h2 id="Relationship-between-Diversity-and-Economic-Outcomes"><a href="#Relationship-between-Diversity-and-Economic-Outcomes" class="headerlink" title="Relationship between Diversity and Economic Outcomes"></a>Relationship between Diversity and Economic Outcomes</h2><h3 id="Facts-Diversity-and-Economic-Development"><a href="#Facts-Diversity-and-Economic-Development" class="headerlink" title="Facts: Diversity and Economic Development"></a>Facts: Diversity and Economic Development</h3><p>Geographic dispersion of friendship links is highly correlated with social and economic outcomes at county level.<br>Def. of socioeconomic outcomes: income, education, teenage birth rate, life expectancy, social capital, social mobility, etc. </p>
+<p>Implication: controlling for the geographic concentration of social networks to minimize omitted bias when studying socioeconomic outcomes at the county level.</p>
+<h3 id="Possible-Transmission-Channels"><a href="#Possible-Transmission-Channels" class="headerlink" title="Possible Transmission Channels"></a>Possible Transmission Channels</h3><h4 id="Within-US-Trade-Flows"><a href="#Within-US-Trade-Flows" class="headerlink" title="Within-US Trade Flows"></a>Within-US Trade Flows</h4><p>Trade flows data: state level.<br>Reg Y: log of the value of trade in 2012 between state pairs(i could == j)<br>Key X: log of geographic distance &amp; log of the SCI between state pairs(WA of county-level SCI measures).<br>Other reg X: fixed effects, dummy variables for own-state flows, dummy for adjacency. </p>
+<p>Findings: </p>
+<ul>
+<li>SC is strongly correlated with between-state trade flows, even after controlling geographic distance.</li>
+<li>Controlling for SC significantly reduces the estimated distance elasticities of trade. While the elasticities of SC to trade is not affected by adding fixed effect factors.</li>
+<li>The geographic distance might be proxying for other factors affecting inter-state trade.</li>
+</ul>
+<h4 id="Patent-Citations"><a href="#Patent-Citations" class="headerlink" title="Patent Citations"></a>Patent Citations</h4><p>Why patent citations: a large empirical literature has relied on patent citations as a measure of <strong>knowledge spillovers.</strong><br>Construct dataset for observation: for each granted patent, observe all other patents that it cites.<br>Matching approach: match each citing patent with a non-citing patent issued at the same time and in the same technological calss to serve as a control.<br>In detail: for each citing patent, find all non-citing patents that fit the requirement stated below, and randomly draw one from the non-citing pool.<br>The final patent-citation pair: for each patent, if it cites N patents, then we have :<br>(original patent A - patent cited B - patent C that is matched to A but does not cite B)*N groups</p>
+<p>Regression:<br>Reg Y: 1 if an issued patent i cites patent j and 0 otherwise.<br>Key X: log of geographic distance &amp; log of SCI between county pairs of the issued and cited patents<br>Other reg X: fixed effects for the technology classes and county pairs</p>
+<p>Findings: SC explains marginally more of the variation in the probability of a patent citation than geographic distance.<br>Potential of the SCI data to help uncover the possible causal relationships behind these correlations. </p>
+<h4 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h4><p>Reg Y: log of total migration between county pairs during 2013-2014.</p>
+<p>Findings: SCI significantly explains migration between regions. Overall, individuals are more likely to move to counties where they already have frieds.</p>
+<h2 id="Future-Exploration"><a href="#Future-Exploration" class="headerlink" title="Future Exploration"></a>Future Exploration</h2><ul>
+<li>contagious illnesses and diseases</li>
+<li>track whether measure of sentiment spread along social networks</li>
+<li>relationships between transportation networks and social connectedness. e.g. potential demand for transportation links</li>
+<li>testing theoretical models of network formation</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/08/11/读书笔记：亲密关系——通往灵魂的桥梁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2139,171 +2335,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/" class="post-title-link" itemprop="url">Pandas包读取文件：编码错误解决方案</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-22 21:59:05 / Modified: 22:00:03" itemprop="dateCreated datePublished" datetime="2019-05-22T21:59:05+08:00">2019-05-22</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。</p>
-<h2 id="检查编码"><a href="#检查编码" class="headerlink" title="检查编码"></a>检查编码</h2><p>在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别大的文件时，这两者就无能为力了。好在利用python的chardet，我们可以得到编码推断：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chardet</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'文件路径'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    result = chardet.detect(f.read()) <span class="comment"># 或对大文件：readline </span></span><br><span class="line">print(result[encoding])</span><br></pre></td></tr></table></figure></p>
-<p>中文数据往往采用ANSI编码，请多尝试<code>encoding = &#39;gbk&#39;/&#39;gb18030&#39;</code>来解码。一般都可以解码成功。</p>
-<h2 id="处理解码不成功"><a href="#处理解码不成功" class="headerlink" title="处理解码不成功"></a>处理解码不成功</h2><p>不知道什么原因，我的一部分数据就是解码不出来（其前后都可以），频频报错。如果这类数据比较少，不太重要，可以尝试下面的方法跳过：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = open(path,<span class="string">'r+'</span>, encoding = encoding, errors = <span class="string">'replace'</span>) <span class="comment">#replace会保留错误行，如果选择直接跳过，设置errors = 'ignore'</span></span><br><span class="line">data = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure></p>
-<p>完美~</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2350,7 +2381,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2600,9 +2631,9 @@
   
     
       
-    
-      
         
+      
+    
       
     
       
