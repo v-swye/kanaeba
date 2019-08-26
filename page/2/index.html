@@ -328,6 +328,291 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/26/BLP学习笔记：随机系数对数模型估计需求函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/26/BLP学习笔记：随机系数对数模型估计需求函数/" class="post-title-link" itemprop="url">BLP学习笔记：随机系数对数模型估计需求函数</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-26 23:45:19" itemprop="dateCreated datePublished" datetime="2019-05-26T23:45:19+08:00">2019-05-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-27 08:43:06" itemprop="dateModified" datetime="2019-05-27T08:43:06+08:00">2019-05-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/经济学/" itemprop="url" rel="index"><span itemprop="name">经济学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>reference: Nevo A. A practitioner’s guide to estimation of random‐coefficients logit models of demand[J]. Journal of economics &amp; management strategy, 2000, 9(4): 513-548.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="为什么要估计需求？"><a href="#为什么要估计需求？" class="headerlink" title="为什么要估计需求？"></a>为什么要估计需求？</h3><p>对于差异化产品行业而言，在以下分析场景中，需求函数的准确估计十分关键：</p>
+<ul>
+<li>单产品静态分析：市场势力（market power）</li>
+<li>产品的减少：兼并（mergers）</li>
+<li>产品的增加：<ul>
+<li>新品牌估值（valuation of new brand）</li>
+<li>创新（innovation）</li>
+</ul>
+</li>
+</ul>
+<h3 id="BLP方法的目标和优点"><a href="#BLP方法的目标和优点" class="headerlink" title="BLP方法的目标和优点"></a>BLP方法的目标和优点</h3><p>一般而言，个体层级（individual-level）的数据是最优的，但这类数据往往很难得到。通过BLP，我们可以使用市场层级的数据（market-level data）来估计需求。<br>与其他离散选择模型（discrete choice model）相比，BLP方法具有以下优点：</p>
+<ol>
+<li>保留其他离散选择模型具有的优点；</li>
+<li>允许价格存在内生性；</li>
+<li>有更符合现实情况的需求价格弹性（包括自价格和跨产品需求价格弹性）；</li>
+<li>可以只使用市场层级的数据（同时在拥有个体层级数据时，该模型也可以很灵活地应对）。</li>
+</ol>
+<p>在估计需求时，最传统的方法是需求方程系统，但该系统：</p>
+<ul>
+<li>产品品类很多时，待估计参数太多（dimensionality problem）；</li>
+<li>不考虑消费者taste的异质性（例如，常用的representative consumer approach）</li>
+</ul>
+<p>对于第一个维度问题（dimensionality），logit需求模型将各类产品映射到一个产品特征空间中，降低了需要估计的参数数量。但是，这类模型假设自变量是外生的，而价格往往与未观察到的变量之间具有相关性（例如，更高质量的产品价格会更高，但质量的衡量变量可能没有包括在原回归方程里），从而造成有偏估计。</p>
+<h2 id="The-Model"><a href="#The-Model" class="headerlink" title="The Model"></a>The Model</h2><p>模型所需的数据：</p>
+<ul>
+<li>产品数据：市场层级的相关产品数量和价格数据；</li>
+<li>个体数据：无需个体的购买决策信息，对个体特征数据可以基于已知分布/参数分布假设；</li>
+<li>价格数据：当考虑内生性问题时，可以引入工具变量。</li>
+</ul>
+<h3 id="The-Setup"><a href="#The-Setup" class="headerlink" title="The Setup"></a>The Setup</h3><h4 id="定义市场"><a href="#定义市场" class="headerlink" title="定义市场"></a>定义市场</h4><p>市场的划分由想研究的问题和可得数据共同决定。下面是几个例子：</p>
+<ul>
+<li>本文：季度 t = 1~T的全国市场，共T个市场（类似time series）；</li>
+<li>Nevo（2000）：（城市，季度）pairs构成的（城市数*季度数）个市场；</li>
+<li>Das et al.（1994）：将消费者按收入水平划分为N个组，（消费者收入水平，年度）构成的（N*T）个市场</li>
+</ul>
+<h4 id="脚注解释"><a href="#脚注解释" class="headerlink" title="脚注解释"></a>脚注解释</h4><p>t = 1,2,3, … T个市场；<br>每个市场有 $i = 1,2,…,I_t$个消费者；<br>每个市场有$j = 1,2,…, J$个产品（为简化，这里假设每个市场提供相同的产品集，但这并非模型必须的假设）；<br>对t市场，可以观测到产品j的总量，平均价格以及对应的产品特征<strong>行</strong>向量$x_{jt}$。</p>
+<h4 id="产品特征（product-characteristics）"><a href="#产品特征（product-characteristics）" class="headerlink" title="产品特征（product characteristics）"></a>产品特征（product characteristics）</h4><p>产品特征可以被进一步分为以下两部分：</p>
+<ul>
+<li>可被观测的：$x_{jt}$</li>
+<li>不可观测的：记为$\xi_{jt}$，例如品牌声誉，没有观察到的促销活动，需求的系统性冲击等。不可观测的产品特征中，有时可以合理假设其中一部分并不随产品或所在市场改变（类似固定效应）。在这种情况下，不可观测产品特征可以写作$\xi_{jt} = \xi_j+\xi_t+\Delta\xi_{jt}$。</li>
+</ul>
+<h4 id="间接效用函数（indirect-utility-function）"><a href="#间接效用函数（indirect-utility-function）" class="headerlink" title="间接效用函数（indirect utility function）"></a>间接效用函数（indirect utility function）</h4><p>回顾高级微观经济学，间接效用函数指的是给定<strong>价格和收入</strong>后消费者做出最大化其效用的消费决策后，所得到的效用，通用函数形式为$v(p,y)$。<br>在BLP模型中，间接效用函数有以下形式：</p>
+<script type="math/tex; mode=display">u_{ijt} = \alpha_i(y_i-p_{jt})+x_{jt}\beta_i+\xi_{jt}+\epsilon_{ijt}</script><p>其中，<br>$\alpha_i$衡量个体i的收入边际效用，该系数为常数的根本原因是效用函数是拟线性的，即没有财富效应。若要考虑财富效应也是很灵活的，只需引入$f(y_i-p_{jt})$，函数f的形式由效用函数决定，例如Cobb-Douglas效用函数下间接效用为$log(y_i-p_{jt})$ 的函数。<br>$\epsilon_{ijt}$为mean-zero stochastic term。<br>注意到我们假设$\xi_{jt}$与个体i无关。其背后隐含的经济学假设为，不可观测的产品特征只包括了垂直产品差异化（vertical product differentiation）的部分。根据垂直产品差异化的定义，这种产品特征对所有消费者而言是一样的。</p>
+<blockquote>
+<ul>
+<li>vertical product differentiation：商品可以根据客观质量排序</li>
+<li>horizontal product differentiation：在客观条件一样的情况下，根据消费者个人口味排序，例如对颜色的偏好</li>
+</ul>
+</blockquote>
+<p>对于水平产品差异化的部分，我们通过$p_{jt}$的系数$a_i$随i变动来描述。<br>最后，注意到$p_{jt}$与i无关，这是因为我们假设所有消费者都面临相同的价格，但如果现实并不是这样，这种假设就会造成measurement error bias。例如，$corr(p_{jt},\epsilon_{ijt})!=0$时，这鼓励我们去找变量来IV价格变量。</p>
+<h4 id="个体差异的随机系数假设"><a href="#个体差异的随机系数假设" class="headerlink" title="个体差异的随机系数假设"></a>个体差异的随机系数假设</h4><p>对于随机系数$\alpha_i$和$\beta_i$，假设它们由两部分组成：</p>
+<script type="math/tex; mode=display">[\alpha_i,\beta_i] = [\alpha,\beta] + \Pi D_i+\Sigma v_i</script><p>其中，$[\alpha,\beta]$为均值，$D_i$为可观察到的人口学特征，例如收入、年龄、性别等，服从分布$D_i$~$\hat P_D^*(D)$，这里hat的原因是该分布既可以基于参数假设（例如正态分布），也可以基于大样本下估计得出。$v_i$为不可观察到的个体特征，比如该消费者是否有养狗，服从未知的总体分布$P_v^*(v)$，为unknown parametric distribution。例如，我们可以假设$v_i$服从多变量正态分布。<br>这里最重要的一点是利用了人口学特征可观测到的事实，减少了分布假设错误时带来的问题。最后，进一步假设$D_i$和$v_i$是相互独立的。</p>
+<h4 id="Outside-Good"><a href="#Outside-Good" class="headerlink" title="Outside Good"></a>Outside Good</h4><p>不消费所代表的outside option，一般将其间接效用标准化归0。<br>为什么要加外部物品？如果不加该物品，那么假设所有内部产品的价格相对外部物品发生同样的变化，这样的变化并不会影响内部产品购买数量。比如，考虑汽车市场，如果我们不考察不买汽车的情况（比如，转而买自行车或者步行），那么汽车市场中所有汽车价格上升时，消费者不会改变自己买具体某个汽车型号的数量。但在现实生活中，假设价格上升到天价，则所有人都压根不会考虑买汽车。</p>
+<h4 id="参数分类"><a href="#参数分类" class="headerlink" title="参数分类"></a>参数分类</h4><p>根据参数是否以线性方式进入间接效用函数，我们可以进一步将参数分为两类：线性参数与非线性参数。其中，线性参数$\theta_1 = [\alpha, \beta]$，非线性参数$\theta_2 = [\Pi, \Sigma]$<br>由BLP的间接效用函数形式及随机系数假设，可将间接效用函数进一步写为：</p>
+<script type="math/tex; mode=display">u_{ijt} = \alpha_iy_i+\delta_{jt}(x_{jt},p_{jt},\xi_{jt};\theta_{1})+\mu_{ijt}(x_{jt},p_{jt},D_i,v_i;\theta_2 )+\epsilon_{ijt}</script><p>其中，</p>
+<script type="math/tex; mode=display">\delta_{jt} = x_{jt}\beta-\alpha p_{jt}+\xi_{jt}</script><script type="math/tex; mode=display">\mu_{ijt} = [p_{jt}\ x_{jt}]_{1*(K+1)}[-\Pi D_i+\Sigma v_i]_{(K+1)*1}</script><p>注意我们这里没有把$\alpha_iy_i$归入后面两个参数部分，这是因为由于这部分对个体i是一样的，在后面计算时会被消掉。$\delta_{jt}$称为平均效用，它衡量了对所有消费者来说相同的部分。最后，$\mu_{ijt}+\epsilon_{ijt}$为均值为零的异质偏差，这一部分捕捉了系数的随机信息。</p>
+<h4 id="消费者决策"><a href="#消费者决策" class="headerlink" title="消费者决策"></a>消费者决策</h4><p>我们假设消费者只购买对他来说质量最高的一种产品，并且只购买一单位（这一假设大多数情况合理——即使消费者会购买两辆车，但一般不会同时购买，在以时间区分的市场定义上该假设成立；不过，在假设确实不成立的时候，必须要么说明该模型只是一个真实模型的简约估计，要么另外针对多产品选择或连续产品建模）。基于这一假设，我们可以定义出在市场t中最终选择产品j的消费者所对应的个体特征集：</p>
+<script type="math/tex; mode=display">A_{jt}(x_{·t},p_{·t},\xi_{·t};\theta_2 ) = \{(D_i,v_i,\epsilon_{i·t})|u_{ijt}>=u_{ikt},for\ all\ k =  0, 1,2,...,J\}</script><p>LHS注：$A_{jt}$为给定所有非线性参数的情况下，由市场t中产品的客观特征（包括已观测到的特征、价格和未观测到的的特征）决定的选择产品j的消费者集。产品的客观特征既影响平均效用，又影响异质性的偏差效用。<br>RHS注：这些消费者选择j的原因是，这些消费者i拥有的特征（包括人口特征，未观测的消费者特征，以及“白噪声”特征，这就是为什么下标都是i）使其选择j的间接效用是最高的。所有拥有这样个体特征的消费者构成了购买j的消费者集合。</p>
+<h4 id="产品市场份额"><a href="#产品市场份额" class="headerlink" title="产品市场份额"></a>产品市场份额</h4><p>为什么要计算市场份额？这是因为市场份额就是我们要估计的需求数量，从而可以将估计值与真实观测值比较。<br>基于消费者集$A_{jt}$，如果我们知道个体特征的概率分布函数（或累积分布函数），就可以计算出每个产品的份额：</p>
+<script type="math/tex; mode=display">s_{jt}(x_{·t},p_{·t},\xi_{·t};\theta_2 ) = \int_{A_{jt}}dP^{*}(D,v,\epsilon)</script><p>根据Bayes’ Rule，</p>
+<script type="math/tex; mode=display">s_{jt}(x_{·t},p_{·t},\xi_{·t};\theta_2 ) = \int_{A_{jt}}dP^{*}(\epsilon|D,v)dP^{*}(v|D)dP^{*}(D)</script><p>由$\epsilon$~i.i.d及D和v相互独立的假设，</p>
+<script type="math/tex; mode=display">s_{jt}(x_{·t},p_{·t},\xi_{·t};\theta_2 ) = \int_{A_{jt}}dP^{*}(\epsilon)dP(v)d\hat P^{*}(D)</script><p>$P^{*}(·)$为总体分布函数（population distribution function），而D的总体分布函数的帽子\^来源于D的分布可以由大样本数据估计。</p>
+<h4 id="参数估计目标函数"><a href="#参数估计目标函数" class="headerlink" title="参数估计目标函数"></a>参数估计目标函数</h4><p>常用的目标函数为最小化估计值与观测值的距离，但该估计方法没有考虑价格和未观测到的产品特征之间的相关性。<br>在BLP中，使用GMM方法估计，具体见后文。</p>
+<h3 id="分布假设"><a href="#分布假设" class="headerlink" title="分布假设"></a>分布假设</h3><p>对个体特征的分布假设会影响到市场份额的估计，从而影响需求-价格弹性（自价格和跨产品）及替代模式。下面给出几种分布假设。</p>
+<h4 id="消费者异质性仅以误差项进入间接效用函数"><a href="#消费者异质性仅以误差项进入间接效用函数" class="headerlink" title="消费者异质性仅以误差项进入间接效用函数"></a>消费者异质性仅以误差项进入间接效用函数</h4><p>最简单的异质性来自假设消费者仅在误差项$\epsilon_{ijt}$上有差别。这种假设完全脱离了随机系数的分析框架。如果我们假设它独立同分布且服从一类极值分布，则该模型就完全回到了Logit模型的情况。在Logit模型中，需求价格弹性为：</p>
+<script type="math/tex; mode=display">\eta_{jkt} = \frac{\partial{s_{jt}}p_{kt}}{\partial{p_{kt}}s_{jt}} = -\alpha p_{jt}(1-s_{jt}), j = k</script><script type="math/tex; mode=display">\eta_{jkt} = \frac{\partial{s_{jt}}p_{kt}}{\partial{p_{kt}}s_{jt}} = \alpha p_{kt}s_{kt}, j != k</script><p>Logit模型的需求价格弹性存在两个问题：</p>
+<ul>
+<li>j = k 时的自价格弹性：由于每个产品的市场份额一般很小，所以自价格弹性几乎和价格依系数$\alpha$负相关，价格下降时，自价格弹性的绝对值也下降，其倒数上升，以Lerner指数衡量的市场势力增加，这只有在便宜的产品其边际成本占价格的比例比高价商品还低的情况才有可能，但现实中不见得是这么一回事。而且，自价格弹性本身完全由间接效用函数中产品价格的函数形式决定，如果是log(price)形式，则自价格弹性会几近常数。</li>
+<li>j ！= k 时的跨产品需求价格弹性：Logit模型广为人知的替代效应IIA问题，即假设B和C有相同的市场份额，则A价格上升时，原有消费者转向B和C的比率是相同的。但假设我们有三种麦片，A和B是无糖的，C有糖，则A价格上升时，我们有充分理由相信以前买A的消费者会相对更愿意转向B。</li>
+</ul>
+<p><strong>一句话总结</strong>：Logit模型下，自价格弹性下价低者利高的假设不合理，且依赖于间接效用中价格的函数形式；跨产品价格弹性下替代效应IIA不合理。</p>
+<h4 id="Logit模型IIA问题的逻辑解释"><a href="#Logit模型IIA问题的逻辑解释" class="headerlink" title="Logit模型IIA问题的逻辑解释"></a>Logit模型IIA问题的逻辑解释</h4><p>通过分解间接效用函数为平均效用和随机效用部分，可将消费者选择消费某产品j的原因分解为：要么平均效用$\delta_{jt}$很高，要么是特定消费者冲击（consumer-specific shock）$\mu_{ijt}+\epsilon_{ijt}$很高。在Logit模型下，每个消费者对所有产品有不同的个人偏好排名，但这种不同仅来自于<strong>独立同分布</strong>的特定消费者冲击$\epsilon_{ijt}$。因此，对于原本选择A作为第一偏好产品的消费者而言，其第二选择是B还是C的概率与他是否将A排在第一位无关——他们的第二选择概率与平均大众并无二致。<br>要使那些选A为第一偏好产品的消费者将B排在第二位的概率更高，我们需要在A和B的消费者冲击上建立相关性。这种相关性有两种方式建立：1. 允许$corr(\epsilon_{iAt},\epsilon_{iBt}) !=0$；2. 允许$corr(\mu_{iAt},\mu_{iBt}) !=0$。如果我们可以准确找到相关性，1和2是等价的。</p>
+<h4 id="寻找消费者冲击相关性"><a href="#寻找消费者冲击相关性" class="headerlink" title="寻找消费者冲击相关性"></a>寻找消费者冲击相关性</h4><p>从上文所说的相关性建立的两种方式入手，GEV等方法已经尝试了第一种途径。一个例子是nested logit model，该模型将$\epsilon_{ijt}$进一步分解为独立同分布的随机冲击和分组特定冲击（group-specific shock）。不过，如何准确而完整的分组就成了一个问题。而且，虽然该模型有更灵活的替代模式，部分解决了Logit模型下的跨产品弹性问题，但依然没有解决自价格弹性中函数形式依赖问题。<br>另一种简单的想法是为$\epsilon_{ijt}$建立一个无约束协方差矩阵，并对该矩阵进行估计。这又回到了最开始将产品映射到产品特征空间时想要解决的维度过多问题（dimensionality）。<br>本文的想法是，保留$\epsilon_{ijt}$的i.i.d. 一类极值分布假设，而通过$\mu_{ijt}$来找到产品之间的相关性。$\mu_{ijt}$既是产品特征的函数，又是个人特征的函数，而且映射到特征空间后只需估计较少的参数。其他不变，相同特征的产品相关性为1；面对相同产品集，相同个人特征的消费者会有完全一样的产品排名和替代偏好。</p>
+<h4 id="BLP模型下的需求价格弹性"><a href="#BLP模型下的需求价格弹性" class="headerlink" title="BLP模型下的需求价格弹性"></a>BLP模型下的需求价格弹性</h4><p>在BLP模型假设下，产品j对产品k的需求价格弹性为：</p>
+<script type="math/tex; mode=display">\eta_{jkt} = \frac{\partial{s_{jt}p_{kt}}}{\partial{p_{kt}s_{jt}}} = -\frac{p_{jt}}{s_{jt}}\int \alpha_is_{ijt}(1-s_{ijt})d\hat P^{*}(D)dP^{*}(v), j = k</script><script type="math/tex; mode=display">\eta_{jkt} = \frac{\partial{s_{jt}p_{kt}}}{\partial{p_{kt}s_{jt}}} = \frac{p_{kt}}{s_{jt}}\int \alpha_is_{ijt}s_{ikt}d\hat P^{*}(D)dP^{*}(v), j ! = k</script><p>其中，$s_{ijt}$为市场t中，消费者i购买产品j的概率。</p>
+<script type="math/tex; mode=display">s_{ijt} = \frac{exp(\delta_{jt}+\mu_{ijt})}{1+\sum exp(\delta_{kt}+\mu_{ikt})}</script><p>注意积分符号内的第一部分即为Logit模型中的$\frac{\partial{s_{jt}}}{\partial{p_{kt}}}$。这也提示了我们接下来内外两循环的逻辑：先在给定D和v分布的情况下给定个体的D和v，此时价格弹性只与$\epsilon_{ijt}$有关，计算得Logit模型下的需求价格弹性，然后变动个体D和v求和（积分）计算得到所有购买产品j的消费者的总需求价格弹性，最后回到检查D和v的分布假设是否正确的一步上来，重复该循环。</p>
+<h4 id="BLP模型需求价格弹性的优缺点"><a href="#BLP模型需求价格弹性的优缺点" class="headerlink" title="BLP模型需求价格弹性的优缺点"></a>BLP模型需求价格弹性的优缺点</h4><p>优点：</p>
+<ul>
+<li>不依赖于函数形式：BLP下需求价格弹性不由价格进入间接效用函数的形式决定，而是于价格敏感性（或者说收入的边际效用，即$\alpha_i$）</li>
+<li>不依赖于市场分割方式（segmentation）：替代方式可以更为灵活</li>
+</ul>
+<p>缺点：计算量很大，需要合理估计分布。</p>
+<h2 id="Estimation"><a href="#Estimation" class="headerlink" title="Estimation"></a>Estimation</h2><h3 id="所需数据"><a href="#所需数据" class="headerlink" title="所需数据"></a>所需数据</h3><p>BLP模型需要的<strong>基本数据</strong>包括：</p>
+<ul>
+<li>因变量：各产品在各个市场的所占份额</li>
+<li>自变量：各产品在各个市场的平均价格，产品特征</li>
+<li>人口学特征分布估计：人口调查大样本</li>
+<li>其他变量：例如市场营销相关的变量，促销活动，广告支出，以及一些工具变量</li>
+</ul>
+<p>以上数据最好可以覆盖多个市场。</p>
+<h4 id="市场份额数据"><a href="#市场份额数据" class="headerlink" title="市场份额数据"></a>市场份额数据</h4><p>对于市场份额而言，最难确定的是外部物品所占的市场份额，该份额一般由间接法获得，即（市场总体份额-内部物品份额之和）。于是，问题转换为market sizing problem（仿佛在咨询公司面试现场…），对于咨询专家来说可能是很简单的事情，而对于一般人来说，本文作者建议从一个合适的总体入手，然后确定一个合适的比例，最后市场份额 = 总体*比例。例如，对于麦片市场，假设每个人每天需要食用一份麦片，则麦片市场总份额 = 人口数*天数。</p>
+<h4 id="加入产品虚拟变量"><a href="#加入产品虚拟变量" class="headerlink" title="加入产品虚拟变量"></a>加入产品虚拟变量</h4><p>尽管我们将产品映射到特征空间是为了减少维度问题，但在样本量很大时，加入产品虚拟变量依然是具有吸引力的。</p>
+<h3 id="Identification"><a href="#Identification" class="headerlink" title="Identification"></a>Identification</h3><h4 id="区分Logit与随机系数Logit模型"><a href="#区分Logit与随机系数Logit模型" class="headerlink" title="区分Logit与随机系数Logit模型"></a>区分Logit与随机系数Logit模型</h4><p>Logit和RC Logit模型的区别之一是替代模式。通过观察市场中的真实数据，如果替代效应是IIA的，那就应该属于Logit；而如果B和C的市场份额的相对变化不是恒定不变的话，也许RC才是更好的选择。特别是当新产品进入市场或旧产品退出市场时，如果能观测到别的产品市场份额变动比例的相对值，就能更好地估计RC Logit模型。</p>
+<h3 id="估计算法"><a href="#估计算法" class="headerlink" title="估计算法"></a>估计算法</h3><h4 id="为什么不使用最小距离目标函数"><a href="#为什么不使用最小距离目标函数" class="headerlink" title="为什么不使用最小距离目标函数"></a>为什么不使用最小距离目标函数</h4><p>最常用的参数估计目标函数为最小化估计值与真实观测值之间的距离，例如：</p>
+<script type="math/tex; mode=display">Min_\theta ||s(x,p,\delta(x,p,\xi;\theta_1);\theta_2 ) - S||</script><p>但是，这种目标函数一方面没有考虑价格和无法观测到的变量之间的内生性，另一方面也将所有参数以非线性形式进入，使得估计过程并不高效。</p>
+<h4 id="Berry（1994）估计算法"><a href="#Berry（1994）估计算法" class="headerlink" title="Berry（1994）估计算法"></a>Berry（1994）估计算法</h4><p>Berry(1994)提出的算法比最小距离目标更加适合BLP需求估计。其理论算法如下。<br>设Z为一系列工具变量组成的列向量，$Z = [z_1,…,z_M]$， 又设某个模型下误差项为$\omega(\theta^*)$，其中$\theta^*$为参数的真实值。则根据工具变量定义，有工具变量与误差项不相关，即总体矩：</p>
+<script type="math/tex; mode=display">E[z_m\omega(\theta^* )] = 0, m  = 1,2,3,..., M</script><p>由此，参数的GMM估计为：</p>
+<script type="math/tex; mode=display">\hat\theta = argmin_\theta \omega(\theta)'Z\Phi^{-1}Z'\omega (\theta)</script><p>其中，$\Phi$为$E(Z’\omega\omega’Z)$的一致估计。<br>该估计方法背后的逻辑可以理解为，如果工具变量数和待估计参数数量一样（$dim(Z) = dim(\theta)$），则我们只需以样本矩$Z’\hat \omega = 0$即可估计参数。但如果工具变量数超过待估计参数，则不存在$\theta$可以使所有样本矩为0，因此我们只能做到使其尽可能接近0（最小化）。通过加权矩阵$\Phi^{-1}$，我们将更小的权重赋予更高方差的要素。</p>
+<h4 id="Berry算法与BLP结合"><a href="#Berry算法与BLP结合" class="headerlink" title="Berry算法与BLP结合"></a>Berry算法与BLP结合</h4><p>在BLP模型下，误差项被定义为结构误差$\xi_{jt}$，注意这个误差仅以线性形式进入平均效用$\delta_{jt}$，这使得我们可以优化算法。<br>要得到无法观测到的特征$\xi_{jt}$，由</p>
+<script type="math/tex; mode=display">\omega_{jt} = \xi_{jt} = \delta_{jt}-(x_{jt}\beta+\alpha p_{jt})</script><p>知，我们需要平均效用$\delta_{jt}$的参数形式。<br>如何得到平均效用？从模型的需求方程（市场份额对价格及其他变量）入手，给定产品特征和价格，有</p>
+<script type="math/tex; mode=display">s_{jt}(\delta_{·t};\theta_2 ) = S_{jt}</script><p>最常见的估计积分形式的$s_{jt}$的方法是多次从对应分布中随机抽取一个样本，计算其对应市场份额值并求和取平均，例如：</p>
+<script type="math/tex; mode=display">s_{jt}(x_{·t},p_{·t},\delta_{·t},P_{ns};\theta_2) = \frac{1}{ns}\sum _{i =1}^{ns}s_{ijt}</script><script type="math/tex; mode=display">s_{ijt} = \frac{exp(\delta_{jt}+\sum _{k =1}^Kx_{jt}^k(\Pi D_i+\sigma_k v_i^k ))}{1+\sum _{m=1}^M exp(\delta_{mt}+\sum _{k =1}^Kx_{mt}^k(\Pi D_i+\sigma_k v_i^k ))}</script><p>这里可能比较迷惑，实际上还是假设$\epsilon_ijt$是独立同分布且服从一类极值分布，从而计算出市场t中消费者i购买j的概率$s_{ijt}$，而指数上方的一连串式子只是对应BLP的间接效用函数形式，$v_i^k$以产品特征k为上标是因为本文假设对每个产品特征，消费者都有一个不可观测的随机偏好冲击$v_i^k$，其系数为$\sigma^k$。<br>如果我们可以通过随机模拟得到市场份额的估计值，则我们就可以迭代到对应的平均效用的收敛值（某种高级的数学方法下已经证明该收敛值是平均效用的近似）：</p>
+<script type="math/tex; mode=display">\delta_{·t}^{h+1} = \delta_{·t}^h + lnS_{·t} - lns_{·t}(x_{·t},p_{·t},\delta_{·t}^h, P_{ns};\theta_2 )</script><p>由此，我们就可以基于该平均效用的收敛值代入GMM目标函数中估计出相应参数。同时，我们的非线性估计部分只需要估计非线性参数，而线性形式进入的参数可以基于一阶条件和非线性参数值计算得出，使算法得到简化。</p>
+<h3 id="工具变量"><a href="#工具变量" class="headerlink" title="工具变量"></a>工具变量</h3><p>Berry（1994）的估计算法最开始就基于一系列外生性工具变量，而价格的内生性也指引我们去寻找工具变量来解决内生性导致的有偏估计问题。</p>
+<h4 id="如何寻找工具变量"><a href="#如何寻找工具变量" class="headerlink" title="如何寻找工具变量"></a>如何寻找工具变量</h4><ul>
+<li>传统教科书式工具变量：找到cost shifters，即外生地平移成本曲线的变量，这种寻找方式在同质化产品市场是有效的，但在差异化产品市场，我们很少可以完整得到成本数据，而一般这种外生平移变量对每个品牌来说平移效果是不一样的。</li>
+<li>假设产品在产品特征空间中的位置是外生的：这一假设往往与市场竞争假设或其他函数形式假设一起使用。例如，使用同公司产的其他具有相同特征的产品的价格之和，或是其他公司产的其他具有相同特征的产品价格之和作为工具变量。这种工具变量会随产品变化而变动，不过，有时该工具变量依然可能是内生的（如果对冲击的响应速度够快）。</li>
+<li>利用面板数据的特性：例如，假设随机误差项在城市间独立，但同一城市在不同时间段之间的误差可以存在相关性。这样，同一品牌在其他城市的价格就可以作为有效的工具变量：同一品牌=同一成本=价格具有相关性，但不同城市= 误差项无关=有效工具变量。不过，如果有一些无法观测到的促销行为、广告或者别的冲击可以推测是对所有城市联动的话，这一假设就很难成立了。</li>
+</ul>
+<p>要找到合适的工具变量，需要将多种工具变量组合的结果进行比较，联系更多的数据，和利用研究者对对应行业的了解。</p>
+<h3 id="品牌特定虚拟变量"><a href="#品牌特定虚拟变量" class="headerlink" title="品牌特定虚拟变量"></a>品牌特定虚拟变量</h3><p>在可行范围内，本文作者建议尽可能加入品牌dummies，这是因为加入后这个Dummy就可以控制住随机误差项中随品牌的平均变动，从而提出更纯粹的误差部分。<br>在使用品牌虚拟变量而不使用产品特征时，我们就无法再得到平均效用中各产品特征的系数$\beta$，但这个系数实际上可以从品牌虚拟变量的系数中推断出来。假设d为J*1列向量，存储了J个产品品牌虚拟变量的系数，则品牌J给消费者带来的平均效用增加可以写为：</p>
+<script type="math/tex; mode=display">d = X\beta +\xi</script><p>假设$E(\xi|X) = 0$，则由GLS估计，得</p>
+<script type="math/tex; mode=display">\hat \beta = (X'V_d^{-1}X)^{-1}XV_d^{-1}\hat d</script>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1642,7 +1927,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1702,7 +1987,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1892,9 +2179,11 @@
   
     
       
+        
+      
     
       
-        
+    
       
     
       
