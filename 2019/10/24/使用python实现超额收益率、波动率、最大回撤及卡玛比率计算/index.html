@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。">
+<meta name="keywords" content="Python,金融">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/index.html">
+<meta property="og:site_name" content="Kanaeba&#39;s Long Position">
+<meta property="og:description" content="在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-24T11:02:07.535Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）">
+<meta name="twitter:description" content="在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值） | Kanaeba's Long Position</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-24 18:59:37 / Modified: 19:02:07" itemprop="dateCreated datePublished" datetime="2019-10-24T18:59:37+08:00">2019-10-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。下面，本文将具体介绍基于周净值计算对应指标的公式、意义、思路及具体代码实现。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>基本指标</th>
+<th>衡量维度</th>
+<th style="text-align:right">扩展指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>收益率</td>
+<td>收益</td>
+<td style="text-align:right">超额收益率，绝对收益率，k年滚动超额收益率（年化）</td>
+</tr>
+<tr>
+<td>波动率</td>
+<td>风险</td>
+<td style="text-align:right">近1年波动率（年化），k年滚动波动率（年化）</td>
+</tr>
+<tr>
+<td>最大回撤</td>
+<td>风险</td>
+<td style="text-align:right">近1年最大回撤，k年滚动最大回撤</td>
+</tr>
+<tr>
+<td>卡玛比率</td>
+<td>性价比</td>
+<td style="text-align:right">近1年卡玛比率，k年滚动卡玛比率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h2><h3 id="超额收益率"><a href="#超额收益率" class="headerlink" title="超额收益率"></a>超额收益率</h3><p>记ER为超额收益率，AR为绝对收益率，BR为基准收益率，则超额收益率的公式为：</p>
+<script type="math/tex; mode=display">
+ER_i = AR_i - BR_i</script><p>其中i为样本的某个观测点。若以周净值数据作为样本，那么i就是周记录频率下的某一周，$ER_i$即为第i周的超额收益率。基准收益率和绝对收益率的计算可能基于简单收益率，也可能是对数收益率。<br>超额收益率衡量了投资组合/基金产品相对业绩基准的表现，因此所选择的基准将对结果产生关键影响。除了采用产品所公开的业绩比较基准以外，一种基准指数的选择思路是根据基金所使用的策略分为股票（沪深300等）、债券（中证全债）、组合基金和其他（绝对基准）等。</p>
+<h3 id="波动率"><a href="#波动率" class="headerlink" title="波动率"></a>波动率</h3><p>波动率在数学上的来源就是绝对回报的标准差。在某个观测区间内（例如1年），我们可以计算出一系列绝对收益数据，并求取其标准差。但需要注意的是，我们通常会对所得结果进行年化，以求在相同标准下进行比较。假设每个观测点之间的间隔为$d$年，则基于该观测区间和观测频率的年化波动率为：</p>
+<script type="math/tex; mode=display">
+annualized volatility=\sqrt{\sum_{i = 1}^N \frac{1}{N-1}(AR_i-\overline{AR})^2}·\sqrt{\frac{1}{d}}</script><blockquote>
+<p>为什么是$\sqrt{1/d}$？这主要是因为我们假设AR是独立同分布的，而一年的总AR = 第1周AR+第2周AR+…+第52周AR（对数收益率，或者简单收益率的趋近。基本原理是$\lim_{x-&gt;0}ln(1+X) = X$）。在独立同分布的假设下，$\sigma(\sum{AR_i}) = \sqrt{1/d} *\sigma{AR_i}$</p>
+</blockquote>
+<p>以周净值数据为例，由于一年共有52周，可知$d = 1/52$,在计算出周频率的绝对收益后，即可计算指定观测区间内的标准差，然后乘以$\sqrt{52}或\sqrt{50}$。</p>
+<h3 id="最大回撤"><a href="#最大回撤" class="headerlink" title="最大回撤"></a>最大回撤</h3><p>通俗来讲，如果一个策略很不幸在最高点进入，又不幸在最低点卖出，那么这个策略的收益即是最大回撤。最高点和最低点不一定是某个指定区间的头尾——指定区间只是划定了一个范围，在这个范围时间内（例如最近一年），很可能只是在某几天“一顿操作猛如虎”，就酿成了本年度的最大回撤惨案。<br>最大回撤的数据公式定义为：</p>
+<script type="math/tex; mode=display">
+max\_drawdown = min_{j,i<=j}(X_j - X_i) = min_{j}(X_j - max_{i<=j}X_i)</script><p>看到这里是不是开始晕乎乎了呢？实际上只要一步步分解下来，实现计算最大回撤的算法并不难：</p>
+<ol>
+<li>指定一个时间范围，例如最近一年。在这个时间范围内，投资者可以随时买入，也可以随时卖出。</li>
+<li>对每个观测点j，都计算从指定时间起点开始任意时点入场、并假设在j点卖出的收益，即计算$(X_j-X_1),(X_j-X_2),…(X_j-X_{j-1}$，然后找到这些收益中的最低收益对应的时点i。</li>
+<li>对所有j都进行了第2步运算后，找到最低中的最低，以及该最低点对应的i*和j*，其中i*就是最大回撤的起始点，j*就是最大回撤的终止点，$\frac{X_{j<em>}-X_{i</em>}}{X_{i*}}$即为指定时间范围内的最大回撤率。</li>
+</ol>
+<h3 id="卡玛比率"><a href="#卡玛比率" class="headerlink" title="卡玛比率"></a>卡玛比率</h3><p>如前文所述，卡玛比率是一种类似夏普比率的收益回报比，常用于衡量产品的性价比。相比夏普比率，卡玛比率更注重每单位风险的绝对收益，与此对应，该指标选择最大回撤衡量风险。在完成绝对收益和最大回撤的计算后，卡玛比率的计算就极为轻松了。</p>
+<script type="math/tex; mode=display">
+calmar ratio = \frac{区间AR}{区间max\_drawdown}</script><h3 id="滚动指标"><a href="#滚动指标" class="headerlink" title="滚动指标"></a>滚动指标</h3><p>可以看到，在计算上述指标时，一个隐性的问题是：我们想在哪个时间范围考察这些指标？只考虑近一年的情况显然是不够的，而即使延伸到最近k年的计算结果，也是站在当前这一时点对所有历史进行回溯。一个更为动态的视角是想象自己站在每个历史上的时点，回顾该时点之前的历史，而这就是滚动指标的意义。对于滚动指标的计算，一般首先要指定一个窗口，例如1年，然后在每个时点去计算“近1年超额收益率”等指标，从而绘制出一条以时间为横轴的曲线，而非仅仅得出一个数值。</p>
+<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><p>假设我们将周净值数据存储在<code>nv_ts</code>这一个DataFrame对象中，具体包括：以周为单位的时间索引，产品对应净值和基准指数的对应净值。下面分步实现上述四个指标在1年范围内的计算。<br>为了代码上实现方便，这里直接使用empyrical包直接获得最大回撤。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt </span><br><span class="line"><span class="keyword">from</span> empyrical <span class="keyword">import</span> max_drawdown</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算产品和基准指数的周收益率（简单形式）</span></span><br><span class="line">nv_ts[<span class="string">'周产品收益'</span>] = nv_ts[<span class="string">'产品净值'</span>].pct_change()</span><br><span class="line">nv_ts[<span class="string">'周基准收益'</span>] = nv_ts[<span class="string">'基准指数'</span>].pct_change()</span><br><span class="line"><span class="comment"># 计算产品和基准指数近1年的收益率</span></span><br><span class="line"><span class="comment"># 截取最近一年的数据</span></span><br><span class="line">start_date = datetime.now()-timedelta(days = <span class="number">365</span>)</span><br><span class="line">nv_ts_one_year = nv_ts[nv_ts.index&gt;start_date]</span><br><span class="line">product_AR = nv_ts_one_year[<span class="string">'产品净值'</span>].iloc[<span class="number">-1</span>]/nv_ts_one_year[<span class="string">'产品净值'</span>].iloc[<span class="number">0</span>]<span class="number">-1</span></span><br><span class="line">baseline_AR = nv_ts_one_year[<span class="string">'基准指数'</span>].iloc[<span class="number">-1</span>]/nv_ts_one_year[<span class="string">'基准指数'</span>].iloc[<span class="number">0</span>]<span class="number">-1</span></span><br><span class="line"><span class="comment"># 计算近一年的超额收益</span></span><br><span class="line">product_ER = product_AR-baseline_AR</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算近一年年化波动率</span></span><br><span class="line">volatility = nv_ts_one_year[<span class="string">'周产品收益'</span>].std(ddof = <span class="number">1</span>)*sqrt(<span class="number">52</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算近一年最大回撤</span></span><br><span class="line">max_dd = - max_drawdown(nv_ts_one_year[<span class="string">'周产品收益'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算卡玛比率</span></span><br><span class="line">calmar_ratio = product_AR/max_dd</span><br></pre></td></tr></table></figure></p>
+<h3 id="最大回撤计算"><a href="#最大回撤计算" class="headerlink" title="最大回撤计算"></a>最大回撤计算</h3><p>除了使用现成的第三方工具以外，也可以自行计算最大回撤，从而帮助我们更好的理解最大回撤的公式和意义。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_max_dd</span><span class="params">(nv_ts)</span>:</span></span><br><span class="line">  <span class="comment"># 先找终止点</span></span><br><span class="line">  j = np.argmax(np.maximum.accumulate(nv_ts)-nv_ts)</span><br><span class="line">  <span class="comment">#np.maximum.accumulate()是指对每个点计算从0到这个点这一子序列中的最大值，然后通过argmax找到使这一差值最大的时间点j</span></span><br><span class="line">  <span class="comment"># start of the period</span></span><br><span class="line">  i = np.argmax(nv_ts[:j])在终止前的最高点就是最大回撤的开始时刻</span><br><span class="line">  <span class="comment"># 计算最大回撤率</span></span><br><span class="line">  max_dd = nv_ts[j]/nv_ts[i]<span class="number">-1</span></span><br><span class="line">  <span class="keyword">return</span> i,j,max_dd</span><br></pre></td></tr></table></figure></p>
+<h3 id="关于滚动指标的实现"><a href="#关于滚动指标的实现" class="headerlink" title="关于滚动指标的实现"></a>关于滚动指标的实现</h3><p>对于滚动指标而言，最重要的是将pandas的rolling()与上面的函数相结合，具体将在之后另一篇关于rolling()方法的blog中详细探讨，此处暂略。</p>
+<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2><p><a href="https://stackoverflow.com/questions/22607324/start-end-and-duration-of-maximum-drawdown-in-python" target="_blank" rel="noopener">Start, End and Duration of Maximum Drawdown in Python</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/kanaeba/tags/金融/" rel="tag"># 金融</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kanaeba/2019/10/20/stata分块处理大型文件/" rel="next" title="stata分块处理大型文件">
+                <i class="fa fa-chevron-left"></i> stata分块处理大型文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0OC8yMDg4MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/kanaeba/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/kanaeba/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论基础"><span class="nav-number">1.</span> <span class="nav-text">理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超额收益率"><span class="nav-number">1.1.</span> <span class="nav-text">超额收益率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#波动率"><span class="nav-number">1.2.</span> <span class="nav-text">波动率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大回撤"><span class="nav-number">1.3.</span> <span class="nav-text">最大回撤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卡玛比率"><span class="nav-number">1.4.</span> <span class="nav-text">卡玛比率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滚动指标"><span class="nav-number">1.5.</span> <span class="nav-text">滚动指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python代码实现"><span class="nav-number">2.</span> <span class="nav-text">python代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大回撤计算"><span class="nav-number">2.1.</span> <span class="nav-text">最大回撤计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于滚动指标的实现"><span class="nav-number">2.2.</span> <span class="nav-text">关于滚动指标的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料链接"><span class="nav-number">3.</span> <span class="nav-text">参考资料链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/affix.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
