@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
 <meta property="og:description" content="在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-24T11:02:07.535Z">
+<meta property="og:updated_time" content="2019-10-25T09:26:45.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）">
 <meta name="twitter:description" content="在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。">
@@ -371,12 +371,24 @@
                 
               
 
-              <time title="Created: 2019-10-24 18:59:37 / Modified: 19:02:07" itemprop="dateCreated datePublished" datetime="2019-10-24T18:59:37+08:00">2019-10-24</time>
+              <time title="Created: 2019-10-24 18:59:37" itemprop="dateCreated datePublished" datetime="2019-10-24T18:59:37+08:00">2019-10-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-25 17:26:45" itemprop="dateModified" datetime="2019-10-25T17:26:45+08:00">2019-10-25</time>
               
             
           </span>
@@ -467,8 +479,8 @@
 ER_i = AR_i - BR_i</script><p>其中i为样本的某个观测点。若以周净值数据作为样本，那么i就是周记录频率下的某一周，$ER_i$即为第i周的超额收益率。基准收益率和绝对收益率的计算可能基于简单收益率，也可能是对数收益率。<br>超额收益率衡量了投资组合/基金产品相对业绩基准的表现，因此所选择的基准将对结果产生关键影响。除了采用产品所公开的业绩比较基准以外，一种基准指数的选择思路是根据基金所使用的策略分为股票（沪深300等）、债券（中证全债）、组合基金和其他（绝对基准）等。</p>
 <h3 id="波动率"><a href="#波动率" class="headerlink" title="波动率"></a>波动率</h3><p>波动率在数学上的来源就是绝对回报的标准差。在某个观测区间内（例如1年），我们可以计算出一系列绝对收益数据，并求取其标准差。但需要注意的是，我们通常会对所得结果进行年化，以求在相同标准下进行比较。假设每个观测点之间的间隔为$d$年，则基于该观测区间和观测频率的年化波动率为：</p>
 <script type="math/tex; mode=display">
-annualized volatility=\sqrt{\sum_{i = 1}^N \frac{1}{N-1}(AR_i-\overline{AR})^2}·\sqrt{\frac{1}{d}}</script><blockquote>
-<p>为什么是$\sqrt{1/d}$？这主要是因为我们假设AR是独立同分布的，而一年的总AR = 第1周AR+第2周AR+…+第52周AR（对数收益率，或者简单收益率的趋近。基本原理是$\lim_{x-&gt;0}ln(1+X) = X$）。在独立同分布的假设下，$\sigma(\sum{AR_i}) = \sqrt{1/d} *\sigma{AR_i}$</p>
+annualized\ volatility=\sqrt{\sum_{i = 1}^N \frac{1}{N-1}(AR_i-\overline{AR})^2}·\sqrt{\frac{1}{d}}</script><blockquote>
+<p>为什么是$\sqrt{1/d}$？这主要是因为我们假设AR是独立同分布的，而一年的总AR = 第1周AR+第2周AR+…+第52周AR（对数收益率，或者简单收益率的趋近。基本原理是$\lim_{x-&gt;0}ln(1+X) = X$）。在独立同分布的假设下，$\sigma(\sum{AR_i}) = \sqrt{1/d} *\sigma(AR_i)$</p>
 </blockquote>
 <p>以周净值数据为例，由于一年共有52周，可知$d = 1/52$,在计算出周频率的绝对收益后，即可计算指定观测区间内的标准差，然后乘以$\sqrt{52}或\sqrt{50}$。</p>
 <h3 id="最大回撤"><a href="#最大回撤" class="headerlink" title="最大回撤"></a>最大回撤</h3><p>通俗来讲，如果一个策略很不幸在最高点进入，又不幸在最低点卖出，那么这个策略的收益即是最大回撤。最高点和最低点不一定是某个指定区间的头尾——指定区间只是划定了一个范围，在这个范围时间内（例如最近一年），很可能只是在某几天“一顿操作猛如虎”，就酿成了本年度的最大回撤惨案。<br>最大回撤的数据公式定义为：</p>
