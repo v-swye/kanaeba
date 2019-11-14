@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。  在追求梦想的过程中，从野蛮走向文明，再随着梦想力量的失去，走向衰落和死亡，这就是一个民族的生命循环。  认识群体群体概念群体是一个与个体相对的概念。个体">
-<meta name="keywords" content="社会学">
+  <meta name="description" content="定义与计算原理条件在险价值（CVaR）又名期望损失（Expected Shortfall）。如果说在险价值（VaR）是统计上某个分位点值的话，ES就是这个分位点以下损失的期望。因此，基于样本数据计算$\alpha$分位处的条件在险价值的基本步骤如下：  计算指定频率的收益率（假设有N个样本点） 将收益率按从低到高排列 寻找位于分位点的样本点（第$N*\alpha$个样本，注意这个样本对应的收益率，">
+<meta name="keywords" content="Python,金融">
 <meta property="og:type" content="article">
-<meta property="og:title" content="读书笔记：乌合之众">
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/09/22/读书笔记：乌合之众/index.html">
+<meta property="og:title" content="使用python实现条件在险价值（CVaR&#x2F;ES）计算">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-<meta property="og:description" content="在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。  在追求梦想的过程中，从野蛮走向文明，再随着梦想力量的失去，走向衰落和死亡，这就是一个民族的生命循环。  认识群体群体概念群体是一个与个体相对的概念。个体">
+<meta property="og:description" content="定义与计算原理条件在险价值（CVaR）又名期望损失（Expected Shortfall）。如果说在险价值（VaR）是统计上某个分位点值的话，ES就是这个分位点以下损失的期望。因此，基于样本数据计算$\alpha$分位处的条件在险价值的基本步骤如下：  计算指定频率的收益率（假设有N个样本点） 将收益率按从低到高排列 寻找位于分位点的样本点（第$N*\alpha$个样本，注意这个样本对应的收益率，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-22T07:02:37.000Z">
+<meta property="og:updated_time" content="2019-11-14T10:59:09.096Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="读书笔记：乌合之众">
-<meta name="twitter:description" content="在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。  在追求梦想的过程中，从野蛮走向文明，再随着梦想力量的失去，走向衰落和死亡，这就是一个民族的生命循环。  认识群体群体概念群体是一个与个体相对的概念。个体">
+<meta name="twitter:title" content="使用python实现条件在险价值（CVaR&#x2F;ES）计算">
+<meta name="twitter:description" content="定义与计算原理条件在险价值（CVaR）又名期望损失（Expected Shortfall）。如果说在险价值（VaR）是统计上某个分位点值的话，ES就是这个分位点以下损失的期望。因此，基于样本数据计算$\alpha$分位处的条件在险价值的基本步骤如下：  计算指定频率的收益率（假设有N个样本点） 将收益率按从低到高排列 寻找位于分位点的样本点（第$N*\alpha$个样本，注意这个样本对应的收益率，">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/09/22/读书笔记：乌合之众/">
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>读书笔记：乌合之众 | Kanaeba's Long Position</title>
+  <title>使用python实现条件在险价值（CVaR/ES）计算 | Kanaeba's Long Position</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/09/22/读书笔记：乌合之众/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">读书笔记：乌合之众
+          <h1 class="post-title" itemprop="name headline">使用python实现条件在险价值（CVaR/ES）计算
 
               
             
@@ -371,12 +371,24 @@
                 
               
 
-              <time title="Created: 2019-09-22 14:34:35 / Modified: 15:02:37" itemprop="dateCreated datePublished" datetime="2019-09-22T14:34:35+08:00">2019-09-22</time>
+              <time title="Created: 2019-11-13 18:59:37" itemprop="dateCreated datePublished" datetime="2019-11-13T18:59:37+08:00">2019-11-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-14 18:59:09" itemprop="dateModified" datetime="2019-11-14T18:59:09+08:00">2019-11-14</time>
               
             
           </span>
@@ -393,7 +405,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/读万卷书/" itemprop="url" rel="index"><span itemprop="name">读万卷书</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
 
                 
                 
@@ -428,23 +440,14 @@
       
 
       
-        <p>在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。</p>
-<blockquote>
-<p>在追求梦想的过程中，从野蛮走向文明，再随着梦想力量的失去，走向衰落和死亡，这就是一个民族的生命循环。</p>
-</blockquote>
-<h2 id="认识群体"><a href="#认识群体" class="headerlink" title="认识群体"></a>认识群体</h2><h3 id="群体概念"><a href="#群体概念" class="headerlink" title="群体概念"></a>群体概念</h3><p>群体是一个与个体相对的概念。个体是理性的，而群体则是非理性的。勒庞认为，种族的文明程度，或者说情绪化程度，决定了群体的非理性程度。这虽然是种族主义的陈旧偏见，但不可否认的是，情绪而非物理存在才是群体定义的本质。群体产生源于思想与情绪的同一导向，与其说在讨论群体，不如说是在讨论心理群体的特征。</p>
-<h3 id="群体的特征"><a href="#群体的特征" class="headerlink" title="群体的特征"></a>群体的特征</h3><ul>
-<li><strong>匿名性</strong>：在群体的掩护下，个人获取了势不可挡的心理感受，使得放纵本能成为可能。这种匿名性显然是群体失控的潜在引子。</li>
-<li><strong>传染性</strong>：传染性决定了群体的倾向，同时推动个体愿意为了集体利益而牺牲、放弃个人利益。</li>
-<li><strong>暗示性</strong>：群体暗示下，个体的行为表现甚至可能与其独处时的表现完全相反。不过，虽然群体智力低于孤立个体，但其情绪和行为所产生的表现形式及后果未必更坏。比如，在群体的号召下，个人可能更愿意慷慨解囊、热心慈善，他们在群体中获得了更高的认同感。</li>
-</ul>
-<h2 id="群体观念"><a href="#群体观念" class="headerlink" title="群体观念"></a>群体观念</h2><p>要明白如何巧妙地“领导”群体，首先要清楚观念如何在群体中传播，特别是基本观念。勒庞将群体观念分为两种，一种是短时的观念，而另一种则是在环境、遗传和舆论等要素影响下形成的基本观念。在观念的形成和传播过程中，群体的力量也在不断被放大。</p>
-<h3 id="观念的传播"><a href="#观念的传播" class="headerlink" title="观念的传播"></a>观念的传播</h3><p>观念传播埋伏于诸如种族、传统、时间、制度和教育等间接因素，而爆发于某个事件或是特殊时间点产生的直接因素。因此，领导者需要意识到，群体只擅长低级推理：将表面关联的事物结合在一起；或是将特殊事件即刻一般化。经年的事故死亡并不比一次具体、详细描述的实验室爆炸更牵动人心。这是因为，与群体极为低下的推理能力相反，群众伟大的想象力可以构筑出强大的“想象共同体”。因而，领导者想要提出的观念必须足够简明、形象，最好以“断言”的形式出现，然后再加以重复和感染，打动和引诱比纯粹理性的公平制度有效得多。而感召力的强弱则主要取决于成功所带来的名望。观念一旦形成，便很难改变，然而却有一点必须时刻注意：一旦失去名望，观念很可能迅速分崩离析。因此，那些历史上长期保持名望的人，为了让群众信仰，总是注意保持距离，维持自身的神秘感。</p>
-<h3 id="教育的力量"><a href="#教育的力量" class="headerlink" title="教育的力量"></a>教育的力量</h3><p>另一点令人印象深刻的是勒庞关于教育的探讨。教育方式影响着人的推理、判断和想象能力，也就是说，也潜在地影响着“一个民族的文明程度”。勒庞对英美社会的教育赞赏有加，而对形成乌合之众的教育方式不以为然：死记硬背的教育只培养出盲目服从的学生，所教授的内容无助于社会，不过是产生持有文凭的失业者。讽刺的是，这种教育下形成的乌合之众，倒的确是更有助于维持稳固的统治。</p>
-<blockquote>
-<p>始终支配着群体心灵的，不是对自由的渴求，而是对被奴役的渴求。</p>
-</blockquote>
-<h2 id="乌合之众"><a href="#乌合之众" class="headerlink" title="乌合之众"></a>乌合之众</h2><p>《乌合之众》对当前“群体无意识行为取代个体有意识行动”的社会流向提供了解释，指出历史上真正的动荡并非那些大事件，而是扎根群众思想底部的观念变化。这自然有助于我们理解历史上的群体性事件，然而到底是止步于此，还是反思个人在群体中所扮演的角色，或是用于钻研运用“大胜利、大奇迹、大罪行、大前景”引导群体的“帝王术”，或是选择更为高尚的道路、寻找人类群体失控与个体孤立之间的平衡点，则是“理性”个体需要自己追寻的答案。</p>
+        <h2 id="定义与计算原理"><a href="#定义与计算原理" class="headerlink" title="定义与计算原理"></a>定义与计算原理</h2><p>条件在险价值（CVaR）又名期望损失（Expected Shortfall）。如果说在险价值（VaR）是统计上某个分位点值的话，ES就是这个分位点以下损失的期望。因此，基于样本数据计算$\alpha$分位处的条件在险价值的基本步骤如下：</p>
+<ol>
+<li>计算指定频率的收益率（假设有N个样本点）</li>
+<li>将收益率按从低到高排列</li>
+<li>寻找位于分位点的样本点（第$N*\alpha$个样本，注意这个样本对应的收益率，或者说损失，就是传统的VaR）</li>
+<li>计算低于该样本点的所有损失的均值$\frac{\sum^{m}_{i}X_i }{m}$。</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map_CVaR</span><span class="params">(series, alpha)</span>:</span></span><br><span class="line"> <span class="string">"""</span></span><br><span class="line"><span class="string"> - Series: 一个产品的一系列收益率数据</span></span><br><span class="line"><span class="string"> - 使用方法：设有某个每一列为一个产品数据的dataframe df: df.apply(map_CVaR, alpha = 0.01)</span></span><br><span class="line"><span class="string"> - 返回值：该产品样本对应的CVaR值</span></span><br><span class="line"><span class="string"> """</span></span><br><span class="line">    series = series.sort_values(ascending = <span class="literal">True</span>)</span><br><span class="line">    df = pd.DataFrame(series) </span><br><span class="line">    N = len(df)</span><br><span class="line">    m = int(N*alpha)</span><br><span class="line">    df[<span class="string">'count'</span>] = np.arange(<span class="number">1</span>,N+<span class="number">1</span>)</span><br><span class="line">    df = df[df[<span class="string">'count'</span>] &lt;= m]</span><br><span class="line">    <span class="keyword">return</span> -df.iloc[:,<span class="number">0</span>].mean()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -468,7 +471,9 @@
       
         <div class="post-tags">
           
-            <a href="/kanaeba/tags/社会学/" rel="tag"># 社会学</a>
+            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/kanaeba/tags/金融/" rel="tag"># 金融</a>
           
         </div>
       
@@ -481,8 +486,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kanaeba/2019/08/25/后布雷顿森林时代/" rel="next" title="后布雷顿森林时代">
-                <i class="fa fa-chevron-left"></i> 后布雷顿森林时代
+              <a href="/kanaeba/2019/11/09/读书笔记：学会提问/" rel="next" title="读书笔记：学会提问">
+                <i class="fa fa-chevron-left"></i> 读书笔记：学会提问
               </a>
             
           </div>
@@ -490,10 +495,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kanaeba/2019/09/28/读书笔记：当我谈跑步时我谈些什么/" rel="prev" title="读书笔记：当我谈跑步时我谈些什么">
-                读书笔记：当我谈跑步时我谈些什么 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -671,7 +672,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#认识群体"><span class="nav-number">1.</span> <span class="nav-text">认识群体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#群体概念"><span class="nav-number">1.1.</span> <span class="nav-text">群体概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#群体的特征"><span class="nav-number">1.2.</span> <span class="nav-text">群体的特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#群体观念"><span class="nav-number">2.</span> <span class="nav-text">群体观念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#观念的传播"><span class="nav-number">2.1.</span> <span class="nav-text">观念的传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#教育的力量"><span class="nav-number">2.2.</span> <span class="nav-text">教育的力量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乌合之众"><span class="nav-number">3.</span> <span class="nav-text">乌合之众</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义与计算原理"><span class="nav-number">1.</span> <span class="nav-text">定义与计算原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
             
 
           </div>
@@ -830,7 +831,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/09/22/读书笔记：乌合之众/'
+    refer: '2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
@@ -860,6 +861,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

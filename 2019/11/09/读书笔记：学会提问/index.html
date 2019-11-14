@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在当下这个信息爆炸的时代，唯有拥有批判性思考的能力，才能在扑面而来的信息潮流中捕获些许真正能支撑自己成长的力量。一直以来，我都以相对具有从多方面客观看待事物的能力而感到自豪，直到遇到这本书我才知道——尽管我已经成功避免了某些常见的思维偏误，但我还做得远远不够，无论是接受信息还是通过写作等方式传达信息。我相信，每个人在任何一个年纪遇到这本书，都将有所裨益（成为一名合格的杠精）。 批判性思考 我们倾听">
+<meta name="keywords" content="Economics, Data, Python, MATLAB, Analytics, Asia, Games, UrbanLife">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读书笔记：学会提问">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/11/09/读书笔记：学会提问/index.html">
+<meta property="og:site_name" content="Kanaeba&#39;s Long Position">
+<meta property="og:description" content="在当下这个信息爆炸的时代，唯有拥有批判性思考的能力，才能在扑面而来的信息潮流中捕获些许真正能支撑自己成长的力量。一直以来，我都以相对具有从多方面客观看待事物的能力而感到自豪，直到遇到这本书我才知道——尽管我已经成功避免了某些常见的思维偏误，但我还做得远远不够，无论是接受信息还是通过写作等方式传达信息。我相信，每个人在任何一个年纪遇到这本书，都将有所裨益（成为一名合格的杠精）。 批判性思考 我们倾听">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-14T11:00:06.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读书笔记：学会提问">
+<meta name="twitter:description" content="在当下这个信息爆炸的时代，唯有拥有批判性思考的能力，才能在扑面而来的信息潮流中捕获些许真正能支撑自己成长的力量。一直以来，我都以相对具有从多方面客观看待事物的能力而感到自豪，直到遇到这本书我才知道——尽管我已经成功避免了某些常见的思维偏误，但我还做得远远不够，无论是接受信息还是通过写作等方式传达信息。我相信，每个人在任何一个年纪遇到这本书，都将有所裨益（成为一名合格的杠精）。 批判性思考 我们倾听">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/11/09/读书笔记：学会提问/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>读书笔记：学会提问 | Kanaeba's Long Position</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/11/09/读书笔记：学会提问/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读书笔记：学会提问
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-09 11:15:31" itemprop="dateCreated datePublished" datetime="2019-11-09T11:15:31+08:00">2019-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-14 19:00:06" itemprop="dateModified" datetime="2019-11-14T19:00:06+08:00">2019-11-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/读万卷书/" itemprop="url" rel="index"><span itemprop="name">读万卷书</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在当下这个信息爆炸的时代，唯有拥有批判性思考的能力，才能在扑面而来的信息潮流中捕获些许真正能支撑自己成长的力量。一直以来，我都以相对具有从多方面客观看待事物的能力而感到自豪，直到遇到这本书我才知道——尽管我已经成功避免了某些常见的思维偏误，但我还做得远远不够，无论是接受信息还是通过写作等方式传达信息。我相信，每个人在任何一个年纪遇到这本书，都将有所裨益（成为一名合格的杠精）。</p>
+<h2 id="批判性思考"><a href="#批判性思考" class="headerlink" title="批判性思考"></a>批判性思考</h2><blockquote>
+<p>我们倾听他们，是为了构建出自己的答案。</p>
+</blockquote>
+<h3 id="为什么要批判性思考"><a href="#为什么要批判性思考" class="headerlink" title="为什么要批判性思考"></a>为什么要批判性思考</h3><p>正如《乌合之众》中勒庞对群体的讽刺——领导群体需要的不是真理，而是“断言”——似乎人性中天生就有一种偷懒的倾向，尽可能避免麻烦的推导、寄希望于他人可以直接告诉我们结果。然而从历史上来看，一旦对之加以利用形成偏向性的煽动，其结果对整个人类社会来说都是灾难性的。批判性思维的起点，就在于个体要有提高思维能力的强烈愿望，选择自己的主见，而非一味全盘接受。</p>
+<h3 id="什么是批判性思维"><a href="#什么是批判性思维" class="headerlink" title="什么是批判性思维"></a>什么是批判性思维</h3><p>作者认为，批判性思维包括以下三点：</p>
+<ol>
+<li>要能意识到它们是一整套环环相扣的关键问题；</li>
+<li>有能力在适当时机以适当的方式提出和回答问题；</li>
+<li>积极主动地使用这些关键问题的强烈渴望。</li>
+</ol>
+<p>当作者或演讲者等观点的陈述人不断向你兜售观点时，应该随时准备与之辩驳，这种互动方式被称为“淘金式思维”。</p>
+<h4 id="海绵式与淘金式思维"><a href="#海绵式与淘金式思维" class="headerlink" title="海绵式与淘金式思维"></a>海绵式与淘金式思维</h4><p>或许是由于中国传统的教育方式仍强调灌输为主，我们大部分人都在无意中形成了海绵式思维——即大量吸收外部信息。但这种思维在选择接受或摒弃哪些信息和观点上毫无帮助。淘金式思维（panning-for-gold style of thinking）则强调观点的接收方和传输方间多加互动，不断提问并思考问题的答案。</p>
+<h4 id="强势与弱势批判性思维"><a href="#强势与弱势批判性思维" class="headerlink" title="强势与弱势批判性思维"></a>强势与弱势批判性思维</h4><p>拥有批判性思维并不意味着形成理性的主见。一般来讲，我们都有一种“弱势批判性思维”的倾向，即利用批判性思维来捍卫自己的理念，以驳倒与自己不同的观点和论证为终极目标。然而，这种对自己主张的绝对信任无益于追求真理。强势批判性思维要求我们对包括自己在内的所有主张提出批判性的问题，以评估所有的断言以及信念。</p>
+<h4 id="快思考与慢思考"><a href="#快思考与慢思考" class="headerlink" title="快思考与慢思考"></a>快思考与慢思考</h4><p>在使用弱势批判性思维时，我们就已经落入了名为“快思考”的陷阱。本书的作者在更新这一版内容时，特意将原书内容与《思考，快与慢》结合，挖掘快思考和慢思考这两个抽象概念中的实际表现。快思考可谓人类懒惰本性下的常见倾向，一旦事实的确符合快思考得出的结论，就可以节省下大量的时间，但这种倾向同时会导致我们无法对一个问题进行深入细致的分析。常见的快思考倾向包括：</p>
+<ul>
+<li>只愿意听价值观倾向和我们相似的人的话</li>
+<li><strong>刻板印象</strong>：基于某个人所属的特定群体断言此人具有的一系列明确特征，绕开客观评价的艰难过程</li>
+<li><strong>晕轮效应（halo effect）</strong>：先认识到一个人身上具有的优缺点，然后把这些特征与这个人的其他一切都联系起来。如果对一个人有着积极的认识，便以为他在其他方面也有着过人之处，便特别容易接受他的观点</li>
+<li><strong>确认性偏见（confirmation bias）</strong>：只把那些确认我们既有信念的证据当成可靠证据，并最终导致<strong>信念固着（belief perseverance）</strong></li>
+<li><strong>可得性启发（availability heuristic）</strong>：只根据手边最容易获得的信息来形成结论，而不付出时间和精力获取、处理额外的信息</li>
+<li><strong>近因效应（recent effect）</strong>：最新看到的信息占有影响评判标准的最高权重；例如，尽管空难的概率非常低，但出现一场空难后有些乘客几个月也不敢乘飞机出行</li>
+<li><strong>似是而非（truthiness）</strong>：相信希望是真的概念或事实而非已经证明为真的概念或事实</li>
+<li><strong>奇迹式思维（magical thinking）</strong>：在科学还不能提供令人信服的解释时，人们寻求奇迹来解释，“将特定的结论变成现实”。</li>
+</ul>
+<p>这些快思考方式不仅影响一个人对严肃讨论和议题的评估能力，同时也在日常生活和社交中扮演着重要角色；无论何时，我们都应该多加询问一下自己：是否陷入了快思考的陷阱中？</p>
+<h2 id="评价论证"><a href="#评价论证" class="headerlink" title="评价论证"></a>评价论证</h2><h3 id="论题"><a href="#论题" class="headerlink" title="论题"></a>论题</h3><p>要评估一个论证，首先需要知道这个论证提出了什么样的问题，也即论题。论题一般可以分为描述性论题和规定性论题。</p>
+<ul>
+<li>描述性论题：针对各种客观描述的精确与否提出的问题，即<strong>“是不是”</strong></li>
+<li>规定性论题：伦理或道德范畴，需要的是关于<strong>“应该”怎么样</strong>的规定性答案。社会争论通常属于规定性论题，其关注的焦点在于好坏对错，而非对既有事实的认知和描述。</li>
+</ul>
+<h4 id="术语界定"><a href="#术语界定" class="headerlink" title="术语界定"></a>术语界定</h4><p>在提出论题的时候，首先要避免的是模糊的定义。与“一千个读者心中有一千个哈姆雷特”的不同，歧义的产生只会导致整个论证都无法精准地传达给受众，而且这种误解的频率远远高于我们的想象——很多我们以为的常识实际并不广为人所知，或者至少还欠缺着一个被广泛接受的统一的定义。例如，“人权”这个词如果出现在挪威政府，那可能就是指就业权、免费医疗权、房屋住宿权，而美国参议员所说的“人权”则可能指言论自由、宗教信仰等权利。因此，应当小心使用每一个沾有专业性的词汇，最好的做法是以其他人从未听过这个词语为前提，而不是默认受众早已得知关键词的含义。同时，鼓励听众提出问题，从而确保自己所想要表达的意思和实际表达的意思一致。<br>常见的界定术语的方法有以下三种：同义替换（synonyms）、举例说明（examples）和具体标准定义（definition by specific criteria）。然而，前两种都具有很高的误导性，只适用于一种定义的具象化补充，对于客观评价大多数有争议的论题并不合适。更有甚者将大量“附加感情色彩的术语”（loaded terms）用于激发强烈的情感反应，以此达到个人目的。例如，政治语言通常都带有强烈的感情色彩，并且尽可能地模棱两可。</p>
+<h3 id="论证"><a href="#论证" class="headerlink" title="论证"></a>论证</h3><h4 id="论证结构"><a href="#论证结构" class="headerlink" title="论证结构"></a>论证结构</h4><h4 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h4><h4 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h4><h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><h2 id="常见误区"><a href="#常见误区" class="headerlink" title="常见误区"></a>常见误区</h2><h3 id="类比"><a href="#类比" class="headerlink" title="类比"></a>类比</h3><h3 id="因果与相关"><a href="#因果与相关" class="headerlink" title="因果与相关"></a>因果与相关</h3><h3 id="谬误"><a href="#谬误" class="headerlink" title="谬误"></a>谬误</h3><h3 id="统计数据"><a href="#统计数据" class="headerlink" title="统计数据"></a>统计数据</h3><h3 id="二分式思维与改进"><a href="#二分式思维与改进" class="headerlink" title="二分式思维与改进"></a>二分式思维与改进</h3><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/" rel="next" title="使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）">
+                <i class="fa fa-chevron-left"></i> 使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/" rel="prev" title="使用python实现条件在险价值（CVaR/ES）计算">
+                使用python实现条件在险价值（CVaR/ES）计算 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0OC8yMDg4MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/kanaeba/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/kanaeba/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#批判性思考"><span class="nav-number">1.</span> <span class="nav-text">批判性思考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要批判性思考"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要批判性思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是批判性思维"><span class="nav-number">1.2.</span> <span class="nav-text">什么是批判性思维</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#海绵式与淘金式思维"><span class="nav-number">1.2.1.</span> <span class="nav-text">海绵式与淘金式思维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强势与弱势批判性思维"><span class="nav-number">1.2.2.</span> <span class="nav-text">强势与弱势批判性思维</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快思考与慢思考"><span class="nav-number">1.2.3.</span> <span class="nav-text">快思考与慢思考</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价论证"><span class="nav-number">2.</span> <span class="nav-text">评价论证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#论题"><span class="nav-number">2.1.</span> <span class="nav-text">论题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#术语界定"><span class="nav-number">2.1.1.</span> <span class="nav-text">术语界定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#论证"><span class="nav-number">2.2.</span> <span class="nav-text">论证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#论证结构"><span class="nav-number">2.2.1.</span> <span class="nav-text">论证结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理由"><span class="nav-number">2.2.2.</span> <span class="nav-text">理由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#假设"><span class="nav-number">2.2.3.</span> <span class="nav-text">假设</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">2.2.4.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见误区"><span class="nav-number">3.</span> <span class="nav-text">常见误区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类比"><span class="nav-number">3.1.</span> <span class="nav-text">类比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因果与相关"><span class="nav-number">3.2.</span> <span class="nav-text">因果与相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谬误"><span class="nav-number">3.3.</span> <span class="nav-text">谬误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计数据"><span class="nav-number">3.4.</span> <span class="nav-text">统计数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二分式思维与改进"><span class="nav-number">3.5.</span> <span class="nav-text">二分式思维与改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/affix.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/11/09/读书笔记：学会提问/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
