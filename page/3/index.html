@@ -328,6 +328,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/05/22/Pandas包读取文件：编码错误解决方案/" class="post-title-link" itemprop="url">Pandas包读取文件：编码错误解决方案</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-22 21:59:05 / Modified: 22:00:03" itemprop="dateCreated datePublished" datetime="2019-05-22T21:59:05+08:00">2019-05-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>尽管现在大部分数据都比较规范，会统一以utf-8存储，但一到中文世界，数据库的编码格式就不一定那么顺利了。在本次帮导师匹配数据库的过程中，因为棘手的编码问题困扰了很久，也费了不少时间，因此在这里做个简单记录，共享该类问题的处理方案。</p>
+<h2 id="检查编码"><a href="#检查编码" class="headerlink" title="检查编码"></a>检查编码</h2><p>在Windows环境下，只要不是太大的数据文本文件，都可以用Notepad++打开查看；macOS也可以利用VS Code来推断编码方式。不过，当我们遇到特别大的文件时，这两者就无能为力了。好在利用python的chardet，我们可以得到编码推断：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chardet</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'文件路径'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    result = chardet.detect(f.read()) <span class="comment"># 或对大文件：readline </span></span><br><span class="line">print(result[encoding])</span><br></pre></td></tr></table></figure></p>
+<p>中文数据往往采用ANSI编码，请多尝试<code>encoding = &#39;gbk&#39;/&#39;gb18030&#39;</code>来解码。一般都可以解码成功。</p>
+<h2 id="处理解码不成功"><a href="#处理解码不成功" class="headerlink" title="处理解码不成功"></a>处理解码不成功</h2><p>不知道什么原因，我的一部分数据就是解码不出来（其前后都可以），频频报错。如果这类数据比较少，不太重要，可以尝试下面的方法跳过：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = open(path,<span class="string">'r+'</span>, encoding = encoding, errors = <span class="string">'replace'</span>) <span class="comment">#replace会保留错误行，如果选择直接跳过，设置errors = 'ignore'</span></span><br><span class="line">data = pd.read_csv(f, low_memory = <span class="literal">False</span>, error_bad_lines = <span class="literal">False</span>)</span><br></pre></td></tr></table></figure></p>
+<p>完美~</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/21/SCP分析框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1477,7 +1642,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1731,6 +1896,8 @@
 
   
   
+    
+      
     
       
         
