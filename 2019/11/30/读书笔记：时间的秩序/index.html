@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="当时间这一文学上令人无限着迷的概念被纯粹的物理与科学瓦解，又再经如诗歌搬的笔墨重塑，我们才意识到，我们的视角反映出时间的“流动”，而这流动又给予了我们苦痛与永恒的感受。作为一名离物理学已经远去许多年的“曾经理科生”，即使对这本极简科学系列的小册子逐字逐句探究，也会意识到难以把控作者深意和时间的真理。这篇笔记或许是目前为止我敲得最为惶恐的一篇，但无知不应成为追求真理的绊脚石——毕竟，这一切不过是我这">
+<meta name="keywords" content="Economics, Data, Python, MATLAB, Analytics, Asia, Games, UrbanLife">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读书笔记：时间的秩序">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/11/30/读书笔记：时间的秩序/index.html">
+<meta property="og:site_name" content="Kanaeba&#39;s Long Position">
+<meta property="og:description" content="当时间这一文学上令人无限着迷的概念被纯粹的物理与科学瓦解，又再经如诗歌搬的笔墨重塑，我们才意识到，我们的视角反映出时间的“流动”，而这流动又给予了我们苦痛与永恒的感受。作为一名离物理学已经远去许多年的“曾经理科生”，即使对这本极简科学系列的小册子逐字逐句探究，也会意识到难以把控作者深意和时间的真理。这篇笔记或许是目前为止我敲得最为惶恐的一篇，但无知不应成为追求真理的绊脚石——毕竟，这一切不过是我这">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-01T07:48:39.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读书笔记：时间的秩序">
+<meta name="twitter:description" content="当时间这一文学上令人无限着迷的概念被纯粹的物理与科学瓦解，又再经如诗歌搬的笔墨重塑，我们才意识到，我们的视角反映出时间的“流动”，而这流动又给予了我们苦痛与永恒的感受。作为一名离物理学已经远去许多年的“曾经理科生”，即使对这本极简科学系列的小册子逐字逐句探究，也会意识到难以把控作者深意和时间的真理。这篇笔记或许是目前为止我敲得最为惶恐的一篇，但无知不应成为追求真理的绊脚石——毕竟，这一切不过是我这">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/11/30/读书笔记：时间的秩序/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>读书笔记：时间的秩序 | Kanaeba's Long Position</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/11/30/读书笔记：时间的秩序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">读书笔记：时间的秩序
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-30 14:32:39" itemprop="dateCreated datePublished" datetime="2019-11-30T14:32:39+08:00">2019-11-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-12-01 15:48:39" itemprop="dateModified" datetime="2019-12-01T15:48:39+08:00">2019-12-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/读万卷书/" itemprop="url" rel="index"><span itemprop="name">读万卷书</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当时间这一文学上令人无限着迷的概念被纯粹的物理与科学瓦解，又再经如诗歌搬的笔墨重塑，我们才意识到，我们的视角反映出时间的“流动”，而这流动又给予了我们苦痛与永恒的感受。作为一名离物理学已经远去许多年的“曾经理科生”，即使对这本极简科学系列的小册子逐字逐句探究，也会意识到难以把控作者深意和时间的真理。这篇笔记或许是目前为止我敲得最为惶恐的一篇，但无知不应成为追求真理的绊脚石——毕竟，这一切不过是我这小小系统的某种特殊视角罢了。</p>
+<h2 id="时间正在失去它的“性质”"><a href="#时间正在失去它的“性质”" class="headerlink" title="时间正在失去它的“性质”"></a>时间正在失去它的“性质”</h2><p>对时间的直觉是什么呢？它是统一的，我们活在同一个时刻；它具有方向，从过去指向未来；在过去和未来之间，存在名为“当下”的一个瞬间，让我们用“现在”去描述；时间是真实存在的独立维度，即使所有物质都凭空消失，时间也依然以它自己的步伐流动；时间是连续的，我们可以用时间段来描述持续的事件或是运动。然而，当量子力学为我们揭开时间的神秘面纱，时间的上述性质竟一层层消失了——</p>
+<h3 id="统一性"><a href="#统一性" class="headerlink" title="统一性"></a>统一性</h3><p>相对论的结论之一便是，时间在不同地方流逝的速度是不均匀的。爱因斯坦猜想，太阳和地球并未直接吸引，而是对它们之间的事物——空间和时间——产生作用。物体使它周围的时间变慢，举例来讲，时间的流逝在山上就比在海平面上要快，而这种对时间结构的改造进一步影响了物体的运动，使其落向时间流逝速度更慢的地方。<br>时间非均匀的流逝速度意味着统一、绝对时间不复存在。事物演化被分为两个部分，一是该事物相对自己的时间（local time）如何演化，二是这一局部时间相对于其他局部时间如何演化。清楚时间的这一性质的一瞬间，时间就失去了它的统一性。</p>
+<h3 id="方向性"><a href="#方向性" class="headerlink" title="方向性"></a>方向性</h3><p>几乎所有的物理方程都没有过去和未来的明确区分，这些方程指示的运动过程都有其逆过程，唯一一条例外的定律由鲁道夫·克劳修斯提出：不可能把热量从低温物体传到高温物体而不引起任何变化。仅仅在有热量的地方，时间之矢才会出现。</p>
+<blockquote>
+<p>时间与热量的联系是根本性的：每当过去与未来的差别显现，都会有热量参与其中。如果一个过程倒过来看很荒谬，那么一定有东西被加热了。</p>
+</blockquote>
+<p>克劳修斯利用“熵”（S）来度量热量的单向不可逆过程。热力学第一定律确保了能量守恒，而第二定律：$\Delta S &gt;= 0$则暗示，热量只能从高温物体传到低温物体。在语义直觉里，我们把特殊化的低熵定义为过去，而未来总是倾向于非特定无序化下的高熵系统。而这种现象与人类思维活动之间的相互作用，产生了“时间流动”的概念与感觉。<br>然而，这种对过去和未来的区分只是源于我们对世界的模糊和近似。正如一副纸牌，当我们不知道所有的排列可能时，我们认为此前认知到的排列是特殊的；如果我们从所有排列这一全局视角来看，每种排列不过是相同概率下的普通现象。如果我们可以认知到所有排列情况，过去和未来的方向性或许就不再存在了。玻尔兹曼指出，熵是我们模糊视野无法区分的不同排列的数量。过去的低熵源于我们以一种近似、模糊、统计性的方式描述自然。时间流逝的感觉，源于我们无法认知世界的全部细节。</p>
+<h3 id="当下性"><a href="#当下性" class="headerlink" title="当下性"></a>当下性</h3><p>在过去和未来之间，是否有一瞬间，我们处于“当下”？我们已经知道，并不存在一个单一量的绝对时间。即使是最近似的“当下”也只涉及非常邻近的事物，而不会延伸到整个宇宙。如果用纳秒作为时间的精度，“现在”的定义只在几米内；用毫秒，则有数千公里。这便是人类可以做出的最大限度的近似。</p>
+<blockquote>
+<p>客观且统一的当下是不存在的。我们最多也就能说：有一个相对于运动的观察者的当下。那么，对我而言的真实就不同于对你而言的真实。</p>
+</blockquote>
+<p>作者用辈分的概念举例，说明“同辈”和“现在”的概念一样不可靠。当一个家族的代际出现较为复杂的近亲婚姻时，“同辈”的概念就不再是唯一的了，询问谁和谁同辈也就丧失了意义。子女和父母之间建立起次序，但却无法在其他的任意两个人直接构建次序。在数学上，这种现象被定义为偏序：偏序在特定元素之间建立先后关系，而不是在任意两个元素之间。相似地，在狭义相对论之下，时间先后次序是由圆锥组成的偏序，这种次序是局部而非属于宇宙全体的；圆锥本身代表着事物相对固有时的演化，而圆锥之间也存在着相对作用。由此，便形成了一种延展的现在——一系列既非过去亦非未来的事件。<br>这种时间次序的圆锥结构创造了黑洞——黑洞巨大的质量将时间减缓到几乎静止，“现在”这一刻出现在黑洞的边缘（称为视界），边缘将过去和未来相隔离，未来朝向黑洞中。因此，要逃离黑洞，必须向着过去的方向运动，然而这是不可能的，因为物体只能朝向未来运动。</p>
+<h3 id="独立性"><a href="#独立性" class="headerlink" title="独立性"></a>独立性</h3><p>最开始，两位伟大的科学家对时间和空间提出了两种截然不同的解释。亚里士多德认为，时间是物体的空间秩序，没有物体以及其延展接触，就没有空间和时间的存在；而牛顿认为，物体之间还存在着有别于世界上其他物质的“空的空间”。科学的发展揭示出二者中央存在的事实真理，即时间与空间是真实的<strong>相对</strong>现象，它们真实存在，但绝不独立于发生的事件。<br>“引力场”是引力的来源，也是构成牛顿时空的材料。不过，牛顿所描述的引力场是一种平面，可以用欧式几何的方法进行测量；而实际上，在引力波的作用下，引力场也可以波动起伏，通过收缩和膨胀产生弯曲的时空，一个地方的时空被拉长，与另一个地方的更短的时空对应。<br>时间的非独立性可以从电子实体化出发理解。电磁场和引力场一样，是构成世界物理实在的物质。当电子被发射出时，它具体会落在哪一点上并不为人知晓，只是依照一定的概率分布；当它最终与其他相互作用的物体发生关联时，电子才会实体化，例如与屏幕碰撞。引力场也是这样，当发生相互作用时，只有对与之相互作用的物体来说，时间才是分立确定的；对于宇宙的其他部分，它们仍然是不确定的。</p>
+<h3 id="连续性"><a href="#连续性" class="headerlink" title="连续性"></a>连续性</h3><p>很难想象，时间竟然具有一个最小的单位，在这个单位上，时间是离散的。量子力学的名字即来源于此：量子就是基本微粒。最小的时间被称为“普朗克时间”，多种描述相对论、引力和量子力学的变量和常数决定了这个时间为$10^{-44}$秒。</p>
+<h2 id="世界是事件的网络"><a href="#世界是事件的网络" class="headerlink" title="世界是事件的网络"></a>世界是事件的网络</h2><p>时间失去的那些性质并不会改变一个事实：没有物体存在，只有事件在发生，世界是事件的网络。一块石头也不是一块石头，而是一段持续的维持这一形态的事件，而它也终究走向损毁和重铸。人也不是物体，而是社会关系、化学过程和情感交流网络中的一个结点。</p>
+<h3 id="热学时间与世界熵"><a href="#热学时间与世界熵" class="headerlink" title="热学时间与世界熵"></a>热学时间与世界熵</h3><p>热学时间的决定遵循以下流程：宏观态——模糊——时间。一个宏观态在模糊中选择了一些具有时间特征的特殊变量，而模糊本身决定了时间。这些特殊变量的确定并非独立行为，而是相互作用的结果，其相互作用的顺序则形成了时间顺序的最初形式。例如，先测量电子的位置、再测量其速度，其状态改变就与先测速度、再测量其位置有所不同，这被称为量子变量的“非对易”。顺序的交换影响着我们对状态的认知，非对易确定了两个物理量的顺序的同时也就带来了时间的起源。即便测量了所有的可测变量，世界的不可预知性也仍然存在。<br>我们与世界的相互作用也是如此。为什么世界的不同状态对我们来说几乎没有不同？这是因为我们所处的这部分世界与其他部分的相互作用会忽视很多变量，而这就造成了我们对世界的模糊视野。正如前文所述，熵衡量了我们无法识别的微观状态的数量，A系统相对于B系统的熵，是A和B在相互作用过程中无法被区分的A的状态的数量。世界相对于我们的熵也是如此，不仅取决于世界本身状态数量，也取决于我们选择与哪些变量相互作用、取决于我们模糊世界的方式。</p>
+<h3 id="视角与时间流动的体验"><a href="#视角与时间流动的体验" class="headerlink" title="视角与时间流动的体验"></a>视角与时间流动的体验</h3><p>有别于从外部观察的世界时间结构——无时间顺序排列的事件集合，我们对时间的经验源于我们身处世界之中的观察。在这个巨大的宇宙中，存在一些特殊的低熵状态的小系统，这些系统的熵是增加的，而这种增加就是我们体验到的时间流动。因此，特殊的并不是宇宙的状态，而是我们所属的小系统。</p>
+<h3 id="世界运转的源头"><a href="#世界运转的源头" class="headerlink" title="世界运转的源头"></a>世界运转的源头</h3><p>根据热力学第一定律，能量始终是守恒的。因此，世界运转需要的并非能量，而是低熵，以及低熵存在带来的熵增过程。地球的低熵源就是太阳——太阳发送热光子，而地球发送冷光子，冷热光子相遇互相交换能量，为了确保恒温，输入和输出的能量是大致相等的，而1个热光子可能与10个冷光子的热量对应，但其可能存在的状态数量却远少于10个冷光子可以构造的状态数量。因此，太阳作为低熵源，为地球提供了运作和发展的主要动力。而太阳本身则来自熵更低的状态，一直追溯、递归到宇宙最初的极低熵。<br>熵增过程如何让我们认知到，低熵的才是过去，未来则走向更高的熵呢？作者认为，过去会在现在留下痕迹，而这就是因为过去的熵更低；通过痕迹，我们才能区分过去和未来。不过，在基本层次上，物理法则不讨论原因，只讨论规律，而这些规律在过去和未来中是对称的。</p>
+<h2 id="时间秩序的哲学"><a href="#时间秩序的哲学" class="headerlink" title="时间秩序的哲学"></a>时间秩序的哲学</h2><h3 id="身份的三要素"><a href="#身份的三要素" class="headerlink" title="身份的三要素"></a>身份的三要素</h3><p>在《基因传》里，作者从基因的角度讨论了如何从文化、社会与政治角度来定义、分类和理解人类自身的身份。而这里，作者则从时间和物理相互作用的角度探讨了身份认知的三大重要要素，即视角、反映和记忆。<br>第一，世界上每个人都有自己的视角，通过自身与世界的相互关联，世界在每个人那里得到属于这个人的独特映现。<br>第二，我们的生活是社会性的，关于自我的概念并不源于自省，而是源于我们与其他人、与周围环境的相互作用。我们从同类得到反馈，形成自我的观念，我们自身便是这些观念的映象。<br>最重要的一个要素便是记忆。过去的低熵留下了痕迹，或许记忆也是这样。记忆把分散在时间中的过程联结在一起，而这些过程组成了我们。记忆的存在使我们得以测量时间——当下存在于我们头脑中的东西。</p>
+<blockquote>
+<p>奥古斯丁意识到，对时间流逝的感知是内在的，它是头脑不可或缺的一部分，是过去在大脑中留下的痕迹。</p>
+<p>现在，在我们的记忆里，在我们的期待里。我们渴望永恒，我们忍受着时间的流逝，我们因时间而受苦。我们的存在应该归功于它，它给予了我们存在这个珍贵的礼物，让我们可以创造转瞬即逝的幻觉——永恒——我们所有痛苦的根源。</p>
+<p>然后乐声逐渐消失。“银链折断，金罐破裂，瓶子在泉旁损坏，水轮在井口破烂；尘土仍归于地。”这样很好。我们可以闭上双目，开始休息了。对我来说，这一切合理又美妙。这就是时间。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kanaeba/2019/11/19/读书笔记：蜜蜂与远雷/" rel="next" title="读书笔记：蜜蜂与远雷">
+                <i class="fa fa-chevron-left"></i> 读书笔记：蜜蜂与远雷
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0OC8yMDg4MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/kanaeba/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/kanaeba/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间正在失去它的“性质”"><span class="nav-number">1.</span> <span class="nav-text">时间正在失去它的“性质”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统一性"><span class="nav-number">1.1.</span> <span class="nav-text">统一性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方向性"><span class="nav-number">1.2.</span> <span class="nav-text">方向性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当下性"><span class="nav-number">1.3.</span> <span class="nav-text">当下性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立性"><span class="nav-number">1.4.</span> <span class="nav-text">独立性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续性"><span class="nav-number">1.5.</span> <span class="nav-text">连续性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#世界是事件的网络"><span class="nav-number">2.</span> <span class="nav-text">世界是事件的网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#热学时间与世界熵"><span class="nav-number">2.1.</span> <span class="nav-text">热学时间与世界熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视角与时间流动的体验"><span class="nav-number">2.2.</span> <span class="nav-text">视角与时间流动的体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#世界运转的源头"><span class="nav-number">2.3.</span> <span class="nav-text">世界运转的源头</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间秩序的哲学"><span class="nav-number">3.</span> <span class="nav-text">时间秩序的哲学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#身份的三要素"><span class="nav-number">3.1.</span> <span class="nav-text">身份的三要素</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/affix.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/11/30/读书笔记：时间的秩序/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
