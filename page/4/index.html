@@ -330,7 +330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/01/19/beamer实战派入门笔记/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/05/16/Econ Espresso 19M5W2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -350,7 +350,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/kanaeba/2019/01/19/beamer实战派入门笔记/" class="post-title-link" itemprop="url">beamer实战派入门笔记</a>
+                <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/" class="post-title-link" itemprop="url">Econ Espresso 19M5W2</a>
               
             
           </h1>
@@ -375,7 +375,7 @@
                 
               
 
-              <time title="Created: 2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
+              <time title="Created: 2019-05-16 08:55:08" itemprop="dateCreated datePublished" datetime="2019-05-16T08:55:08+08:00">2019-05-16</time>
             
 
             
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-19 17:56:01" itemprop="dateModified" datetime="2020-01-19T17:56:01+08:00">2020-01-19</time>
+                <time title="Modified: 2019-05-20 17:32:36" itemprop="dateModified" datetime="2019-05-20T17:32:36+08:00">2019-05-20</time>
               
             
           </span>
@@ -409,7 +409,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/时事简报/" itemprop="url" rel="index"><span itemprop="name">时事简报</span></a></span>
 
                 
                 
@@ -446,40 +446,25 @@
       
         
           
-            <p>本文基于windows平台，主要是记录一下个人从小白级别两天时间用beamer写学术slides时遇到的问题以及解决方案（后续可能会不断补充），供有需的同学参考（again，这个有需的同学很有可能是x年后的自己XD）。</p>
-<h2 id="什么是beamer"><a href="#什么是beamer" class="headerlink" title="什么是beamer"></a>什么是beamer</h2><p>自我定义：Beamer是一个创建学术标准化slides的latex文档类型。使用时，首先在tex文件头部指明：<br><code>\documentclass{beamer}</code></p>
-<h2 id="begin前的工作"><a href="#begin前的工作" class="headerlink" title="begin前的工作"></a>begin前的工作</h2><p>在正式编写文档内容前，首先要为该演出文稿提供一些基本信息，指定整体的格式，例如主题、使用的宏包（宏包可以在文档任何位置出现）和作者信息。</p>
-<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>beamer提供了一系列标准化的主题，并可以进一步为主题指定对应的主题色和主题字体（例如衬线字体），具体可以使用的主题及颜色代码参见<a href="http://deic.uab.es/~iblanes/beamer_gallery/" target="_blank" rel="noopener">beamer主题文档</a>。<br>加载所需使用的主题、颜色和字体的基本代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\usetheme&#123;Boxes&#125; %主题名</span><br><span class="line">\usecolortheme&#123;Beaver&#125; %颜色代码</span><br><span class="line">\usefonttheme&#123;serif&#125; %使用衬线字体</span><br></pre></td></tr></table></figure></p>
-<p>另外调整一些具体模块的色彩，例如高亮警示文字（alerted text）调整为蓝色，使用：<code>setbeamercolor[alerted text]{fg=blue}</code>，注意在latex中<code>[]</code>用于指定options。</p>
-<h3 id="加载宏包"><a href="#加载宏包" class="headerlink" title="加载宏包"></a>加载宏包</h3><p>自我定义：宏包类似python中引入模块，<code>import xxx</code>。常用的宏包加载如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\usepackage&#123;amsmath&#125; %输入公式</span><br><span class="line">\usepackage[style=authoryear,backend=biber]&#123;biblatex&#125; % 用于编制引用和参考文献</span><br><span class="line">\usepackage&#123;ctex&#125; %适用于需要中文的场景</span><br></pre></td></tr></table></figure></p>
-<p>有时，若要进一步对package内容进行设置，需要在当前<code>\usepackage</code>后换行输入具体设置代码，然后再引入下一个package。</p>
-<h3 id="作者信息"><a href="#作者信息" class="headerlink" title="作者信息"></a>作者信息</h3><p>最精简的作者信息填写为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\title&#123;文档名称&#125;</span><br><span class="line"></span><br><span class="line">\author[short name(s)]&#123;作者姓名&#125;</span><br><span class="line"></span><br><span class="line">\institute&#123;学院名称\\ %换行符</span><br><span class="line"></span><br><span class="line">学校名称&#125;</span><br><span class="line"></span><br><span class="line">\date&#123;January, 2020&#125; %若自动生成今天的日期，为\date&#123;\today&#125;</span><br></pre></td></tr></table></figure></p>
-<p>实际上，对于多作者的情况，可能需要为每个作者标示对应的机构和右上标，这里我没有用上，需要更复杂的排版时再添加or自行上网查询，有很多教程。</p>
-<h2 id="调整slides主体"><a href="#调整slides主体" class="headerlink" title="调整slides主体"></a>调整slides主体</h2><h3 id="slides基本结构"><a href="#slides基本结构" class="headerlink" title="slides基本结构"></a>slides基本结构</h3><h4 id="标题页与目录"><a href="#标题页与目录" class="headerlink" title="标题页与目录"></a>标题页与目录</h4><p>要添加标题页，只需在frame中加入以下语句：<br><code>\titlepage</code><br>要添加目录，则加入：<code>\tableofcontents</code></p>
-<h4 id="节与小节"><a href="#节与小节" class="headerlink" title="节与小节"></a>节与小节</h4><p>节与小节的作用主要体现在目录页。可为文档划分小节，方法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\section&#123;section name&#125;</span><br><span class="line">\subsection&#123;subsection 1&#125;</span><br><span class="line">\begin&#123;&#125;</span><br><span class="line">\end&#123;&#125;</span><br><span class="line">\subsection&#123;sebsection 2&#125;</span><br><span class="line">\begin&#123;&#125;</span><br><span class="line">\end&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="单个页面"><a href="#单个页面" class="headerlink" title="单个页面"></a>单个页面</h4><p>在beamer中，演示文稿的单个页面称为框架（frame），在具体添加文本、图片、表格等时，必须先创建frame，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \frametitle&#123;Contents&#125;</span><br><span class="line">  \tableofcontents</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><h4 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h4><p>这里介绍beamer中的几种基本字体形式，例如：</p>
-<ul>
-<li>高亮：<code>alert{内容}</code></li>
-<li>斜体：意大利斜体<code>\textit{内容}</code>或slanted斜体<code>\textsl{内容}</code></li>
-<li>加粗：<code>\textbf{内容}</code></li>
-</ul>
-<h4 id="项目符号"><a href="#项目符号" class="headerlink" title="项目符号"></a>项目符号</h4><p>要引入项目符号（形成文本层次），需要在框架中指定带有项目符号的小模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \frametitle&#123;page 1&#125;</span><br><span class="line">  \begin&#123;itemize&#125;</span><br><span class="line">    \item this is text 1.</span><br><span class="line">    \item this is text 2.</span><br><span class="line">    \begin&#123;itemize&#125;</span><br><span class="line">      \item this is subtext of text 2.</span><br><span class="line">    \end&#123;itemize&#125;</span><br><span class="line">  \end&#123;itemize&#125;</span><br><span class="line"> \end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最终形成的效果类似：</p>
-<ul>
-<li>this is text 1.</li>
-<li>this is text 2.<ul>
-<li>this is subtext of text 2.</li>
-</ul>
-</li>
-</ul>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><h4 id="基本表格结构"><a href="#基本表格结构" class="headerlink" title="基本表格结构"></a>基本表格结构</h4><p>有了latex，做标准学术表格就容易得多了。首先，要指定一个表格模块：<code>\begin{table}[ht]</code>（这里ht是调整位置的选项）；然后通过表头栏设定各个纵列的格式，如：<code>\begin{tabular}{m{5cm} lllll}</code>或<code>\begin{tabular}{c|c|c|c|c}</code>，前者表示第一列固定宽度5cm，其余为靠左列，各列之间无分割线；后者表示每列自适应宽度居中，各列之间存在分割线，但无外部分割线。</p>
-<p>随后即可开始添加表格本体的数据。一般来说，我们需要先画一根横线或是双横线，横线只需要写入<code>\hline</code>，注意横线无需再添加换行符<code>\\</code>，例如双横线只需要<code>\hline \hline</code>即可。<br>表的第一列往往是一句备注式的表格介绍，故我们需要生成合并单元格后居中的表头，如合并所有6个单元格：<code>\multicolumn{6}{c}{这是一张测试表} \\ %换行</code><br>表格各单元格之间用<code>&amp;</code>连接，例如第一行填入各个变量名称，同时第一个单元格留空：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\multicolumn&#123;6&#125;&#123;c&#125;&#123;这是一张测试表&#125; \\</span><br><span class="line">\hline</span><br><span class="line">  &amp; col1 &amp; col2 &amp; col3 &amp;col4 &amp;col 5 \\</span><br><span class="line"> var1 &amp; 1 &amp; 0 &amp; 3 &amp; 7** &amp;2 \\</span><br><span class="line"> ...</span><br><span class="line"> \hline %最后别忘了画表格底线</span><br></pre></td></tr></table></figure></p>
-<h4 id="快速生成表格"><a href="#快速生成表格" class="headerlink" title="快速生成表格"></a>快速生成表格</h4><p>即使latex的表格排版已经足够轻松（至少比起怨声载道的markdown语句），手动输入每个数值依然非常麻烦，此时最好的办法是1. 使用离线VBA宏，将Excel转换成latex代码；2. 使用在线网页快速生成。<br><a href="https://www.ctan.org/tex-archive/support/excel2latex" target="_blank" rel="noopener">点此下载Excel2latex</a><br><a href="https://www.tablesgenerator.com/" target="_blank" rel="noopener">点此网页生成latex代码</a></p>
-<h4 id="表格大小-位置自适应"><a href="#表格大小-位置自适应" class="headerlink" title="表格大小/位置自适应"></a>表格大小/位置自适应</h4><p>当表格又宽又长时，要在同一页中显示全表格内容并不容易，即使控制了宽度，beamer中过长的表格也会出现格式错位、显示不全的情况。对于过宽的表格，使用<code>resizebox</code>来根据<code>textwidth</code>自动调整。对于过长的表格，可以引入<code>minipage</code>控制表格所占的最大长度，自动缩放。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">    \frametitle&#123;table 1&#125;</span><br><span class="line">    \begin&#123;table&#125;[ht]</span><br><span class="line">        \centering</span><br><span class="line">        \noindent\begin&#123;minipage&#125;[t][4in][t]&#123;\textwidth&#125;</span><br><span class="line">            \resizebox&#123;\textwidth&#125;&#123;!&#125;&#123;   </span><br><span class="line">            \begin&#123;tabular&#125;&#123;ccccc&#125;</span><br><span class="line">            ...</span><br><span class="line">            \end&#123;tabluar&#125;</span><br><span class="line">        \end&#123;minipage&#125;</span><br><span class="line">        \caption&#123;Table 1. xxxx&#125; %添加题注</span><br><span class="line">    \end&#123;table&#125;</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p>可在slides中插入图片，支持标准图片和pdf，使用方法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \begin&#123;figure&#125;</span><br><span class="line">    \includegraphics[width=10cm]&#123;pic.png&#125;</span><br><span class="line">  \end&#123;figure&#125;</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意在这种情况下，beamer会自动在图片上方标注图片的文件名字，这样并不美观；要取消这种默认加入的文件名字，将<code>pic.png</code>改为<code>&quot;pic&quot;.png</code>即可。</p>
-<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><p>在使用了支持公式的宏包后，latex的简单公式输入与markdown并无二致，均为<script type="math/tex">$ $$$为另起一行，</script> $$为行内公式。</p>
+            <h1 id="Econ-Espresso-19M5W2"><a href="#Econ-Espresso-19M5W2" class="headerlink" title="Econ Espresso 19M5W2"></a>Econ Espresso 19M5W2</h1><h2 id="Economist-Espresso"><a href="#Economist-Espresso" class="headerlink" title="Economist Espresso"></a>Economist Espresso</h2><h3 id="宜家在法国探索新业务模式"><a href="#宜家在法国探索新业务模式" class="headerlink" title="宜家在法国探索新业务模式"></a>宜家在法国探索新业务模式</h3><p>宜家在5月6日于法国巴黎中心开了第一家店，店铺规模是目前所有宜家店面里最小的，而且会主要销售更小的产品——以与当代住在城市小房子里的年轻人需求匹配。宜家一般将仓库放在郊外，而年轻人既没有时间也没有车可以开去郊外的仓库取货。<br>同时，宜家在伦敦，莫斯科，纽约和悉尼开展“panning studios”，提供一对一咨询，帮助客户设计他们的房子。宜家也在筹备在30个国家开展家具出租业务，保护环境。（<em>感觉很适合国内租房的年轻人——如果同时提供家具运输的话，那么搬新家就不用搬掉所有的家具了，还可以换新</em>）<br>2018年宜家利润下跌40%。</p>
+<h2 id="The-Economist"><a href="#The-Economist" class="headerlink" title="The Economist"></a>The Economist</h2><h3 id="英国的追随力（followership）问题"><a href="#英国的追随力（followership）问题" class="headerlink" title="英国的追随力（followership）问题"></a>英国的追随力（followership）问题</h3><blockquote>
+<p>“I don’t know why people are so fixated on the subject of leadership,” he said, or words to that effect. “What we really need to think about is followership.”</p>
+</blockquote>
+<p>获得公民支持的三个要点：deference（顺从），支持者认为领导人是优秀的；class-loyalty（阶级忠诚），支持者为代表自己的领导者投票；competence（能力），支持是因为认为领导人可以解决问题。随着精英政治的衰败，问题凸显。<br>当代，唯一能重建领导人与追随者之间的纽带的方法是恢复当权者在能力方面的声誉。不过梅姨看来是比较失败的。但更黑暗的事实是：一段时间内，the politics of resentment will trump the politics of problem-solving for some time.</p>
+<h3 id="美国警察部门为911报警电话配备社会工作者"><a href="#美国警察部门为911报警电话配备社会工作者" class="headerlink" title="美国警察部门为911报警电话配备社会工作者"></a>美国警察部门为911报警电话配备社会工作者</h3><p>近十年来，纽约市报警电话中涉及精神病的案件数量几乎翻倍。根据研究，1/4因报警而最后被警察射杀的案件涉及精神病，而大部分警察并不知道怎么正确处理精神病人。因此，部分州已经开始引入合作团队——警察+心理治疗师。不过，警察一般比较排外，所以这些心理治疗师要融入进去并不容易，而且由于时间较短实施州不多，还无法进行有效的成本-利益的分析。</p>
+<h3 id="Lyft收益翻倍却亏损5倍，前景灰暗"><a href="#Lyft收益翻倍却亏损5倍，前景灰暗" class="headerlink" title="Lyft收益翻倍却亏损5倍，前景灰暗"></a>Lyft收益翻倍却亏损5倍，前景灰暗</h3><p>2019.3.29，Lyft成为第一个叫车行业的上市公司，上市当日股价上涨9%。然而，5月7日一季度财报公开后，股价次日暴跌11%。<br>一季度收益776m美元，同比翻倍，然而亏损1.14b，超过2018年全年亏损。亏损的主要来源是雇员补贴计划——CFO认为2019会是亏损峰年，之后会平缓过度到盈利状态。但是，即使去掉这部分，销售、市场营销和保险的成本都在上升。调整营业亏损230m显示过去一年该公司在成本控制上并没有什么进步。而在top-line growth方面，Lyft预计二季度销售增长率会显著下降。<br>更令投资者忧心的应该是即将在5月10日上市的Uber。Uber的市值将会是Lyft的数倍，但它的亏损额也会更大。Uber未经审计的一季度财报显示亏损1b——从2009年成立以来共计亏损9b。<br>两家公司目前都还有足够的资金支持运转，但要想转亏为盈，要么提价（不太可能，Bertrand），要么减少司机补贴（但两家平台的司机已经经常在抱怨工资不够cover生活必需）。因此，两公司现在都在探索研发无人驾驶技术。<br>update: 5月9日，uber遭遇美国、英国和澳洲（澳洲同时包括lyft）司机游行，要求更好的Pay和conditions。</p>
+<h3 id="退欧如何影响英国FDI？"><a href="#退欧如何影响英国FDI？" class="headerlink" title="退欧如何影响英国FDI？"></a>退欧如何影响英国FDI？</h3><p>留欧派指责退欧使日本汽车制造商、美国的银行及其他公司取消投资计划；但退欧派则认为英国比过去更受欢迎：上个月EY投资者吸引力国家排名中，英国列首位；这周Facebook更是选择了伦敦作为WhatsApp发展计划的大本营。<br>国家之间互相竞争FDI：一方面，海外公司进入国内市场可以提升市场竞争，有利于消费者；另一方面，海外国家如果能收购本土业务，则通常可以提升本土公司的生产率，从而提高公司。<br>1995-2015年十年间，英国吸引了全球跨境并购交易的10%。从2016年退欧公投以来，这个比率并未受多大影响，巴菲特最近还告诉FT他“准备在英国买点什么”。英国有着较低的公司税和稳定的法制体系。<br>不过，在某些行业，FDI的热情已经在消退。2014-2017年英国是美国科技公司最喜欢的跨境并购交易目的地，但2018年英国已落至第八位。uk Trade Policy Observatory at Sussex University的反事实研究表明，相比留欧，退欧减少了1/5的inward FDI。<br>退欧也影响了国内公司。1月巴克莱获得准许转移$213bn资产到都柏林，因其担忧没有交易可做。LSE研究发现退欧投票导致了英国公司向EU其他国家的投资增加了12%，而这些资本原本可以被用在国内。</p>
+<blockquote>
+<p>FDI remains strong, but it would be stronger minus Brexit. And Britain has not even left yet.</p>
+</blockquote>
+<h2 id="WSJ-City"><a href="#WSJ-City" class="headerlink" title="WSJ City"></a>WSJ City</h2><h3 id="特斯拉创立自品牌保险项目"><a href="#特斯拉创立自品牌保险项目" class="headerlink" title="特斯拉创立自品牌保险项目"></a>特斯拉创立自品牌保险项目</h3><p>特斯拉拥有自己产品更好的数据，可以以更低成本提供保险服务。<br>汽车保险服务行业正在发生巨大变化：随着自动驾驶技术发展，传统汽车事故率会下降，汽车保险提供商的premium下降，利润会受损。特斯拉提供了一个新的方向——lower cost。</p>
+<h3 id="Uber-IPO不顺"><a href="#Uber-IPO不顺" class="headerlink" title="Uber IPO不顺"></a>Uber IPO不顺</h3><p>IPO price$45，or 估值82b，但开始交易后开盘价下滑到$42,这对科技股IPO来说很少见，主要原因包括最近该公司负面消息较多，估值预期下降，以及因为贸易战整个故事不振。</p>
+<h3 id="San-Francisco提出增加IPO税"><a href="#San-Francisco提出增加IPO税" class="headerlink" title="San Francisco提出增加IPO税"></a>San Francisco提出增加IPO税</h3><p>SF领导者计划将科技公司IPO税增加三倍，以解决该州日益增长的贫富不均矛盾。最近硅谷正接受调查，因最近加州遭遇房地产危机，很多人认为主要原因是科技部门就业和收入快速增长。</p>
+<h3 id="法国加强国际科技公司监控"><a href="#法国加强国际科技公司监控" class="headerlink" title="法国加强国际科技公司监控"></a>法国加强国际科技公司监控</h3><p>法国政府计划授予监管机构审计和向大型社交媒体公司罚款的权力，如果他们没有充分去除不适宜的（hateful）内容的话。</p>
+<h3 id="新ESG基金上市交易，表现优异"><a href="#新ESG基金上市交易，表现优异" class="headerlink" title="新ESG基金上市交易，表现优异"></a>新ESG基金上市交易，表现优异</h3><p>BlackRock’s iShares ESG MSCI USA Leaders基金周四开始交易，可能是历史上最成功的基金发行，首日发行融资851m。今年以来，基于环境、社会和治理模块的ETF已经融资1.9bn。人们认为年轻的投资者会格外重视可持续战略。The BlackRock ETF fits into a small but increasingly crowded corner of the market devoted to responsible investing. 过去这方面的ETF增长很慢，但现在情况有所转变。</p>
+<h2 id="日经中文网"><a href="#日经中文网" class="headerlink" title="日经中文网"></a>日经中文网</h2><h3 id="日本少子化进程持续"><a href="#日本少子化进程持续" class="headerlink" title="日本少子化进程持续"></a>日本少子化进程持续</h3><p>日本总务省5.4公布儿童人口推算数据显示，日本儿童人口数量连续38年出现减少。各都道府县只有东京儿童人口增加8000，冲绳持平，其他45个全部下降。</p>
+<h2 id="FT中文网"><a href="#FT中文网" class="headerlink" title="FT中文网"></a>FT中文网</h2><h3 id="美中贸易僵局中的石油行业"><a href="#美中贸易僵局中的石油行业" class="headerlink" title="美中贸易僵局中的石油行业"></a>美中贸易僵局中的石油行业</h3><p>两周前，特朗普政府宣布取消对伊朗石油买家的一切制裁豁免，导致原油价格飙升。地缘政治威胁是看涨的主要原因。<br>要想回到石油低价，从最大买家中国入手似乎是个不错的选择——周一原油价格与股市齐跌，布伦特原油一度跌至每桶70美元以下。<br>美国+中国在石油市场占有量将近1/3。<br>随着贸易战加剧，中国大幅削减从美国的能源进口，两年前每日超43万桶，现在不足10万桶。<br>如果仅仅将对华原油出口恢复到一年多以前的水平，就能增加约120亿美元的对华贸易额，再加上液化天然气供应，可大幅改善美国贸易赤字情况。短期美国相信其石油行业有其他海外市场，不过长远看与中国切断联系将有损其不断扩大的页岩油行业。</p>
+<h3 id="中国科技巨擘获得香港数字银行牌照"><a href="#中国科技巨擘获得香港数字银行牌照" class="headerlink" title="中国科技巨擘获得香港数字银行牌照"></a>中国科技巨擘获得香港数字银行牌照</h3><p>腾讯(Tencent)和阿里巴巴(Alibaba)获得香港金融管理局(HKMA)颁发的银行牌照，同时获得牌照的还有世界第四大智能手机制造商小米(Xiaomi)和世界最大保险公司平安(Ping An)。它们将向金融业发起各方等待已久的进军，威胁汇丰(HSBC)和渣打(Standard Chartered)等香港银行。</p>
 
           
         
