@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/kanaeba/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/kanaeba/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kanaeba/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kanaeba/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kanaeba/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/kanaeba/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kanaeba/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文基于windows平台，主要是记录一下个人从小白级别两天时间用beamer写学术slides时遇到的问题以及解决方案（后续可能会不断补充），供有需的同学参考（again，这个有需的同学很有可能是x年后的自己XD）。 什么是beamer自我定义：Beamer是一个创建学术标准化slides的latex文档类型。使用时，首先在tex文件头部指明：\documentclass{beamer} beg">
+<meta name="keywords" content="LaTeX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="beamer实战派入门笔记">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/01/19/beamer实战派入门笔记/index.html">
+<meta property="og:site_name" content="Kanaeba&#39;s Long Position">
+<meta property="og:description" content="本文基于windows平台，主要是记录一下个人从小白级别两天时间用beamer写学术slides时遇到的问题以及解决方案（后续可能会不断补充），供有需的同学参考（again，这个有需的同学很有可能是x年后的自己XD）。 什么是beamer自我定义：Beamer是一个创建学术标准化slides的latex文档类型。使用时，首先在tex文件头部指明：\documentclass{beamer} beg">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-19T09:56:01.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="beamer实战派入门笔记">
+<meta name="twitter:description" content="本文基于windows平台，主要是记录一下个人从小白级别两天时间用beamer写学术slides时遇到的问题以及解决方案（后续可能会不断补充），供有需的同学参考（again，这个有需的同学很有可能是x年后的自己XD）。 什么是beamer自我定义：Beamer是一个创建学术标准化slides的latex文档类型。使用时，首先在tex文件头部指明：\documentclass{beamer} beg">
+
+
+
+  <link rel="alternate" href="/kanaeba/atom.xml" title="Kanaeba's Long Position" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/01/19/beamer实战派入门笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>beamer实战派入门笔记 | Kanaeba's Long Position</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kanaeba/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kanaeba's Long Position</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Life is short, so be sure to go long.</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/kanaeba/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/01/19/beamer实战派入门笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">beamer实战派入门笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-19 17:56:01" itemprop="dateModified" datetime="2020-01-19T17:56:01+08:00">2020-01-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文基于windows平台，主要是记录一下个人从小白级别两天时间用beamer写学术slides时遇到的问题以及解决方案（后续可能会不断补充），供有需的同学参考（again，这个有需的同学很有可能是x年后的自己XD）。</p>
+<h2 id="什么是beamer"><a href="#什么是beamer" class="headerlink" title="什么是beamer"></a>什么是beamer</h2><p>自我定义：Beamer是一个创建学术标准化slides的latex文档类型。使用时，首先在tex文件头部指明：<br><code>\documentclass{beamer}</code></p>
+<h2 id="begin前的工作"><a href="#begin前的工作" class="headerlink" title="begin前的工作"></a>begin前的工作</h2><p>在正式编写文档内容前，首先要为该演出文稿提供一些基本信息，指定整体的格式，例如主题、使用的宏包（宏包可以在文档任何位置出现）和作者信息。</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>beamer提供了一系列标准化的主题，并可以进一步为主题指定对应的主题色和主题字体（例如衬线字体），具体可以使用的主题及颜色代码参见<a href="http://deic.uab.es/~iblanes/beamer_gallery/" target="_blank" rel="noopener">beamer主题文档</a>。<br>加载所需使用的主题、颜色和字体的基本代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\usetheme&#123;Boxes&#125; %主题名</span><br><span class="line">\usecolortheme&#123;Beaver&#125; %颜色代码</span><br><span class="line">\usefonttheme&#123;serif&#125; %使用衬线字体</span><br></pre></td></tr></table></figure></p>
+<p>另外调整一些具体模块的色彩，例如高亮警示文字（alerted text）调整为蓝色，使用：<code>setbeamercolor[alerted text]{fg=blue}</code>，注意在latex中<code>[]</code>用于指定options。</p>
+<h3 id="加载宏包"><a href="#加载宏包" class="headerlink" title="加载宏包"></a>加载宏包</h3><p>自我定义：宏包类似python中引入模块，<code>import xxx</code>。常用的宏包加载如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\usepackage&#123;amsmath&#125; %输入公式</span><br><span class="line">\usepackage[style=authoryear,backend=biber]&#123;biblatex&#125; % 用于编制引用和参考文献</span><br><span class="line">\usepackage&#123;ctex&#125; %适用于需要中文的场景</span><br></pre></td></tr></table></figure></p>
+<p>有时，若要进一步对package内容进行设置，需要在当前<code>\usepackage</code>后换行输入具体设置代码，然后再引入下一个package。</p>
+<h3 id="作者信息"><a href="#作者信息" class="headerlink" title="作者信息"></a>作者信息</h3><p>最精简的作者信息填写为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\title&#123;文档名称&#125;</span><br><span class="line"></span><br><span class="line">\author[short name(s)]&#123;作者姓名&#125;</span><br><span class="line"></span><br><span class="line">\institute&#123;学院名称\\ %换行符</span><br><span class="line"></span><br><span class="line">学校名称&#125;</span><br><span class="line"></span><br><span class="line">\date&#123;January, 2020&#125; %若自动生成今天的日期，为\date&#123;\today&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上，对于多作者的情况，可能需要为每个作者标示对应的机构和右上标，这里我没有用上，需要更复杂的排版时再添加or自行上网查询，有很多教程。</p>
+<h2 id="调整slides主体"><a href="#调整slides主体" class="headerlink" title="调整slides主体"></a>调整slides主体</h2><h3 id="slides基本结构"><a href="#slides基本结构" class="headerlink" title="slides基本结构"></a>slides基本结构</h3><h4 id="标题页与目录"><a href="#标题页与目录" class="headerlink" title="标题页与目录"></a>标题页与目录</h4><p>要添加标题页，只需在frame中加入以下语句：<br><code>\titlepage</code><br>要添加目录，则加入：<code>\tableofcontents</code></p>
+<h4 id="节与小节"><a href="#节与小节" class="headerlink" title="节与小节"></a>节与小节</h4><p>节与小节的作用主要体现在目录页。可为文档划分小节，方法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\section&#123;section name&#125;</span><br><span class="line">\subsection&#123;subsection 1&#125;</span><br><span class="line">\begin&#123;&#125;</span><br><span class="line">\end&#123;&#125;</span><br><span class="line">\subsection&#123;sebsection 2&#125;</span><br><span class="line">\begin&#123;&#125;</span><br><span class="line">\end&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="单个页面"><a href="#单个页面" class="headerlink" title="单个页面"></a>单个页面</h4><p>在beamer中，演示文稿的单个页面称为框架（frame），在具体添加文本、图片、表格等时，必须先创建frame，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \frametitle&#123;Contents&#125;</span><br><span class="line">  \tableofcontents</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h3><h4 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h4><p>这里介绍beamer中的几种基本字体形式，例如：</p>
+<ul>
+<li>高亮：<code>alert{内容}</code></li>
+<li>斜体：意大利斜体<code>\textit{内容}</code>或slanted斜体<code>\textsl{内容}</code></li>
+<li>加粗：<code>\textbf{内容}</code></li>
+</ul>
+<h4 id="项目符号"><a href="#项目符号" class="headerlink" title="项目符号"></a>项目符号</h4><p>要引入项目符号（形成文本层次），需要在框架中指定带有项目符号的小模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \frametitle&#123;page 1&#125;</span><br><span class="line">  \begin&#123;itemize&#125;</span><br><span class="line">    \item this is text 1.</span><br><span class="line">    \item this is text 2.</span><br><span class="line">    \begin&#123;itemize&#125;</span><br><span class="line">      \item this is subtext of text 2.</span><br><span class="line">    \end&#123;itemize&#125;</span><br><span class="line">  \end&#123;itemize&#125;</span><br><span class="line"> \end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终形成的效果类似：</p>
+<ul>
+<li>this is text 1.</li>
+<li>this is text 2.<ul>
+<li>this is subtext of text 2.</li>
+</ul>
+</li>
+</ul>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><h4 id="基本表格结构"><a href="#基本表格结构" class="headerlink" title="基本表格结构"></a>基本表格结构</h4><p>有了latex，做标准学术表格就容易得多了。首先，要指定一个表格模块：<code>\begin{table}[ht]</code>（这里ht是调整位置的选项）；然后通过表头栏设定各个纵列的格式，如：<code>\begin{tabular}{m{5cm} lllll}</code>或<code>\begin{tabular}{c|c|c|c|c}</code>，前者表示第一列固定宽度5cm，其余为靠左列，各列之间无分割线；后者表示每列自适应宽度居中，各列之间存在分割线，但无外部分割线。</p>
+<p>随后即可开始添加表格本体的数据。一般来说，我们需要先画一根横线或是双横线，横线只需要写入<code>\hline</code>，注意横线无需再添加换行符<code>\\</code>，例如双横线只需要<code>\hline \hline</code>即可。<br>表的第一列往往是一句备注式的表格介绍，故我们需要生成合并单元格后居中的表头，如合并所有6个单元格：<code>\multicolumn{6}{c}{这是一张测试表} \\ %换行</code><br>表格各单元格之间用<code>&amp;</code>连接，例如第一行填入各个变量名称，同时第一个单元格留空：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\multicolumn&#123;6&#125;&#123;c&#125;&#123;这是一张测试表&#125; \\</span><br><span class="line">\hline</span><br><span class="line">  &amp; col1 &amp; col2 &amp; col3 &amp;col4 &amp;col 5 \\</span><br><span class="line"> var1 &amp; 1 &amp; 0 &amp; 3 &amp; 7** &amp;2 \\</span><br><span class="line"> ...</span><br><span class="line"> \hline %最后别忘了画表格底线</span><br></pre></td></tr></table></figure></p>
+<h4 id="快速生成表格"><a href="#快速生成表格" class="headerlink" title="快速生成表格"></a>快速生成表格</h4><p>即使latex的表格排版已经足够轻松（至少比起怨声载道的markdown语句），手动输入每个数值依然非常麻烦，此时最好的办法是1. 使用离线VBA宏，将Excel转换成latex代码；2. 使用在线网页快速生成。<br><a href="https://www.ctan.org/tex-archive/support/excel2latex" target="_blank" rel="noopener">点此下载Excel2latex</a><br><a href="https://www.tablesgenerator.com/" target="_blank" rel="noopener">点此网页生成latex代码</a></p>
+<h4 id="表格大小-位置自适应"><a href="#表格大小-位置自适应" class="headerlink" title="表格大小/位置自适应"></a>表格大小/位置自适应</h4><p>当表格又宽又长时，要在同一页中显示全表格内容并不容易，即使控制了宽度，beamer中过长的表格也会出现格式错位、显示不全的情况。对于过宽的表格，使用<code>resizebox</code>来根据<code>textwidth</code>自动调整。对于过长的表格，可以引入<code>minipage</code>控制表格所占的最大长度，自动缩放。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">    \frametitle&#123;table 1&#125;</span><br><span class="line">    \begin&#123;table&#125;[ht]</span><br><span class="line">        \centering</span><br><span class="line">        \noindent\begin&#123;minipage&#125;[t][4in][t]&#123;\textwidth&#125;</span><br><span class="line">            \resizebox&#123;\textwidth&#125;&#123;!&#125;&#123;   </span><br><span class="line">            \begin&#123;tabular&#125;&#123;ccccc&#125;</span><br><span class="line">            ...</span><br><span class="line">            \end&#123;tabluar&#125;</span><br><span class="line">        \end&#123;minipage&#125;</span><br><span class="line">        \caption&#123;Table 1. xxxx&#125; %添加题注</span><br><span class="line">    \end&#123;table&#125;</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p>可在slides中插入图片，支持标准图片和pdf，使用方法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\begin&#123;frame&#125;</span><br><span class="line">  \begin&#123;figure&#125;</span><br><span class="line">    \includegraphics[width=10cm]&#123;pic.png&#125;</span><br><span class="line">  \end&#123;figure&#125;</span><br><span class="line">\end&#123;frame&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意在这种情况下，beamer会自动在图片上方标注图片的文件名字，这样并不美观；要取消这种默认加入的文件名字，将<code>pic.png</code>改为<code>&quot;pic&quot;.png</code>即可。</p>
+<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><p>在使用了支持公式的宏包后，latex的简单公式输入与markdown并无二致，均为<script type="math/tex">$ $$$为另起一行，</script> $$为行内公式。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kanaeba/tags/LaTeX/" rel="tag"># LaTeX</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kanaeba/2019/05/16/Econ Espresso 19M5W2/" rel="prev" title="Econ Espresso 19M5W2">
+                Econ Espresso 19M5W2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDM0OC8yMDg4MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kanaeba</p>
+              <div class="site-description motion-element" itemprop="description">如果生活要求你百般武艺，那就尽力做到样样精通。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/kanaeba/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/kanaeba/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/kanaeba/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/kanaeba/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是beamer"><span class="nav-number">1.</span> <span class="nav-text">什么是beamer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#begin前的工作"><span class="nav-number">2.</span> <span class="nav-text">begin前的工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">2.1.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载宏包"><span class="nav-number">2.2.</span> <span class="nav-text">加载宏包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作者信息"><span class="nav-number">2.3.</span> <span class="nav-text">作者信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整slides主体"><span class="nav-number">3.</span> <span class="nav-text">调整slides主体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#slides基本结构"><span class="nav-number">3.1.</span> <span class="nav-text">slides基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标题页与目录"><span class="nav-number">3.1.1.</span> <span class="nav-text">标题页与目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节与小节"><span class="nav-number">3.1.2.</span> <span class="nav-text">节与小节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单个页面"><span class="nav-number">3.1.3.</span> <span class="nav-text">单个页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本"><span class="nav-number">3.2.</span> <span class="nav-text">文本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字体"><span class="nav-number">3.2.1.</span> <span class="nav-text">字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目符号"><span class="nav-number">3.2.2.</span> <span class="nav-text">项目符号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">3.3.</span> <span class="nav-text">表格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本表格结构"><span class="nav-number">3.3.1.</span> <span class="nav-text">基本表格结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快速生成表格"><span class="nav-number">3.3.2.</span> <span class="nav-text">快速生成表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表格大小-位置自适应"><span class="nav-number">3.3.3.</span> <span class="nav-text">表格大小/位置自适应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示"><span class="nav-number">3.4.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公式"><span class="nav-number">3.5.</span> <span class="nav-text">公式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanaeba</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/kanaeba/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/kanaeba/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/kanaeba/js/utils.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/kanaeba/js/affix.js?v=7.1.1"></script>
+
+  <script src="/kanaeba/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/kanaeba/js/scrollspy.js?v=7.1.1"></script>
+<script src="/kanaeba/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/kanaeba/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/01/19/beamer实战派入门笔记/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
