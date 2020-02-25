@@ -330,6 +330,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/10/20/stata分块处理大型文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/10/20/stata分块处理大型文件/" class="post-title-link" itemprop="url">stata分块处理大型文件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-20 17:37:00 / Modified: 17:55:36" itemprop="dateCreated datePublished" datetime="2019-10-20T17:37:00+08:00">2019-10-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当需要处理大型文件时，使用python pandas包的chunksize或者iterator会非常方便，但stata相对来说就比较蠢笨。虽然正常人都不会用stata来做data cleaning的工作，但不可避免有时replicate某些大牛的文章时，仍然会坚持使用stata来做数据清洗，此时，超大的数据文件不免让人头疼，特别是Stata还有报错后就得重新运行的坑爹机制。那么废话不多说，下面来看看如何使用Stata处理大型数据文件吧。</p>
+<h2 id="将文件分块"><a href="#将文件分块" class="headerlink" title="将文件分块"></a>将文件分块</h2><p>和python不同，stata需要我们自己先将大型文件（支持csv, txt等）划分成多个小文件。首先安装对应工具：<br>需要安装的对应工具为：chunky<br><code>ssc install chunky</code><br>然后，cd路径到我们要保存chunked files的地方，例如：<br><code>cd &quot;chunk files&quot;</code><br>然后运行文件分割指令：</p>
+<ol>
+<li>返回文件的头5行，确认数据无误：<code>chunky using filename, peek(5)</code></li>
+<li>分析分块大小，为接下来确认每个分块文件的大小和最终数量做准备，该命令会返回不同分块大小情况下最终的文件个数等基本估计情况：<code>chunky using filename, analyze</code></li>
+<li>根据2的结果确认每个分块文件的最适合的大小，进行实际分块操作，这里假设按每个文件1000M分块，分块结果的文件命名为chunk_0001.txt（类推）：<code>chunky using filename, chunksize(1000m) header(include) stub(chunk_) replace</code></li>
+<li>运行时注意运行过程在—more—中，点击才能看到。header指令包括：include（使用csv中的第一行作为变量名），none（csv中第一行不是变量名称），skip（跳过csv第一行）</li>
+</ol>
+<h2 id="批量处理分块文件"><a href="#批量处理分块文件" class="headerlink" title="批量处理分块文件"></a>批量处理分块文件</h2><p>下面对分块文件进行批量处理，注意这里先把file名中00的部分去掉：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">forv</span> i = 1/<span class="keyword">n</span>&#123;</span><br><span class="line">    <span class="keyword">clear</span></span><br><span class="line">    import delimited using <span class="string">"chunk_`i'.txt"</span></span><br><span class="line"><span class="comment">    * some codes and orders</span></span><br><span class="line">    <span class="keyword">save</span> <span class="string">"./output/result_`i'.dta"</span>, <span class="keyword">replace</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="合并处理完成的结果"><a href="#合并处理完成的结果" class="headerlink" title="合并处理完成的结果"></a>合并处理完成的结果</h2><p>最后，将处理得到的结果纵向合并：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="string">"./output/result_1.dta"</span>, <span class="keyword">clear</span></span><br><span class="line"><span class="keyword">forv</span> i = 2/<span class="keyword">n</span>&#123;</span><br><span class="line">    <span class="keyword">append</span> using <span class="string">"./output/result_`i'.dta"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">save</span> <span class="string">"./output/result_final.dta"</span>, <span class="keyword">replace</span></span><br></pre></td></tr></table></figure></p>
+<p>最后再让程序自动删除处理过程中生成的临时文件：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">forv</span> i = 1/<span class="keyword">n</span>&#123;</span><br><span class="line"><span class="keyword">erase</span> <span class="string">"chunk_`i'.txt"</span></span><br><span class="line"><span class="keyword">erase</span> <span class="string">"./output/result_`i'.dta"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大功告成！</p>
+<h2 id="补充：截取大型文件的k行"><a href="#补充：截取大型文件的k行" class="headerlink" title="补充：截取大型文件的k行"></a>补充：截取大型文件的k行</h2><p>首先安装chewfile: <code>ssc install chewfile</code><br>然后读取并保存到指定文件：<code>chewfile using filename1, begin(100) end(1400) save(filename2) replace</code><br>这里指定了截取100-1400行的数据。如果只指定开头或结尾，使用begin(.)或者end(.)即可。</p>
+<p><a href="https://stata-club.github.io/%E6%8E%A8%E6%96%87/20170116/" target="_blank" rel="noopener">参考链接</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/10/20/读书笔记：熊镇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2047,201 +2221,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/06/03/机器学习笔记：回归问题中的常用损失函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/06/03/机器学习笔记：回归问题中的常用损失函数/" class="post-title-link" itemprop="url">机器学习笔记：回归问题中的常用损失函数</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-03 20:26:37" itemprop="dateCreated datePublished" datetime="2019-06-03T20:26:37+08:00">2019-06-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-24 19:01:23" itemprop="dateModified" datetime="2019-10-24T19:01:23+08:00">2019-10-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在经济学的参数估计中，我们常常需要定一个目标函数——既有最大化，比如最大化效用、最大化似然函数（MLE）等，也有最小化的最小二乘法。在机器学习中也通过目标函数施加约束来得到最优模型估计，其中我们把<strong>最小化</strong>的一类函数称为“损失函数”。因此，损失函数选择是否恰当，就成了影响模型预测效果的关键之一。</p>
-<p>根据监督学习的类型，损失函数也可以分为分类问题或回归问题损失函数两类。这里主要笔记回归问题中常见的损失函数以及它们的优缺点。</p>
-<h2 id="L1损失与L2损失"><a href="#L1损失与L2损失" class="headerlink" title="L1损失与L2损失"></a>L1损失与L2损失</h2><h3 id="L1损失"><a href="#L1损失" class="headerlink" title="L1损失"></a>L1损失</h3><p>在机器学习术语中，“L1损失”指的就是平均绝对值误差Mean Absolute Error（MAE）。其计算公式为：</p>
-<script type="math/tex; mode=display">MAE = \frac{1}{n}\sum ^n_{i=1}|y_i-\hat y_i|</script><p>MAE的特色是只衡量误差的模长而不考虑方向。<br>与MSE相比（见下一节L2损失），MAE对异常点更Robust，因为它对误差模长是线性的，并不会对异常点施加更高的惩罚。</p>
-<p>L1损失的Python代码实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># define a function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mae</span><span class="params">(y, yp)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.abs(y-yp)</span><br><span class="line"><span class="comment"># or use sklearn tools</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_absolute_error</span><br></pre></td></tr></table></figure></p>
-<h3 id="L2损失"><a href="#L2损失" class="headerlink" title="L2损失"></a>L2损失</h3><p>L2损失即是大名鼎鼎且最为常用的回归损失函数，也是最小二乘法最核心的思想体现。</p>
-<script type="math/tex; mode=display">MSE = \frac{1}{n}\sum^n_{i=1}(y_i-\hat y_i)^2</script><p>L2损失对误差是二次的，因此当误差大于1时，会赋予异常点更大的权重，因此会使模型倾向于向减小异常点的方向更新。<br>L2损失的Python代码实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># define a function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mse</span><span class="params">(y, yp)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (y-yp)**<span class="number">2</span></span><br><span class="line"><span class="comment"># or use sklearn tools</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_square_error</span><br></pre></td></tr></table></figure></p>
-<h3 id="权衡L1损失与L2损失"><a href="#权衡L1损失与L2损失" class="headerlink" title="权衡L1损失与L2损失"></a>权衡L1损失与L2损失</h3><p>L1和L2损失的对比，在直观上可以通过设定模型$y=a $来理解（即X的所有系数为0，用y对常数项回归）。如果最小化L1损失（MAE），则为使a到所有y值的距离之和最小，a应该取y的中位数（为什么？见下及参考3），有$\hat a = median(y)$。如果最小化L2损失（MSE），则学过计量的都知道这个解就是$\hat a = \overline y$，即y的平均值。<br>那么问题来了：</p>
-<ul>
-<li>为什么最小一乘法下解是中位数？<br>假设我们有一列数，将其按最大最小、第二大第二小两两分组，依次进行下去。现在我们可以衡量某个点到各组两端的距离。对于最大最小组，其距离之和最小的点肯定是两点连线上的任意一点（到两端距离始终等于$y_{max}-y_{min}$），其他组同理，依次缩圈到中央中位数，结束。<br>（不过，对于总数为偶数的数列，解未必是中央两数的平均值，而可以是最中央两数之间任意一点——因此MAE下未必有唯一解）</li>
-<li>为什么最小二乘法下解是平均数？<br>MSE的好处是连续可导，所以简单求导可得。</li>
-</ul>
-<p>回到正题，我们知道中位数的特征就是对异常值不敏感，而平均数则会受异常值影响，这也就是MAE和MSE的区别之一。如果一个数据集，特别是训练数据集中异常值很多，而测试数据集或是现实生活中中异常值很少，那么选择MAE会是比MSE更好的选项，降低对异常值靠近的倾向。而如果需要强调异常点的情况，MSE就能派上用场。<br>但MAE并不万能，首先它不是连续可导的，可能存在多解，对模型估计造成影响；另一方面，特别是对于神经网络而言，MAE的梯度是恒定的（斜率绝对值恒定为1），这就使我们在接近最小值的过程中依然有很大的梯度，不利于学习到最小值点（相当于学习速率$\alpha$很大）。一个解决方案是引入变化的学习率，在损失接近最小值时降低$\alpha$。<br>MSE在神经网络中则可以使用恒定的学习率，这是因为在接近最小值时二次函数的梯度不断减小，结果更加精确。</p>
-<h2 id="Huber损失"><a href="#Huber损失" class="headerlink" title="Huber损失"></a>Huber损失</h2><p>Huber损失又称平滑的平均绝对误差——还记得MAE函数到达最小点处不可导的那个尖头吗？Huber损失的目的就是将这个尖头周围的局域部分平滑成MSE的形式，从而在0点也可微分。</p>
-<script type="math/tex; mode=display">L_\delta(y,f(x)) = 0.5*(y-f(x))^2,for\ |y-f(x)|<\delta; 
-\\OR =\ \delta|y-f(x)|-0.5*\delta^2, otherwise</script><p><img src="https://image.jiqizhixin.com/uploads/editor/47cb7b9a-337b-4766-ad41-7b3a1d7ce0b2/1529558777466.png" alt><br><a href="https://www.jiqizhixin.com/articles/2018-06-21-3" target="_blank" rel="noopener">图片来源，侵删</a><br>在$[-\delta,\delta]$之间时，Huber类似MSE，在之外的区间类似MAE。<br><strong>Huber损失的关键在于超参数$\delta$的定义：这决定了到底多远是异常点。</strong></p>
-<p>Huber损失的Python实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">huber_loss</span><span class="params">(y,yp,delta)</span>:</span></span><br><span class="line">    huber_mse = <span class="number">0.5</span>*（y-yp)**<span class="number">2</span></span><br><span class="line">    huber_mae = delta*(np.abs(y-yp)<span class="number">-0.5</span>*delta)</span><br><span class="line">    <span class="keyword">return</span> np.where(np.abs(y-yp)&lt;delta, huber_mse, huber_mae)</span><br></pre></td></tr></table></figure></p>
-<h2 id="分位数损失与Log-Cosh损失"><a href="#分位数损失与Log-Cosh损失" class="headerlink" title="分位数损失与Log-Cosh损失"></a>分位数损失与Log-Cosh损失</h2><p>这两个损失函数比较高端，目前还没有学到有应用场景的机器学习模型，之后会补上相关内容~</p>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
-<li><a href="https://www.jiqizhixin.com/articles/2018-06-21-3" target="_blank" rel="noopener">Understanding the 3 most common loss functions for Machine Learning Regression</a></li>
-<li><a href="https://towardsdatascience.com/understanding-the-3-most-common-loss-functions-for-machine-learning-regression-23e0ef3e14d3" target="_blank" rel="noopener">机器学习大牛最常用的5个回归损失函数，你知道几个？</a></li>
-<li><a href="https://yufree.cn/cn/2013/03/31/median/" target="_blank" rel="noopener">最小一乘法的解为什么是中位数？</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2288,7 +2267,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2563,9 +2542,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
       
