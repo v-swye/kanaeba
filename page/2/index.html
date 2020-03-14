@@ -330,6 +330,236 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2019/10/24/使用python实现超额收益率、波动率、最大回撤及卡玛比率计算/" class="post-title-link" itemprop="url">使用python实现超额收益率、波动率、最大回撤、卡玛比率的计算（基于周净值）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-24 18:59:37" itemprop="dateCreated datePublished" datetime="2019-10-24T18:59:37+08:00">2019-10-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-25 17:26:45" itemprop="dateModified" datetime="2019-10-25T17:26:45+08:00">2019-10-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在做私募基金评价时，我们会使用不同的指标来量化该基金产品在各个维度上的表现。常见的四个指标包括超额收益率（衡量收益），波动率、最大回撤（衡量风险），卡玛比率（性价比）。其中卡玛比率类似常见的夏普比率，但具体到私募基金而言，由于私募基金相比公募基金更强调绝对收益，故使用绝对收益为分子的卡玛比率（定义见后文）比以超额收益为收益因子的夏普比率更为合适。进一步地，这四个指标还可以基于给定窗口计算滚动表现。下面，本文将具体介绍基于周净值计算对应指标的公式、意义、思路及具体代码实现。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>基本指标</th>
+<th>衡量维度</th>
+<th style="text-align:right">扩展指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>收益率</td>
+<td>收益</td>
+<td style="text-align:right">超额收益率，绝对收益率，k年滚动超额收益率（年化）</td>
+</tr>
+<tr>
+<td>波动率</td>
+<td>风险</td>
+<td style="text-align:right">近1年波动率（年化），k年滚动波动率（年化）</td>
+</tr>
+<tr>
+<td>最大回撤</td>
+<td>风险</td>
+<td style="text-align:right">近1年最大回撤，k年滚动最大回撤</td>
+</tr>
+<tr>
+<td>卡玛比率</td>
+<td>性价比</td>
+<td style="text-align:right">近1年卡玛比率，k年滚动卡玛比率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h2><h3 id="超额收益率"><a href="#超额收益率" class="headerlink" title="超额收益率"></a>超额收益率</h3><p>记ER为超额收益率，AR为绝对收益率，BR为基准收益率，则超额收益率的公式为：</p>
+<script type="math/tex; mode=display">
+ER_i = AR_i - BR_i</script><p>其中i为样本的某个观测点。若以周净值数据作为样本，那么i就是周记录频率下的某一周，$ER_i$即为第i周的超额收益率。基准收益率和绝对收益率的计算可能基于简单收益率，也可能是对数收益率。<br>超额收益率衡量了投资组合/基金产品相对业绩基准的表现，因此所选择的基准将对结果产生关键影响。除了采用产品所公开的业绩比较基准以外，一种基准指数的选择思路是根据基金所使用的策略分为股票（沪深300等）、债券（中证全债）、组合基金和其他（绝对基准）等。</p>
+<h3 id="波动率"><a href="#波动率" class="headerlink" title="波动率"></a>波动率</h3><p>波动率在数学上的来源就是绝对回报的标准差。在某个观测区间内（例如1年），我们可以计算出一系列绝对收益数据，并求取其标准差。但需要注意的是，我们通常会对所得结果进行年化，以求在相同标准下进行比较。假设每个观测点之间的间隔为$d$年，则基于该观测区间和观测频率的年化波动率为：</p>
+<script type="math/tex; mode=display">
+annualized\ volatility=\sqrt{\sum_{i = 1}^N \frac{1}{N-1}(AR_i-\overline{AR})^2}·\sqrt{\frac{1}{d}}</script><blockquote>
+<p>为什么是$\sqrt{1/d}$？这主要是因为我们假设AR是独立同分布的，而一年的总AR = 第1周AR+第2周AR+…+第52周AR（对数收益率，或者简单收益率的趋近。基本原理是$\lim_{x-&gt;0}ln(1+X) = X$）。在独立同分布的假设下，$\sigma(\sum{AR_i}) = \sqrt{1/d} *\sigma(AR_i)$</p>
+</blockquote>
+<p>以周净值数据为例，由于一年共有52周，可知$d = 1/52$,在计算出周频率的绝对收益后，即可计算指定观测区间内的标准差，然后乘以$\sqrt{52}或\sqrt{50}$。</p>
+<h3 id="最大回撤"><a href="#最大回撤" class="headerlink" title="最大回撤"></a>最大回撤</h3><p>通俗来讲，如果一个策略很不幸在最高点进入，又不幸在最低点卖出，那么这个策略的收益即是最大回撤。最高点和最低点不一定是某个指定区间的头尾——指定区间只是划定了一个范围，在这个范围时间内（例如最近一年），很可能只是在某几天“一顿操作猛如虎”，就酿成了本年度的最大回撤惨案。<br>最大回撤的数据公式定义为：</p>
+<script type="math/tex; mode=display">
+max\_drawdown = min_{j,i<=j}(X_j - X_i) = min_{j}(X_j - max_{i<=j}X_i)</script><p>看到这里是不是开始晕乎乎了呢？实际上只要一步步分解下来，实现计算最大回撤的算法并不难：</p>
+<ol>
+<li>指定一个时间范围，例如最近一年。在这个时间范围内，投资者可以随时买入，也可以随时卖出。</li>
+<li>对每个观测点j，都计算从指定时间起点开始任意时点入场、并假设在j点卖出的收益，即计算$(X_j-X_1),(X_j-X_2),…(X_j-X_{j-1}$，然后找到这些收益中的最低收益对应的时点i。</li>
+<li>对所有j都进行了第2步运算后，找到最低中的最低，以及该最低点对应的i*和j*，其中i*就是最大回撤的起始点，j*就是最大回撤的终止点，$\frac{X_{j<em>}-X_{i</em>}}{X_{i*}}$即为指定时间范围内的最大回撤率。</li>
+</ol>
+<h3 id="卡玛比率"><a href="#卡玛比率" class="headerlink" title="卡玛比率"></a>卡玛比率</h3><p>如前文所述，卡玛比率是一种类似夏普比率的收益回报比，常用于衡量产品的性价比。相比夏普比率，卡玛比率更注重每单位风险的绝对收益，与此对应，该指标选择最大回撤衡量风险。在完成绝对收益和最大回撤的计算后，卡玛比率的计算就极为轻松了。</p>
+<script type="math/tex; mode=display">
+calmar ratio = \frac{区间AR}{区间max\_drawdown}</script><h3 id="滚动指标"><a href="#滚动指标" class="headerlink" title="滚动指标"></a>滚动指标</h3><p>可以看到，在计算上述指标时，一个隐性的问题是：我们想在哪个时间范围考察这些指标？只考虑近一年的情况显然是不够的，而即使延伸到最近k年的计算结果，也是站在当前这一时点对所有历史进行回溯。一个更为动态的视角是想象自己站在每个历史上的时点，回顾该时点之前的历史，而这就是滚动指标的意义。对于滚动指标的计算，一般首先要指定一个窗口，例如1年，然后在每个时点去计算“近1年超额收益率”等指标，从而绘制出一条以时间为横轴的曲线，而非仅仅得出一个数值。</p>
+<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><p>假设我们将周净值数据存储在<code>nv_ts</code>这一个DataFrame对象中，具体包括：以周为单位的时间索引，产品对应净值和基准指数的对应净值。下面分步实现上述四个指标在1年范围内的计算。<br>为了代码上实现方便，这里直接使用empyrical包直接获得最大回撤。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt </span><br><span class="line"><span class="keyword">from</span> empyrical <span class="keyword">import</span> max_drawdown</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算产品和基准指数的周收益率（简单形式）</span></span><br><span class="line">nv_ts[<span class="string">'周产品收益'</span>] = nv_ts[<span class="string">'产品净值'</span>].pct_change()</span><br><span class="line">nv_ts[<span class="string">'周基准收益'</span>] = nv_ts[<span class="string">'基准指数'</span>].pct_change()</span><br><span class="line"><span class="comment"># 计算产品和基准指数近1年的收益率</span></span><br><span class="line"><span class="comment"># 截取最近一年的数据</span></span><br><span class="line">start_date = datetime.now()-timedelta(days = <span class="number">365</span>)</span><br><span class="line">nv_ts_one_year = nv_ts[nv_ts.index&gt;start_date]</span><br><span class="line">product_AR = nv_ts_one_year[<span class="string">'产品净值'</span>].iloc[<span class="number">-1</span>]/nv_ts_one_year[<span class="string">'产品净值'</span>].iloc[<span class="number">0</span>]<span class="number">-1</span></span><br><span class="line">baseline_AR = nv_ts_one_year[<span class="string">'基准指数'</span>].iloc[<span class="number">-1</span>]/nv_ts_one_year[<span class="string">'基准指数'</span>].iloc[<span class="number">0</span>]<span class="number">-1</span></span><br><span class="line"><span class="comment"># 计算近一年的超额收益</span></span><br><span class="line">product_ER = product_AR-baseline_AR</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算近一年年化波动率</span></span><br><span class="line">volatility = nv_ts_one_year[<span class="string">'周产品收益'</span>].std(ddof = <span class="number">1</span>)*sqrt(<span class="number">52</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算近一年最大回撤</span></span><br><span class="line">max_dd = - max_drawdown(nv_ts_one_year[<span class="string">'周产品收益'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算卡玛比率</span></span><br><span class="line">calmar_ratio = product_AR/max_dd</span><br></pre></td></tr></table></figure></p>
+<h3 id="最大回撤计算"><a href="#最大回撤计算" class="headerlink" title="最大回撤计算"></a>最大回撤计算</h3><p>除了使用现成的第三方工具以外，也可以自行计算最大回撤，从而帮助我们更好的理解最大回撤的公式和意义。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_max_dd</span><span class="params">(nv_ts)</span>:</span></span><br><span class="line">  <span class="comment"># 先找终止点</span></span><br><span class="line">  j = np.argmax(np.maximum.accumulate(nv_ts)-nv_ts)</span><br><span class="line">  <span class="comment">#np.maximum.accumulate()是指对每个点计算从0到这个点这一子序列中的最大值，然后通过argmax找到使这一差值最大的时间点j</span></span><br><span class="line">  <span class="comment"># start of the period</span></span><br><span class="line">  i = np.argmax(nv_ts[:j])在终止前的最高点就是最大回撤的开始时刻</span><br><span class="line">  <span class="comment"># 计算最大回撤率</span></span><br><span class="line">  max_dd = nv_ts[j]/nv_ts[i]<span class="number">-1</span></span><br><span class="line">  <span class="keyword">return</span> i,j,max_dd</span><br></pre></td></tr></table></figure></p>
+<h3 id="关于滚动指标的实现"><a href="#关于滚动指标的实现" class="headerlink" title="关于滚动指标的实现"></a>关于滚动指标的实现</h3><p>对于滚动指标而言，最重要的是将pandas的rolling()与上面的函数相结合，具体将在之后另一篇关于rolling()方法的blog中详细探讨，此处暂略。</p>
+<h2 id="参考资料链接"><a href="#参考资料链接" class="headerlink" title="参考资料链接"></a>参考资料链接</h2><p><a href="https://stackoverflow.com/questions/22607324/start-end-and-duration-of-maximum-drawdown-in-python" target="_blank" rel="noopener">Start, End and Duration of Maximum Drawdown in Python</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/10/20/stata分块处理大型文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2017,210 +2247,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/06/27/泊松分布笔记：理解与推导/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/06/27/泊松分布笔记：理解与推导/" class="post-title-link" itemprop="url">泊松分布笔记：理解与推导</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-27 18:51:48" itemprop="dateCreated datePublished" datetime="2019-06-27T18:51:48+08:00">2019-06-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-30 09:36:18" itemprop="dateModified" datetime="2019-06-30T09:36:18+08:00">2019-06-30</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://medium.com/@aerinykim/poisson-distribution-intuition-and-derivation-1059aeab90d" target="_blank" rel="noopener">reference</a></p>
-<h2 id="为什么创造泊松分布？"><a href="#为什么创造泊松分布？" class="headerlink" title="为什么创造泊松分布？"></a>为什么创造泊松分布？</h2><p>因为要预测未来<strong>一段时间</strong>内事件<strong>发生K次</strong>的概率。<br>有这种需求，第一个映入我们脑海的，想必通常都是二项分布。</p>
-<h3 id="从二项分布开始"><a href="#从二项分布开始" class="headerlink" title="从二项分布开始"></a>从二项分布开始</h3><p>来看一个二项分布的概率公式：</p>
-<script type="math/tex; mode=display">P(X=k) = C_n^k p^k (1-p)^{n-k}</script><p>其中，<br>n对应“一段时间”：在一段时间内，我们可以进行n次试验（trial）<br>k对应“发生k次”：在n次试验所代表的一段时间中，事件成功发生的次数<br>p：对应<strong>每次试验</strong>中事件发生的概率（时间点而非时间段的视角是之后讨论泊松分布的关键）<br>由此可以看出，要用二项分布模型估计事件发生的概率，至少需要知道两个参数：试验总次数n和单次试验中事件发生的概率p。</p>
-<h4 id="二项分布的基本假设"><a href="#二项分布的基本假设" class="headerlink" title="二项分布的基本假设"></a>二项分布的基本假设</h4><ol>
-<li>事件之间相互独立</li>
-<li>每次试验（trial）只会有<strong>两种</strong>结果：成功（发生），1；或是不成功，0</li>
-<li>每次试验中，成功的概率不变（constant）</li>
-</ol>
-<p>这几个假设中，1和3同样对泊松分布有约束，而2则是发明泊松分布的关键动机。</p>
-<h4 id="二项分布的性质"><a href="#二项分布的性质" class="headerlink" title="二项分布的性质"></a>二项分布的性质</h4><p>在统计特征上，至少关注一阶矩（期望）和二阶矩（方差）。二项分布的期望和方差分别为：</p>
-<script type="math/tex; mode=display">E(X)=np, var(X) = np(1-p)</script><p>推导：对于单次试验，有期望和方差</p>
-<script type="math/tex; mode=display">\mu = 1·p+0·(1-p) = p, \sigma^2 = p·(1-p)^2+(1-p)(0-p)^2 = p(1-p)(1-p+p) = p(1-p)</script><p>再由相互独立假设及期望/方差求和性质可得。</p>
-<p>另一方面，我们也可以关注一些“几何特征”，例如对称性。一般而言，二项分布是右偏而非对称的（除非p=0.5），但随着n增大，分布的的偏度下降，接近正态分布$N(np,np(1-p))$（示例见下图）。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> binom,norm</span><br><span class="line">%matplotlib inline</span><br><span class="line">sns.set(style=<span class="string">'darkgrid'</span>, color_codes=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genBinomialDist</span><span class="params">(n,p,ax,size=<span class="number">10000</span>)</span>:</span></span><br><span class="line">    data_binom = binom.rvs(n,p,size = size)</span><br><span class="line">    sns.distplot(data_binom, kde = <span class="literal">False</span>,hist_kws =      &#123;<span class="string">'linewidth'</span>:<span class="number">1</span>,<span class="string">'width'</span>:<span class="number">0.5</span>&#125;,fit = norm,fit_kws = &#123;<span class="string">'color'</span>:<span class="string">'r'</span>,<span class="string">'label'</span>:<span class="string">'norm'</span>&#125;,ax =ax)</span><br><span class="line">    ax.set(xlabel = <span class="string">'number of events'</span>,ylabel = <span class="string">'density'</span>,title = <span class="string">'Binomial Distribution: n = &#123;0&#125;, p = &#123;1&#125;'</span>.format(n,p))</span><br><span class="line">    ax.legend()</span><br><span class="line"></span><br><span class="line">fig,axes = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize = (<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">plt.subplots_adjust(wspace =<span class="number">0.2</span>, hspace =<span class="number">0.4</span>)</span><br><span class="line">genBinomialDist(<span class="number">10</span>,<span class="number">0.2</span>,axes[<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">genBinomialDist(<span class="number">10</span>,<span class="number">0.5</span>,axes[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">genBinomialDist(<span class="number">20</span>,<span class="number">0.2</span>,axes[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">genBinomialDist(<span class="number">50</span>,<span class="number">0.2</span>,axes[<span class="number">1</span>,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<p><a href="https://imgchr.com/i/ZlTvP1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/06/30/ZlTvP1.png" alt="ZlTvP1.png"></a></p>
-<h4 id="二项分布的和"><a href="#二项分布的和" class="headerlink" title="二项分布的和"></a>二项分布的和</h4><p>假设X和Y相互独立，且$X~B(n,p),Y~B(m,p)$，则X+Y也服从二项分布：$X+Y~B(n+m,p)$<br>(X和Y相互独立，p又相同-&gt;可以看做一个n+m次试验下服从二项分布的事件Z，P(X+Y)=P(X)+P(Y))</p>
-<h3 id="二项分布的局限性与泊松分布"><a href="#二项分布的局限性与泊松分布" class="headerlink" title="二项分布的局限性与泊松分布"></a>二项分布的局限性与泊松分布</h3><p>如之前所述，二项分布的基本假设第二条要求每次试验只能有两个结果，而每次试验的发生都需要时间——对于离散模型，大多数时候，我们可以把观测n次试验的时间段分割成多个更短的时间段，从而保证每个时间段里只有一次试验发生，并且结果仅为成功事件或是不成功事件。然而，在某些时候我们必须把时间段划分得足够小——例如，如果你的文章被大V转发，可能在一分钟内会有多次点赞，这样将单位时间段定义为一分钟就不够满足假设要求了：那么，一秒呢？一毫秒呢？甚至，取一个极限？</p>
-<p>当把时间段无限分割、从而逼近时间点时，二项分布就开始向泊松分布进发了。这时，n-&gt;无穷，与此对应，我们知道二项分布的期望是np，为保证np收敛，p-&gt;0，$np = \lambda$——由此，我们避免再对n和p进行讨论，而只需关注一个参数$\lambda$。</p>
-<h3 id="从二项分布推导泊松分布"><a href="#从二项分布推导泊松分布" class="headerlink" title="从二项分布推导泊松分布"></a>从二项分布推导泊松分布</h3><p>本节将从纯数学的角度推导泊松分布的概率公式。<br>对二项分布而言，我们知道：</p>
-<script type="math/tex; mode=display">P(X=k) = C_n^k p^k (1-p)^{n-k}</script><p>对n取极限，令$p = \lambda/n$，有：</p>
-<script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n!}{(n-k)!k!}(\lambda/n)^k(1-\lambda/n)^{(n-k)}</script><script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n!}{(n-k)!k!}*(\lambda/n)^k*e^{-\lambda}</script><script type="math/tex; mode=display">P(X = k) = \lim_{n->\infty} \frac{n(n-1)···(n-k+1)}{n^k}*\lambda^k*e^{-\lambda}/{k!}</script><p>当n趋近无穷时，$\frac{n(n-1)···(n-k+1)}{n^k}$趋近1。因此，</p>
-<script type="math/tex; mode=display">P(X = k) =\frac{\lambda^k}{k!}e^{-\lambda}</script><p>这就是泊松分布的概率公式。</p>
-<h3 id="泊松分布的假设"><a href="#泊松分布的假设" class="headerlink" title="泊松分布的假设"></a>泊松分布的假设</h3><p>由于泊松分布可以看作二项分布的极限情况，泊松分布的假设条件也与二项分布很类似。具体包括：</p>
-<ol>
-<li>单位时间事件的平均发生概率为常数：因此，在使用泊松分布模型时，选择合适的总时间段作为估计目标是有必要的。例如，台风主要在夏季发生，那么在不同季度台风发生的平均概率是不一样的，选择用泊松分布来模拟每年的台风发生率更科学。</li>
-<li>事件之间相互独立（对应二项分布的假设1）</li>
-</ol>
-<h3 id="泊松分布的性质"><a href="#泊松分布的性质" class="headerlink" title="泊松分布的性质"></a>泊松分布的性质</h3><p>统计性质：<br>泊松分布的期望值为$\lambda$（对应二项分布中的np），方差也为$\lambda$（对应二项分布中的np(1-p)，注意p趋近0）。<br>图形性质：和二项分布类似，但泊松分布总是非对称且右偏的（毕竟p不可能等于0.5）。当$\lambda$逐渐增大时，泊松分布逐渐逼近正态分布。<br>最后，和二项分布一样，服从泊松分布的随机变量X必然取非负值——事件不可能发生负数次。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> poisson</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPoissonDist</span><span class="params">(lbda,ax,size=<span class="number">10000</span>)</span>:</span></span><br><span class="line">    data_poisson = poisson.rvs(lbda,size = size)</span><br><span class="line">    sns.distplot(data_poisson, kde = <span class="literal">False</span>,hist_kws = &#123;<span class="string">'linewidth'</span>:<span class="number">1</span>,<span class="string">'width'</span>:<span class="number">0.5</span>&#125;,fit = norm,fit_kws = &#123;<span class="string">'color'</span>:<span class="string">'r'</span>,<span class="string">'label'</span>:<span class="string">'norm'</span>&#125;,ax =ax)</span><br><span class="line">    ax.set(xlabel = <span class="string">'number of events'</span>,ylabel = <span class="string">'density'</span>,title = <span class="string">'Poisson Distribution: lambda = &#123;0&#125;'</span>.format(lbda))</span><br><span class="line">    ax.legend()</span><br><span class="line">fig,axes = plt.subplots(<span class="number">2</span>,<span class="number">2</span>,figsize = (<span class="number">12</span>,<span class="number">8</span>))</span><br><span class="line">plt.subplots_adjust(wspace =<span class="number">0.2</span>, hspace =<span class="number">0.4</span>)</span><br><span class="line">genPoissonDist(<span class="number">3</span>,axes[<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">genPoissonDist(<span class="number">5</span>,axes[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">genPoissonDist(<span class="number">10</span>,axes[<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">genPoissonDist(<span class="number">40</span>,axes[<span class="number">1</span>,<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-<p><a href="https://imgchr.com/i/ZlTx8x" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/06/30/ZlTx8x.png" alt="ZlTx8x.png"></a></p>
-<h3 id="泊松分布的应用"><a href="#泊松分布的应用" class="headerlink" title="泊松分布的应用"></a>泊松分布的应用</h3><p>满足事件发生相互独立且各个时间段内平均发生次数不变的问题都可以用泊松分布来模拟，例如某客服中心工作日每小时打进来的电话数量。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2267,7 +2293,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2532,19 +2558,19 @@
   
     
       
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
         
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
