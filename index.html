@@ -330,6 +330,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2020/05/03/ARIMA VAR modeling with Python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2020/05/03/ARIMA VAR modeling with Python/" class="post-title-link" itemprop="url">Untitled</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-03 14:52:15 / Modified: 19:16:05" itemprop="dateCreated datePublished" datetime="2020-05-03T14:52:15+08:00">2020-05-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ARIMA-and-VAR-Modeling-with-Python"><a href="#ARIMA-and-VAR-Modeling-with-Python" class="headerlink" title="ARIMA and VAR Modeling with Python"></a>ARIMA and VAR Modeling with Python</h1><hr>
+<p>title:  ARIMA and VAR Modeling with Python<br>date: 2020-05-03<br>tags: </p>
+<ul>
+<li>Python</li>
+<li>数据分析</li>
+<li>时间序列<br>categories: 编程与技术</li>
+</ul>
+<hr>
+<h2 id="计量理论知识"><a href="#计量理论知识" class="headerlink" title="计量理论知识"></a>计量理论知识</h2><p>最近帮导师做了份编程作业的答案，也是第一次学习实际implement做ARIMA和简约VAR模型。机会难得，正好系统复习和学习一遍时间序列的基本建模方法。</p>
+<h3 id="平稳时间序列"><a href="#平稳时间序列" class="headerlink" title="平稳时间序列"></a>平稳时间序列</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>在计量经济学中，时间序列建模的首要条件是平稳性（stationarity）。平稳时间序列的基本定义是，时间序列的统计性质（statistical properties）不因观测时间的不同而发生改变。弱平稳时间序列（weak stationary）数学语言表述为：</p>
+<ol>
+<li>First-order moment is constant, i.e. $E(y_t)=\mu$</li>
+<li>Second-order moment is constant and finite, i.e. $Var(y_t)=\sigma^2$</li>
+<li>Auto-covariance depends only on the interim period length, i.e. $cov(y_t,y_{t-j}) = cov_j$</li>
+</ol>
+<p>常见的非平稳序列特征包括趋势（trend）和季节性（seasonality）。不过，并非所有看似有周期性的序列都是非平稳的——如果周期的长度是随机的。</p>
+<h4 id="检验时间序列的平稳性"><a href="#检验时间序列的平稳性" class="headerlink" title="检验时间序列的平稳性"></a>检验时间序列的平稳性</h4><p>一般常用<strong>Dickey-Fuller test</strong>检验平稳性（即ADF检验）。原假设为非平稳时间序列，存在单位根，故检验的目标为p值应<em>小于</em>设定的显著度。</p>
+<h4 id="非平稳序列的转换"><a href="#非平稳序列的转换" class="headerlink" title="非平稳序列的转换"></a>非平稳序列的转换</h4><p>常见的转换方式包括去趋势、季节性差分、N阶差分和对数化。</p>
+<ol>
+<li>去趋势：观察趋势的类型，最简单的趋势为线性趋势。如为线性趋势，则先regress y on 1,2,3,…，然后取$y’_t = y_t - \hat{y}_t$，其中$\hat{y}_t$为线性趋势模型中的fitted value。同理，对于非线性趋势，可以使用多项式模型进行fit，从而remove掉趋势。</li>
+<li>季节性差分：如季节性为m期（例如，一般季度周期下m=4），则$y’_t = y_t - y_{t-m}$。</li>
+<li>N阶差分：对时间序列进行N次差分，如N=2，则$y’_t = y_t - y_{t-1}, y’’_t =y’_t-y’_{t-1}$</li>
+<li>对数化：顾名思义，取自然对数，$y’_t = ln(y’_{t-1})$。</li>
+</ol>
+<h3 id="ARIMA模型与ARMAX模型"><a href="#ARIMA模型与ARMAX模型" class="headerlink" title="ARIMA模型与ARMAX模型"></a>ARIMA模型与ARMAX模型</h3><p>ARIMA模型包括三个部分：自回归（AR）、差分（I）和移动平均（MA）。本质上，可以手动进行差分得到平稳序列后再进行ARMA回归，结果应与ARIMA模型一致。不过在实际操作中，ARIMA可以方便地将预测值转换到差分前的水平，省去繁琐的代码操作。<br>ARMAX模型则为ARMA引入外生变量后的一般化模型。ARMAX(p,q)的数学表达式如下：</p>
+<script type="math/tex; mode=display">
+y_t = \alpha + \beta_X*X + \sum_p{\beta_p*y_{t-p}}+\sum_q{\gamma_q*\epsilon_{t-q}}+\epsilon_t</script><h3 id="Reduced-Form-VAR"><a href="#Reduced-Form-VAR" class="headerlink" title="Reduced Form VAR"></a>Reduced Form VAR</h3><p>向量自回归模型（VAR）适用于处理具有内生关系的时间序列。在经济学中，常用结构向量自回归模型（SVAR）来做因果推断；简约模型则更多在预测中运用。本文的目标为处理预测问题，因此主要讲简约VAR模型如何操作。<br>p阶VAR模型的数学表达式如下（来自<a href="https://en.wikipedia.org/wiki/Vector_autoregression" target="_blank" rel="noopener">wikipedia</a>）：</p>
+<script type="math/tex; mode=display">
+y_t = c + A_1 y_{t-1}+...+A_p y_{t-p}+\epsilon_t</script><p>注意vector的意义：这里$y_t$为具有内生决定关系的多个变量组成的向量。即：</p>
+<script type="math/tex; mode=display">
+y_t = [y_{1,t},y_{2,t},...,y_{m,t}]^T</script><p>在VAR模型的基本假设中，允许误差项在同时期各变量之间存在相关性（即具有内生关系），但<em>无序列相关</em>。即：</p>
+<script type="math/tex; mode=display">
+E(\epsilon_t)=\mathbf{0}, E(\epsilon_t \epsilon_t^T)=\Omega, E(\epsilon_t \epsilon_{t-k})=\mathbf{0}</script><p>注意这里的误差项也是向量。</p>
+<h2 id="Stationary-Test-with-Python"><a href="#Stationary-Test-with-Python" class="headerlink" title="Stationary Test with Python"></a>Stationary Test with Python</h2><p>statsmodels的adfuller()函数返回一个列表，其中常用的包括：</p>
+<ol>
+<li>dftest[0]: adf, the test statistic</li>
+<li>dftest[1]: p-value</li>
+<li>dftest[4]: 字典，Critical values for the test statistic at the 1%, 5%, and 10% levels. keys are ‘1%’,…，values are corresponding critical values.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.stattools <span class="keyword">import</span> adfuller</span><br><span class="line">data = data.dropna() <span class="comment">#确保没有空值</span></span><br><span class="line">data.plot() <span class="comment"># 可视化观察</span></span><br><span class="line">dftest = adfuller(data.values, autolag=<span class="string">'AIC'</span>) <span class="comment">#默认AIC，可以设置BIC等来确定lag数，如为None则使用最大滞后期数</span></span><br><span class="line">print(<span class="string">"Test statistic = &#123;:.3f&#125;"</span>.format(dftest[<span class="number">0</span>]))</span><br><span class="line">print(<span class="string">"P-value = &#123;:.3f&#125;"</span>.format(dftest[<span class="number">1</span>]))</span><br><span class="line">print(<span class="string">"Critical values :"</span>)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> dftest[<span class="number">4</span>].items(): <span class="comment">#迭代字典key:value</span></span><br><span class="line">    print(<span class="string">"\t&#123;&#125;: &#123;&#125; - The data is &#123;&#125;stationary with &#123;&#125;% confidence"</span>.format(k, v, <span class="string">"not "</span> <span class="keyword">if</span> v&lt;dftest[<span class="number">0</span>] <span class="keyword">else</span> <span class="string">""</span>, <span class="number">100</span>-int(k[:<span class="number">-1</span>]))) <span class="comment">#这里的字符串“生成式”？的写法很有意思</span></span><br></pre></td></tr></table></figure>
+<h2 id="Modeling-ARIMA-ARMAX-with-Python"><a href="#Modeling-ARIMA-ARMAX-with-Python" class="headerlink" title="Modeling ARIMA/ARMAX with Python"></a>Modeling ARIMA/ARMAX with Python</h2><p>ARMA模型需要设定两个参数：p和q。如何调整这两个参数呢？常见的方法包括：</p>
+<ol>
+<li>ACF和PACF（Partial Auto Correlation Function）</li>
+<li>结合其他基准：信息准则（AIC，越小越好），显著程度等</li>
+</ol>
+<h3 id="ACF-amp-PACF"><a href="#ACF-amp-PACF" class="headerlink" title="ACF &amp; PACF"></a>ACF &amp; PACF</h3><p>ACF（autocorrelation）计算公式为：$ACF_h = \frac{Cov(y_t,y_{t-h})}{Var(y_t)}$ （因为弱平稳条件下$SD(y_t)$ 不随t变化）。<br>PACF（partial autocorrelation）描述将其他变量的相关程度剔除后的剩余部分的自相关性质。这么说起来有些抽象，下面举例说明：$y_t$和$y_{t-1},y_{t-2}$相关，而$y_t$和$y_{t-2}$的相关性之间就存在$y_{t-1}$的干扰。把$y_t$和$y_{t-2}$中与$y_{t-1}$不相关的部分剔除出来，再计算得到的相关系数就称为偏相关系数。计算PACF的方法就更加明了了——做线性回归，取residuals计算相关系数。这样的相关系数在数学语言上用条件相关系数来表示：</p>
+<script type="math/tex; mode=display">
+PACF = \frac{cov(y_t|y_{t-1},y_{t-2}|y_{t-1})}{SD(y_t|y_{t-1})SD(y_{t-2}|y_{t-1})}</script><p>至于最终t-k的K是多少，就与函数中设置的lags参数有关了（见后文）。</p>
+<p>PACF用于调整AR的阶数p，而ACF用于调整MA的阶数q。首先观察ACF和PACF图是拖尾（decay，始终有非零取值）还是截尾（上下波动，在k阶后显著归零并进入置信区间）。</p>
+<ul>
+<li>若PACF在p0项后截断进入置信区间，初始p = p0+1</li>
+<li>若ACF在q0项后截断进入置信区间，初始q = q0+1</li>
+<li>若PACF<strong>或</strong>ACF拖尾，则初始p/q = 0；但注意如果拖尾并且一直没有衰减到0，说明差分不足；如果ACF(1)&lt;-0.5，可能存在过度差分。如果两者都拖尾，说明应使用ARMA模型，按照最后一次进入置信区间的拖尾阶数设置p和q。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>ACF</th>
+<th>PACF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AR</td>
+<td>拖尾</td>
+<td>截尾</td>
+</tr>
+<tr>
+<td>MA</td>
+<td>截尾</td>
+<td>拖尾</td>
+</tr>
+<tr>
+<td>ARMA</td>
+<td>拖尾</td>
+<td>拖尾</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>进入实战，用python的statsmodels绘制acf和pacf图：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> statsmodels.graphics.tsaplots <span class="keyword">import</span> plot_acf, plot_pacf</span><br><span class="line">fig, ax = plt.subplots(<span class="number">2</span>, figsize=(<span class="number">12</span>,<span class="number">6</span>))</span><br><span class="line">ax[<span class="number">0</span>] = plot_acf(data_test.dropna(), ax=ax[<span class="number">0</span>], lags=<span class="number">20</span>)</span><br><span class="line">ax[<span class="number">1</span>] = plot_pacf(data_test.dropna(), ax=ax[<span class="number">1</span>], lags=<span class="number">20</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="ARIMA-Model-Estimate-and-Forecast"><a href="#ARIMA-Model-Estimate-and-Forecast" class="headerlink" title="ARIMA Model Estimate and Forecast"></a>ARIMA Model Estimate and Forecast</h3><h4 id="ARIMA-Estimate"><a href="#ARIMA-Estimate" class="headerlink" title="ARIMA Estimate"></a>ARIMA Estimate</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">model = ARIMA(data, exog = X,order = (p, i,  q)) <span class="comment">#ar, diff, ma</span></span><br><span class="line">res_arima = model.fit() </span><br><span class="line">print(res_arima.summary()) <span class="comment">#返回估计模型结果</span></span><br><span class="line">plt.plot(res_arima.resid,  label=<span class="string">'standard error=&#123;:.3f&#125;'</span>.format(np.std(res_arima.resid))) <span class="comment">#绘制残差图</span></span><br><span class="line">plt.gca().hlines(<span class="number">0</span>, xmin=<span class="number">0</span>, xmax=<span class="number">90</span>, color=<span class="string">'r'</span>) <span class="comment">#gca: get current axes</span></span><br><span class="line">plt.gca().set_title(<span class="string">"Residual of ARIMA(p,i,q)"</span>)</span><br><span class="line">plt.gca().legend()</span><br></pre></td></tr></table></figure>
+<h4 id="ARIMA-Forecast"><a href="#ARIMA-Forecast" class="headerlink" title="ARIMA Forecast"></a>ARIMA Forecast</h4><p>方法1：自动生成，<code>res_arima.plot_predict(start =&#39;2020-05-01&#39; ,end = &#39;2020-05-03&#39;,exog = X, ax = ax )</code>。<br>方法2：自行计算。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pred_step = <span class="number">7</span> <span class="comment"># for one week</span></span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">data.plot(ax=ax, label = <span class="string">'observed data'</span>)</span><br><span class="line"></span><br><span class="line">res_pred = ARIMA(data.iloc[:-pred_step], (<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>), freq = <span class="string">'D'</span>).fit() <span class="comment">#对时间序列设置freq</span></span><br><span class="line">ax.vlines(data.index[-pred_step], <span class="number">7</span>, <span class="number">17</span>, linestyle=<span class="string">'--'</span>, color=<span class="string">'r'</span>, label=<span class="string">'Start of forecast'</span>)</span><br><span class="line">forecast = res_pred.forecast(steps=pred_step, exog=X, alpha=<span class="number">0.05</span>) <span class="comment">#注意forecast的用法，forecast的值是level值，即自动计算差分前水平</span></span><br><span class="line">pd.Series(forecast[<span class="number">0</span>], index = data.index[-pred_step:]).plot(label = <span class="string">'forecast'</span>)</span><br><span class="line">pd.Series(res_pred.predict(start = <span class="number">2</span>,end = len(data)-pred_step+<span class="number">2</span>, typ=<span class="string">'levels'</span>), index = data.index[:-pred_step]).plot(label = <span class="string">'fitted value'</span>, ax= ax) <span class="comment">#2是因为这里diff了2阶，0和1开始是没有fitted value的。当然对于有时间戳作为索引的可以用datetime来作为start和end。typ = 'levels'将fit值计算到差分前水平</span></span><br><span class="line">plt.fill_between(data.index[-pred_step:], </span><br><span class="line">                 y1 = forecast[<span class="number">2</span>][:,<span class="number">0</span>], <span class="comment">#forecast[2]返回上下置信区间组成的ndarray</span></span><br><span class="line">                 y2 = forecast[<span class="number">2</span>][:,<span class="number">1</span>], alpha = <span class="number">0.3</span>, color = <span class="string">'gray'</span>)</span><br><span class="line">plt.legend(loc = <span class="string">'upper left'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<h2 id="Modeling-Reduced-Form-VAR-with-Python"><a href="#Modeling-Reduced-Form-VAR-with-Python" class="headerlink" title="Modeling Reduced Form VAR with Python"></a>Modeling Reduced Form VAR with Python</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.api <span class="keyword">import</span> VAR</span><br><span class="line">pred_step = <span class="number">7</span></span><br><span class="line"></span><br><span class="line">selection_result = VAR(data_var,freq = <span class="string">'D'</span>).select_order(<span class="number">4</span>) <span class="comment">#最大4期lag下计算各类信息准则，以确定最优滞后期数-&gt;L</span></span><br><span class="line">print(selection_result.summary())</span><br><span class="line">res_var = VAR(data_var.iloc[:-pred_step],freq = <span class="string">'D'</span>).fit(L)</span><br><span class="line">print(res_var.summary())</span><br><span class="line"></span><br><span class="line">forecast = res_var.forecast(y =data_var.values[-pred_step:], steps = pred_step) <span class="comment">#y为起始猜测值，之后程序基于此和模型估计的参数进行迭代预测</span></span><br><span class="line"></span><br><span class="line">forecast = pd.DataFrame(forecast, index = data_var.index[-pred_step:],columns = [<span class="string">'col1'</span>,<span class="string">'col2'</span>])</span><br><span class="line">forecast = forecast.cumsum()+data_var.diff().iloc[-pred_step<span class="number">-1</span>].values <span class="comment">#开始还原，二阶差分-&gt;一阶</span></span><br><span class="line">forecast = forecast.cumsum()+data_var.iloc[-pred_step<span class="number">-1</span>].values  <span class="comment">#开始还原，一阶差分-&gt;初始水平值</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2020/03/08/读书笔记：玫瑰战争简史/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2019,238 +2247,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/11/09/读书笔记：学会提问/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/11/09/读书笔记：学会提问/" class="post-title-link" itemprop="url">读书笔记：学会提问</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-11-09 11:15:31" itemprop="dateCreated datePublished" datetime="2019-11-09T11:15:31+08:00">2019-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-11-17 15:37:17" itemprop="dateModified" datetime="2019-11-17T15:37:17+08:00">2019-11-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/读万卷书/" itemprop="url" rel="index"><span itemprop="name">读万卷书</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在当下这个信息爆炸的时代，唯有拥有批判性思考的能力，才能在扑面而来的信息潮流中捕获些许真正能支撑自己成长的力量。一直以来，我都以相对具有从多方面客观看待事物的能力而感到自豪，直到遇到这本书我才知道——尽管我已经成功避免了某些常见的思维偏误，但我还做得远远不够，无论是接受信息还是通过写作等方式传达信息。我相信，每个人在任何一个年纪遇到这本书，都将有所裨益（成为一名合格的杠精）。</p>
-<h2 id="批判性思考"><a href="#批判性思考" class="headerlink" title="批判性思考"></a>批判性思考</h2><blockquote>
-<p>我们倾听他们，是为了构建出自己的答案。</p>
-</blockquote>
-<h3 id="为什么要批判性思考"><a href="#为什么要批判性思考" class="headerlink" title="为什么要批判性思考"></a>为什么要批判性思考</h3><p>正如《乌合之众》中勒庞对群体的讽刺——领导群体需要的不是真理，而是“断言”——似乎人性中天生就有一种偷懒的倾向，尽可能避免麻烦的推导、寄希望于他人可以直接告诉我们结果。然而从历史上来看，一旦对之加以利用形成偏向性的煽动，其结果对整个人类社会来说都是灾难性的。批判性思维的起点，就在于个体要有提高思维能力的强烈愿望，选择自己的主见，而非一味全盘接受。</p>
-<h3 id="什么是批判性思维"><a href="#什么是批判性思维" class="headerlink" title="什么是批判性思维"></a>什么是批判性思维</h3><p>作者认为，批判性思维包括以下三点：</p>
-<ol>
-<li>要能意识到它们是一整套环环相扣的关键问题；</li>
-<li>有能力在适当时机以适当的方式提出和回答问题；</li>
-<li>积极主动地使用这些关键问题的强烈渴望。</li>
-</ol>
-<p>当作者或演讲者等观点的陈述人不断向你兜售观点时，应该随时准备与之辩驳，这种互动方式被称为“淘金式思维”。</p>
-<h4 id="海绵式与淘金式思维"><a href="#海绵式与淘金式思维" class="headerlink" title="海绵式与淘金式思维"></a>海绵式与淘金式思维</h4><p>或许是由于中国传统的教育方式仍强调灌输为主，我们大部分人都在无意中形成了海绵式思维——即大量吸收外部信息。但这种思维在选择接受或摒弃哪些信息和观点上毫无帮助。淘金式思维（panning-for-gold style of thinking）则强调观点的接收方和传输方间多加互动，不断提问并思考问题的答案。</p>
-<h4 id="强势与弱势批判性思维"><a href="#强势与弱势批判性思维" class="headerlink" title="强势与弱势批判性思维"></a>强势与弱势批判性思维</h4><p>拥有批判性思维并不意味着形成理性的主见。一般来讲，我们都有一种“弱势批判性思维”的倾向，即利用批判性思维来捍卫自己的理念，以驳倒与自己不同的观点和论证为终极目标。然而，这种对自己主张的绝对信任无益于追求真理。强势批判性思维要求我们对包括自己在内的所有主张提出批判性的问题，以评估所有的断言以及信念。</p>
-<h4 id="快思考与慢思考"><a href="#快思考与慢思考" class="headerlink" title="快思考与慢思考"></a>快思考与慢思考</h4><p>在使用弱势批判性思维时，我们就已经落入了名为“快思考”的陷阱。本书的作者在更新这一版内容时，特意将原书内容与《思考，快与慢》结合，挖掘快思考和慢思考这两个抽象概念中的实际表现。快思考可谓人类懒惰本性下的常见倾向，一旦事实的确符合快思考得出的结论，就可以节省下大量的时间，但这种倾向同时会导致我们无法对一个问题进行深入细致的分析。常见的快思考倾向包括：</p>
-<ul>
-<li>只愿意听价值观倾向和我们相似的人的话</li>
-<li><strong>刻板印象</strong>：基于某个人所属的特定群体断言此人具有的一系列明确特征，绕开客观评价的艰难过程</li>
-<li><strong>晕轮效应（halo effect）</strong>：先认识到一个人身上具有的优缺点，然后把这些特征与这个人的其他一切都联系起来。如果对一个人有着积极的认识，便以为他在其他方面也有着过人之处，便特别容易接受他的观点</li>
-<li><strong>确认性偏见（confirmation bias）</strong>：只把那些确认我们既有信念的证据当成可靠证据，并最终导致<strong>信念固着（belief perseverance）</strong></li>
-<li><strong>可得性启发（availability heuristic）</strong>：只根据手边最容易获得的信息来形成结论，而不付出时间和精力获取、处理额外的信息</li>
-<li><strong>近因效应（recent effect）</strong>：最新看到的信息占有影响评判标准的最高权重；例如，尽管空难的概率非常低，但出现一场空难后有些乘客几个月也不敢乘飞机出行</li>
-<li><strong>似是而非（truthiness）</strong>：相信希望是真的概念或事实而非已经证明为真的概念或事实</li>
-<li><strong>奇迹式思维（magical thinking）</strong>：在科学还不能提供令人信服的解释时，人们寻求奇迹来解释，“将特定的结论变成现实”。</li>
-</ul>
-<p>这些快思考方式不仅影响一个人对严肃讨论和议题的评估能力，同时也在日常生活和社交中扮演着重要角色；无论何时，我们都应该多加询问一下自己：是否陷入了快思考的陷阱中？</p>
-<h2 id="评价论证"><a href="#评价论证" class="headerlink" title="评价论证"></a>评价论证</h2><h3 id="论题"><a href="#论题" class="headerlink" title="论题"></a>论题</h3><p>要评估一个论证，首先需要知道这个论证提出了什么样的问题，也即论题。论题一般可以分为描述性论题和规定性论题。</p>
-<ul>
-<li>描述性论题：针对各种客观描述的精确与否提出的问题，即<strong>“是不是”</strong></li>
-<li>规定性论题：伦理或道德范畴，需要的是关于<strong>“应该”怎么样</strong>的规定性答案。社会争论通常属于规定性论题，其关注的焦点在于好坏对错，而非对既有事实的认知和描述。</li>
-</ul>
-<h4 id="术语界定"><a href="#术语界定" class="headerlink" title="术语界定"></a>术语界定</h4><p>在提出论题的时候，首先要避免的是模糊的定义。与“一千个读者心中有一千个哈姆雷特”的不同，歧义的产生只会导致整个论证都无法精准地传达给受众，而且这种误解的频率远远高于我们的想象——很多我们以为的常识实际并不广为人所知，或者至少还欠缺着一个被广泛接受的统一的定义。例如，“人权”这个词如果出现在挪威政府，那可能就是指就业权、免费医疗权、房屋住宿权，而美国参议员所说的“人权”则可能指言论自由、宗教信仰等权利。因此，应当小心使用每一个沾有专业性的词汇，最好的做法是以其他人从未听过这个词语为前提，而不是默认受众早已得知关键词的含义。同时，鼓励听众提出问题，从而确保自己所想要表达的意思和实际表达的意思一致。<br>常见的界定术语的方法有以下三种：同义替换（synonyms）、举例说明（examples）和具体标准定义（definition by specific criteria）。然而，前两种都具有很高的误导性，只适用于一种定义的具象化补充，对于客观评价大多数有争议的论题并不合适。更有甚者将大量“附加感情色彩的术语”（loaded terms）用于激发强烈的情感反应，以此达到个人目的。例如，政治语言通常都带有强烈的感情色彩，并且尽可能地模棱两可。</p>
-<h3 id="论证"><a href="#论证" class="headerlink" title="论证"></a>论证</h3><h4 id="论证结构"><a href="#论证结构" class="headerlink" title="论证结构"></a>论证结构</h4><p>一个论证由一个结论以及支撑这一结论的各种理由组成，而把这些散乱的节点联系在一起的正是“假设”。</p>
-<h4 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h4><p>假设是一种被作者认为理所当然并用来证明外在论证的信念，由于假设一般不会明说出来，这一环节就成为了对一个论证理解和把握的关键点。只有读者和作者之间对这些“理所当然”的信念达成一致时，这一论证才是对于双方都成立的。假设一般存在于两个地方：</p>
-<ul>
-<li>连接性假设（linkage assumption）：理由需要它们才可以证明结论</li>
-<li>证明性假设：理由需要它们才能成立</li>
-</ul>
-<p>而假设又根据其内涵意义可以分为价值观假设（value assumption）和描述性假设（descriptive assumption）。描述性假设指的是对世界是什么样的一种信念。而所谓价值观假设是指一种想当然的想法，认为某些相互对立的价值观中一个比另一个更重要。需要注意的是，在不同的情景和问题背景下，一个人的价值倾向并不一定是相同的。同时，也不能因为一个人是某个团体的一员，就断然假设这个人会无条件支持群体的价值观假设。</p>
-<blockquote>
-<p>要判断一个人的价值观假设，一个重要的方法就是注意他用来证实结论的各种理由，然后判断哪些价值倾向会导致作者认为这些理由比其他理由更可取。</p>
-</blockquote>
-<h2 id="常见误区"><a href="#常见误区" class="headerlink" title="常见误区"></a>常见误区</h2><h3 id="类比"><a href="#类比" class="headerlink" title="类比"></a>类比</h3><p>虽说在做关键术语定义时，具体完整的学术性定义在严谨的逻辑推理中更受推崇，但有时为了更具象化、接地气地传达意思，论证者通常会引入类比的手段；而在一些新的结论出现前，人们也会通过类比来获得一些创新的启发。要评价一个类比的质量，需要关注两个因素：</p>
-<ol>
-<li>A和B之间如何相同和不同；</li>
-<li>相同点和不同点之间的相关性。</li>
-</ol>
-<p>从某种意义上说，所有类比都是错误的，因为它假设两样东西在一两个方面有相似之处，则在其他重要方面也必然存在相似之处。因此，如果一个作者通过和另一件事对比来得出一件事的结论，则进一步证据支撑这种类比是有所必要的。</p>
-<h3 id="因果与相关"><a href="#因果与相关" class="headerlink" title="因果与相关"></a>因果与相关</h3><p>两个变量之间具有相关性可能有以下四种解释：</p>
-<ol>
-<li>A是B的原因；</li>
-<li>B是A的原因；</li>
-<li>A和B相互影响（双向因果，因果混淆谬误）；</li>
-<li>A和B有关系是因为C（忽略常见原因谬误，neglect of common cause fallacy）。<h3 id="谬误"><a href="#谬误" class="headerlink" title="谬误"></a>谬误</h3>书中给出的一些常见的谬误包括：</li>
-<li>因果混淆谬误（confusion of cause and effect fallacy）</li>
-<li>忽略常见原因谬误（neglect of common cause fallacy）</li>
-<li>事后归因谬误（post hoc, ergo propter hoc）：错误认为第一件事情引起第二件事情是因为它发生在前</li>
-<li>基本归因错误（fundamental attribution error）：高估他人行为中个人倾向的重要性而低估了环境因素的作用。</li>
-</ol>
-<h3 id="二分式思维与改进"><a href="#二分式思维与改进" class="headerlink" title="二分式思维与改进"></a>二分式思维与改进</h3><p>二分式思维方法（dichotomous thinking）往往将一个可能存在多种答案的问题假设成只有两个可能的答案，这也是“绝对”化论证的罪魁祸首之一。当然，就像物质最终可以回到原子等基本组成成分，一切论证本身都可以划归到二分式思维，我们需要改进的就是利用这种本质来创造多个条件句，从而得到更加准确的论证和结论。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2297,7 +2293,7 @@
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2578,9 +2574,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
   
