@@ -330,6 +330,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2020/05/18/github小白笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kanaeba">
+      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
+      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanaeba's Long Position">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/kanaeba/2020/05/18/github小白笔记/" class="post-title-link" itemprop="url">github小白笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-05-18 00:00:00 / Modified: 19:07:05" itemprop="dateCreated datePublished" datetime="2020-05-18T00:00:00+08:00">2020-05-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="开始：基本操作"><a href="#开始：基本操作" class="headerlink" title="开始：基本操作"></a>开始：基本操作</h2><h3 id="启动git服务"><a href="#启动git服务" class="headerlink" title="启动git服务"></a>启动git服务</h3><p>首先<code>git init</code>在当前目录启动git，读取隐藏的<code>.git</code>文件夹。<br>一个本地仓库可以接多个远程仓库，代码为：<br><code>git remote add [remotename] git@github.com:[username/repository.git]</code><br>查看当前目录下的远程连接：<code>git remote</code><br>删除远程连接：<code>git remote remove [remotename]</code></p>
+<h3 id="添加跟踪文件，commit与push"><a href="#添加跟踪文件，commit与push" class="headerlink" title="添加跟踪文件，commit与push"></a>添加跟踪文件，commit与push</h3><p>在commit前，需要先添加要track的文件到暂存区：<code>git add .</code><br>查看状态：<code>git status</code>，绿色表示和暂存区track的文件一致，红色则表示存在未track的文件。<br>然后commit: <code>git commit -m “comments”</code><br>修改commit内容：<code>git commit --amend</code><br>最后push到对应branch，一般为master：<code>git push -u [remotename] master</code>。如果要覆盖已有的远程仓库，将参数调整为<code>-f</code>即可（尽量不要使用）。</p>
+<h3 id="回退commit"><a href="#回退commit" class="headerlink" title="回退commit"></a>回退commit</h3><p>查看commit记录：<code>git log</code><br>回退：<code>git reset --soft HEAD~1</code>，1表示回退到上一步，2表示上上一步，依次类推。注意不要使用<code>--hard</code>，否则会修改覆盖本地仓库的文件。</p>
+<h3 id="拉取远程仓库至本地：fetch-merge与pull"><a href="#拉取远程仓库至本地：fetch-merge与pull" class="headerlink" title="拉取远程仓库至本地：fetch, merge与pull"></a>拉取远程仓库至本地：fetch, merge与pull</h3><p>pull=fetch+merge，所以安全起见应该先使用fetch，检查差别后再merge。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin master</span><br><span class="line">$ git log -p master..origin/master</span><br><span class="line">$ git merge origin/master</span><br></pre></td></tr></table></figure></p>
+<p>关于git fetch更专业的表达为<code>git fetch remotename 远程分支:本地分支</code></p>
+<h3 id="退出git"><a href="#退出git" class="headerlink" title="退出git"></a>退出git</h3><p>输入<code>:q</code>。</p>
+<h3 id="文件查看与删除库"><a href="#文件查看与删除库" class="headerlink" title="文件查看与删除库"></a>文件查看与删除库</h3><p>查看本地仓库中的文件：<code>ls -a</code><br>删除本地仓库（不删除文件，相当于只是取消git）：<code>rm -rf .git</code><br>删除本地文件：<code>rm -rf filepath</code></p>
+<h3 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h3><p>查看本地所有分支：<code>git branch</code><br>新建分支：<code>git branch newbranch</code><br>查看远程分支：<code>git branch -r</code><br>查看本地+远程分支：<code>git branch -a</code><br>切换远程分支：<code>git checkout -b [remotename] [remotename/branchname]</code><br>切换本地分支：<code>git checkout branchname</code><br>删除远程分支：<code>git push origin --delete branchname</code><br>合并分支：首先切换到要保留的主分支branch1，然后<code>git merge branch2</code>。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2020/05/03/ARIMA VAR modeling with Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2077,186 +2245,6 @@ PACF = \frac{cov(y_t|y_{t-1},y_{t-2}|y_{t-1})}{SD(y_t|y_{t-1})SD(y_{t-2}|y_{t-1}
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kanaeba">
-      <meta itemprop="description" content="如果生活要求你百般武艺，那就尽力做到样样精通。">
-      <meta itemprop="image" content="/kanaeba/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kanaeba's Long Position">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/kanaeba/2019/11/13/使用python实现条件在险价值（CVaR-ES）计算/" class="post-title-link" itemprop="url">使用python实现条件在险价值（CVaR/ES）计算</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-11-13 18:59:37" itemprop="dateCreated datePublished" datetime="2019-11-13T18:59:37+08:00">2019-11-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-11-14 18:59:09" itemprop="dateModified" datetime="2019-11-14T18:59:09+08:00">2019-11-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/kanaeba/categories/编程与技术/" itemprop="url" rel="index"><span itemprop="name">编程与技术</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="定义与计算原理"><a href="#定义与计算原理" class="headerlink" title="定义与计算原理"></a>定义与计算原理</h2><p>条件在险价值（CVaR）又名期望损失（Expected Shortfall）。如果说在险价值（VaR）是统计上某个分位点值的话，ES就是这个分位点以下损失的期望。因此，基于样本数据计算$\alpha$分位处的条件在险价值的基本步骤如下：</p>
-<ol>
-<li>计算指定频率的收益率（假设有N个样本点）</li>
-<li>将收益率按从低到高排列</li>
-<li>寻找位于分位点的样本点（第$N*\alpha$个样本，注意这个样本对应的收益率，或者说损失，就是传统的VaR）</li>
-<li>计算低于该样本点的所有损失的均值$\frac{\sum^{m}_{i}X_i }{m}$。</li>
-</ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map_CVaR</span><span class="params">(series, alpha)</span>:</span></span><br><span class="line"> <span class="string">"""</span></span><br><span class="line"><span class="string"> - Series: 一个产品的一系列收益率数据</span></span><br><span class="line"><span class="string"> - 使用方法：设有某个每一列为一个产品数据的dataframe df: df.apply(map_CVaR, alpha = 0.01)</span></span><br><span class="line"><span class="string"> - 返回值：该产品样本对应的CVaR值</span></span><br><span class="line"><span class="string"> """</span></span><br><span class="line">    series = series.sort_values(ascending = <span class="literal">True</span>)</span><br><span class="line">    df = pd.DataFrame(series) </span><br><span class="line">    N = len(df)</span><br><span class="line">    m = int(N*alpha)</span><br><span class="line">    df[<span class="string">'count'</span>] = np.arange(<span class="number">1</span>,N+<span class="number">1</span>)</span><br><span class="line">    df = df[df[<span class="string">'count'</span>] &lt;= m]</span><br><span class="line">    <span class="keyword">return</span> -df.iloc[:,<span class="number">0</span>].mean()</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2303,7 +2291,7 @@ PACF = \frac{cov(y_t|y_{t-1},y_{t-2}|y_{t-1})}{SD(y_t|y_{t-1})SD(y_{t-2}|y_{t-1}
                 
                   <a href="/kanaeba/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2373,7 +2361,9 @@ PACF = \frac{cov(y_t|y_{t-1},y_{t-2}|y_{t-1})}{SD(y_t|y_{t-1})SD(y_{t-2}|y_{t-1}
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2570,9 +2560,9 @@ PACF = \frac{cov(y_t|y_{t-1},y_{t-2}|y_{t-1})}{SD(y_t|y_{t-1})SD(y_{t-2}|y_{t-1}
   
     
       
-        
-      
     
+      
+        
       
     
       
