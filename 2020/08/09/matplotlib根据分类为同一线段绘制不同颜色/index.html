@@ -96,18 +96,20 @@
 
 
 
-  <meta name="description" content="在数据分析工作中，一个比较麻烦的问题便是从其他人习惯的“excel”表式的wide数据（宽数据）到适合计算机处理、分析、绘图的long格式数据（长数据）的转换。而输出时，一些项目也会对输出的格式提出要求，这就要求我们把长格式输出为宽格式。好在Pandas提供了简洁的数据长宽格式转换的方法。 宽格式转换为长格式这里介绍pd.melt()函数将宽格式转换为长格式。这里仅演示较为简单的单层索引情况。12">
-<meta name="keywords" content="Python,数据清洗">
+  <meta name="description" content="在实际业务中，有时候需要根据不同的区间给时间序列标注对应区间，理想情况下是每个区间单独绘制半透明阴影，不过这个暂时看上去比较麻烦……因此想了个更简单的做法，可以比较快出图，以下是最终要实现的目标：要用matplotlib实现这样的可视化结果，我们需要根据指定列（分类列）进行groupby操作，并给定颜色：12345678910111213141516171819202122def fill_jum">
+<meta name="keywords" content="可视化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据长宽转换：基于Python">
-<meta property="og:url" content="https://v-swye.github.io/kanaeba/2019/12/03/数据长宽转换：基于Pandas/index.html">
+<meta property="og:title" content="matplotlib根据分类为同一线段绘制不同颜色">
+<meta property="og:url" content="https://v-swye.github.io/kanaeba/2020/08/09/matplotlib根据分类为同一线段绘制不同颜色/index.html">
 <meta property="og:site_name" content="Kanaeba&#39;s Long Position">
-<meta property="og:description" content="在数据分析工作中，一个比较麻烦的问题便是从其他人习惯的“excel”表式的wide数据（宽数据）到适合计算机处理、分析、绘图的long格式数据（长数据）的转换。而输出时，一些项目也会对输出的格式提出要求，这就要求我们把长格式输出为宽格式。好在Pandas提供了简洁的数据长宽格式转换的方法。 宽格式转换为长格式这里介绍pd.melt()函数将宽格式转换为长格式。这里仅演示较为简单的单层索引情况。12">
+<meta property="og:description" content="在实际业务中，有时候需要根据不同的区间给时间序列标注对应区间，理想情况下是每个区间单独绘制半透明阴影，不过这个暂时看上去比较麻烦……因此想了个更简单的做法，可以比较快出图，以下是最终要实现的目标：要用matplotlib实现这样的可视化结果，我们需要根据指定列（分类列）进行groupby操作，并给定颜色：12345678910111213141516171819202122def fill_jum">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-03T14:17:10.000Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/09/a7R9sg.jpg">
+<meta property="og:updated_time" content="2020-08-09T15:35:32.111Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据长宽转换：基于Python">
-<meta name="twitter:description" content="在数据分析工作中，一个比较麻烦的问题便是从其他人习惯的“excel”表式的wide数据（宽数据）到适合计算机处理、分析、绘图的long格式数据（长数据）的转换。而输出时，一些项目也会对输出的格式提出要求，这就要求我们把长格式输出为宽格式。好在Pandas提供了简洁的数据长宽格式转换的方法。 宽格式转换为长格式这里介绍pd.melt()函数将宽格式转换为长格式。这里仅演示较为简单的单层索引情况。12">
+<meta name="twitter:title" content="matplotlib根据分类为同一线段绘制不同颜色">
+<meta name="twitter:description" content="在实际业务中，有时候需要根据不同的区间给时间序列标注对应区间，理想情况下是每个区间单独绘制半透明阴影，不过这个暂时看上去比较麻烦……因此想了个更简单的做法，可以比较快出图，以下是最终要实现的目标：要用matplotlib实现这样的可视化结果，我们需要根据指定列（分类列）进行groupby操作，并给定颜色：12345678910111213141516171819202122def fill_jum">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/09/a7R9sg.jpg">
 
 
 
@@ -117,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2019/12/03/数据长宽转换：基于Pandas/">
+  <link rel="canonical" href="https://v-swye.github.io/kanaeba/2020/08/09/matplotlib根据分类为同一线段绘制不同颜色/">
 
 
 
@@ -127,7 +129,7 @@
   };
 </script>
 
-  <title>数据长宽转换：基于Python | Kanaeba's Long Position</title>
+  <title>matplotlib根据分类为同一线段绘制不同颜色 | Kanaeba's Long Position</title>
   
 
 
@@ -330,7 +332,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2019/12/03/数据长宽转换：基于Pandas/">
+    <link itemprop="mainEntityOfPage" href="https://v-swye.github.io/kanaeba/kanaeba/2020/08/09/matplotlib根据分类为同一线段绘制不同颜色/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kanaeba">
@@ -347,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据长宽转换：基于Python
+          <h1 class="post-title" itemprop="name headline">matplotlib根据分类为同一线段绘制不同颜色
 
               
             
@@ -373,7 +375,7 @@
                 
               
 
-              <time title="Created: 2019-12-03 18:31:22 / Modified: 22:17:10" itemprop="dateCreated datePublished" datetime="2019-12-03T18:31:22+08:00">2019-12-03</time>
+              <time title="Created: 2020-08-09 00:00:00 / Modified: 23:35:32" itemprop="dateCreated datePublished" datetime="2020-08-09T00:00:00+08:00">2020-08-09</time>
             
 
             
@@ -430,10 +432,8 @@
       
 
       
-        <p>在数据分析工作中，一个比较麻烦的问题便是从其他人习惯的“excel”表式的wide数据（宽数据）到适合计算机处理、分析、绘图的long格式数据（长数据）的转换。而输出时，一些项目也会对输出的格式提出要求，这就要求我们把长格式输出为宽格式。好在Pandas提供了简洁的数据长宽格式转换的方法。</p>
-<h2 id="宽格式转换为长格式"><a href="#宽格式转换为长格式" class="headerlink" title="宽格式转换为长格式"></a>宽格式转换为长格式</h2><p>这里介绍pd.melt()函数将宽格式转换为长格式。这里仅演示较为简单的单层索引情况。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data_long = data_wide.melt(</span><br><span class="line">    id_vars= [<span class="string">'id1'</span>,<span class="string">'id2'</span>], </span><br><span class="line">    <span class="comment">#原宽型数据中要保留下来的索引，类似数据库中的一个键；每个条目只有id1和id2会维持不变</span></span><br><span class="line">    value_vars =  [<span class="string">'var1'</span>,<span class="string">'var2'</span>] ,<span class="comment">#需要拉长的分类变量，这几个变量列会在结果中合并成一列（下称分类列），列的值即是这几个变量的名称</span></span><br><span class="line">    var_name =<span class="string">'varname'</span>,  <span class="comment"># 上述分类列的列名，默认为variable</span></span><br><span class="line">    value_name = [<span class="string">'value1'</span>,<span class="string">'value2'</span>], <span class="comment">#在元数据中id1,id2对应的条目，var1和var2的实际取值（而非变量名称），在最终结果中被命名为value1和value2；默认会被命名为value</span></span><br><span class="line">    col_level = <span class="number">0</span>, <span class="comment">#在多层索引时，基于列索引的第一层索引进行格式转换</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<h2 id="长格式转宽格式"><a href="#长格式转宽格式" class="headerlink" title="长格式转宽格式"></a>长格式转宽格式</h2><p>python输出宽格式的方法与excel数据透视表的逻辑一致，使用的函数为df.pivot_table()。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df = df.pivot_table(</span><br><span class="line">    index = [<span class="string">'id1'</span>,<span class="string">'id2'</span>], <span class="comment">#要保留的索引列变量，</span></span><br><span class="line">    columns = <span class="string">'colname'</span>, <span class="comment">#要转置到列变量的分类列，该列的值会成为新的列名</span></span><br><span class="line">    values = <span class="string">'value'</span>, <span class="comment">#分类列对应的值列，这一列会成为新的多个列的对应值</span></span><br><span class="line">    fill_value = <span class="literal">None</span>, <span class="comment"># 缺失值的填充值</span></span><br><span class="line">    margins = <span class="literal">False</span>, <span class="comment">#是否加入小计和项</span></span><br><span class="line">    dropna = <span class="literal">True</span>, <span class="comment"># drop掉所有分类列都没有对应值的item,最好是调整成False以防无法手动检测到缺失值</span></span><br><span class="line">    aggfunc = np.mean, <span class="comment"># 透视的值，主要是在id1,id2对应的columns存在重复项时，需要做一个计算以保证id1,id2的某个分类列只能对应一个值——体现了索引列的意义</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是pivot_table()对memory要求较高，因此在数据量较大时，最好把关键列以外的变量都踢出，在透视完成后再把踢出的信息通过id1,id2 merge回来。</p>
+        <p>在实际业务中，有时候需要根据不同的区间给时间序列标注对应区间，理想情况下是每个区间单独绘制半透明阴影，不过这个暂时看上去比较麻烦……因此想了个更简单的做法，可以比较快出图，以下是最终要实现的目标：<br><img src="https://s1.ax1x.com/2020/08/09/a7R9sg.jpg" alt="a7R9sg.jpg"><br>要用matplotlib实现这样的可视化结果，我们需要根据指定列（分类列）进行groupby操作，并给定颜色：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill_jump_point</span><span class="params">(data)</span>:</span></span><br><span class="line">    print(data.index[<span class="number">0</span>])</span><br><span class="line">    new_data = pd.DataFrame(pd.date_range(data.index[<span class="number">0</span>],data.index[<span class="number">-1</span>],freq = <span class="string">'D'</span>)).set_index(<span class="number">0</span>)</span><br><span class="line">    new_data = new_data.join(data,how = <span class="string">'left'</span>)</span><br><span class="line">    new_data.index.name = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> new_data</span><br><span class="line">  </span><br><span class="line"><span class="comment"># temp: 时间序列+分类列</span></span><br><span class="line">grouped = temp.groupby(<span class="string">'区间分类列'</span>)</span><br><span class="line"><span class="comment"># 调整图像大小，这里时间跨度比较长，故调整</span></span><br><span class="line">fig, ax = plt.subplots(<span class="number">1</span>,figsize = (<span class="number">30</span>,<span class="number">15</span>))</span><br><span class="line"><span class="comment"># 指定各分类对应的颜色，具体颜色代码可以自行google</span></span><br><span class="line">colors = [<span class="string">'k'</span>,<span class="string">'b'</span>,<span class="string">'rosybrown'</span>,<span class="string">'gold'</span>,<span class="string">'royalblue'</span>,<span class="string">'teal'</span>,<span class="string">'plum'</span>,<span class="string">'g'</span>] </span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> key, group <span class="keyword">in</span> grouped:</span><br><span class="line">    <span class="comment">#注意group后中间存在跳过的日期，需要fill np.nan值给这些日期，否则会在跳过的点之间连成直线，无法达到我们需要的效果</span></span><br><span class="line">    group = fill_jump_point(group.set_index(<span class="string">'index'</span>))</span><br><span class="line">    group = group.reset_index()</span><br><span class="line">    group.plot(ax=ax, x=<span class="string">"index"</span>, y=<span class="string">"ts名字"</span>, label = key,color=colors[i])</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">plt.savefig(<span class="string">'Output/result.jpg'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>大功告成！</p>
 
       
     </div>
@@ -457,9 +457,7 @@
       
         <div class="post-tags">
           
-            <a href="/kanaeba/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/kanaeba/tags/数据清洗/" rel="tag"># 数据清洗</a>
+            <a href="/kanaeba/tags/可视化/" rel="tag"># 可视化</a>
           
         </div>
       
@@ -472,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/kanaeba/2019/11/30/读书笔记：时间的秩序/" rel="next" title="读书笔记：时间的秩序">
-                <i class="fa fa-chevron-left"></i> 读书笔记：时间的秩序
+              <a href="/kanaeba/2020/05/18/github小白笔记/" rel="next" title="github小白笔记">
+                <i class="fa fa-chevron-left"></i> github小白笔记
               </a>
             
           </div>
@@ -481,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kanaeba/2020/01/18/LaTeX安装、vs code编译及beamer使用/" rel="prev" title="LaTeX安装、vs code编译及宏包">
-                LaTeX安装、vs code编译及宏包 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -533,17 +527,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -666,23 +651,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#宽格式转换为长格式"><span class="nav-number">1.</span> <span class="nav-text">宽格式转换为长格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长格式转宽格式"><span class="nav-number">2.</span> <span class="nav-text">长格式转宽格式</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -836,7 +804,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/12/03/数据长宽转换：基于Pandas/'
+    refer: '2020/08/09/matplotlib根据分类为同一线段绘制不同颜色/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
