@@ -6,7 +6,7 @@
   <link href="/kanaeba/atom.xml" rel="self"/>
   
   <link href="https://v-swye.github.io/kanaeba/"/>
-  <updated>2020-08-09T15:35:32.111Z</updated>
+  <updated>2020-08-15T14:56:10.046Z</updated>
   <id>https://v-swye.github.io/kanaeba/</id>
   
   <author>
@@ -15,6 +15,63 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python的杂七杂八笔记</title>
+    <link href="https://v-swye.github.io/kanaeba/2020/08/15/-untitled/"/>
+    <id>https://v-swye.github.io/kanaeba/2020/08/15/-untitled/</id>
+    <published>2020-08-14T16:00:00.000Z</published>
+    <updated>2020-08-15T14:56:10.046Z</updated>
+    
+    <content type="html"><![CDATA[<p>为一些不知道该放在哪里的小总结，太久不写代码就会忘记……</p><h2 id="python基本语法"><a href="#python基本语法" class="headerlink" title="python基本语法"></a>python基本语法</h2><p><strong>判定某个变量是否为None值：</strong><br>避免使用<code>if a == None</code>，因为当a为NoneType时并不可比。正确的使用方法：<code>if a is None/if a is not None</code>。</p><h2 id="pandas与数据处理"><a href="#pandas与数据处理" class="headerlink" title="pandas与数据处理"></a>pandas与数据处理</h2><p>暂无。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;为一些不知道该放在哪里的小总结，太久不写代码就会忘记……&lt;/p&gt;
+&lt;h2 id=&quot;python基本语法&quot;&gt;&lt;a href=&quot;#python基本语法&quot; class=&quot;headerlink&quot; title=&quot;python基本语法&quot;&gt;&lt;/a&gt;python基本语法&lt;/h2&gt;&lt;p&gt;&lt;s
+      
+    
+    </summary>
+    
+    
+      <category term="编程与技术" scheme="https://v-swye.github.io/kanaeba/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>python日频数据转月度数据（高频转低频数据）</title>
+    <link href="https://v-swye.github.io/kanaeba/2020/08/15/python%E6%97%A5%E9%A2%91%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%9C%88%E5%BA%A6%E6%95%B0%E6%8D%AE%20%E5%B9%B4%E6%95%B0%E6%8D%AE/"/>
+    <id>https://v-swye.github.io/kanaeba/2020/08/15/python%E6%97%A5%E9%A2%91%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%9C%88%E5%BA%A6%E6%95%B0%E6%8D%AE%20%E5%B9%B4%E6%95%B0%E6%8D%AE/</id>
+    <published>2020-08-14T16:00:00.000Z</published>
+    <updated>2020-08-15T14:52:21.171Z</updated>
+    
+    <content type="html"><![CDATA[<p>假设实际业务需求需要将每日交易价格转变为仅保留月底价格的时间序列，以与其他月度数据匹配，可采用以下思路：</p><ol><li>将每日数据的年和月提取出来</li><li>根据年、月进行groupby，取最后值</li><li>拼接获取月底Timestamp</li></ol><p>具体代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas.tseries.offsets <span class="keyword">import</span> MonthEnd</span><br><span class="line"></span><br><span class="line">data[<span class="string">'year'</span>] = data[<span class="string">'date'</span>].year</span><br><span class="line">data[<span class="string">'month'</span>] = data[<span class="string">'date].month</span></span><br><span class="line"><span class="string">monthly_data = data.groupby(['</span>yea<span class="string">r','</span>month<span class="string">']).last().reset_index()</span></span><br><span class="line"><span class="string">monthly_data['</span>date<span class="string">'] = monthly_data.iloc[:,0].str.cat(monthly_data.iloc[:,1],sep = '</span>-<span class="string">') #将year和month列用 - 拼接</span></span><br><span class="line"><span class="string">monthly_data['</span>date<span class="string">'] = pd.to_datetime(month_return['</span>date<span class="string">'])+MonthEnd(1) #转换为时间后默认为2019-12-01，故增加一个到月底的offset变为2019-12-31</span></span><br><span class="line"><span class="string">monthly_data = monthly_data.drop(['</span>level_0<span class="string">','</span>level_1<span class="string">'], axis = 1) #删除不需要的year和month</span></span><br></pre></td></tr></table></figure></p><p>这里主要是活用series.str.cat()方法及MonthEnd(1)的时间序列offset。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;假设实际业务需求需要将每日交易价格转变为仅保留月底价格的时间序列，以与其他月度数据匹配，可采用以下思路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将每日数据的年和月提取出来&lt;/li&gt;
+&lt;li&gt;根据年、月进行groupby，取最后值&lt;/li&gt;
+&lt;li&gt;拼接获取月底Timestamp&lt;/li
+      
+    
+    </summary>
+    
+    
+      <category term="编程与技术" scheme="https://v-swye.github.io/kanaeba/categories/%E7%BC%96%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="时间序列" scheme="https://v-swye.github.io/kanaeba/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/"/>
+    
+      <category term="数据清洗" scheme="https://v-swye.github.io/kanaeba/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/"/>
+    
+  </entry>
   
   <entry>
     <title>matplotlib根据分类为同一线段绘制不同颜色</title>
@@ -484,60 +541,6 @@
     
       <category term="读万卷书" scheme="https://v-swye.github.io/kanaeba/categories/%E8%AF%BB%E4%B8%87%E5%8D%B7%E4%B9%A6/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>读书笔记：当我谈跑步时我谈些什么</title>
-    <link href="https://v-swye.github.io/kanaeba/2019/09/28/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BD%93%E6%88%91%E8%B0%88%E8%B7%91%E6%AD%A5%E6%97%B6%E6%88%91%E8%B0%88%E4%BA%9B%E4%BB%80%E4%B9%88/"/>
-    <id>https://v-swye.github.io/kanaeba/2019/09/28/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BD%93%E6%88%91%E8%B0%88%E8%B7%91%E6%AD%A5%E6%97%B6%E6%88%91%E8%B0%88%E4%BA%9B%E4%BB%80%E4%B9%88/</id>
-    <published>2019-09-28T08:20:36.000Z</published>
-    <updated>2019-09-28T14:26:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>Pain is inevitable. Suffering is optional. </p></blockquote><p>村上春树的文字总是有一种云淡风轻般就能戳中内心深处的力量。特别是作为同款跑者而言，能引发共鸣的思考更多了。当然，就长度来说，完全比不上村上马拉松级的练习，但强风中飘荡的思绪却可说是略同的。</p><p>即使不刻意运动，一个人也能活下去；但运动对于大多数人维持健康的体魄来说仍属必要。这在年轻人的意识或许还感知不到，随着年月增长，时光总会悄悄留下些残酷的痕迹，运动，便是与时间刻刀的抗衡。可以选择的运动多种多样，决不能谈运动便是跑步，或是冲动之下在健身房办下“洗澡卡”。每个人自有其适应的运动；在村上看来，跑步适合的是什么样的人呢？第一，要性格匹配。与一些集体性的活动不同，跑步基本上属于一个人的狂欢，与他人的交往在社会中的重要性不言而喻，但自己的沉默时间亦是精神健康的必修课，而跑步过程中，则是一个人独处的好时光。第二，要体质跟得上。心肺功能欠佳、爆发力强的人，要强硬让他从短跑道换成漫长的绕圈显然不够现实，另一方面，跑者（比如我）也常常抱着为了避免长肉而不得不为之心态。如村上所说，易胖体质的人看着怎么吃都不发胖的人，心里常怨念上帝的不公；然而长期来看倒未必比那些怎么吃都不胖的人更获上帝青睐——正是易胖体质才能敦促人勤加锻炼，于是老来反而更健康一些。第三，是要与人生信条匹配。跑步是对肉体的磨练也是对意志的挑战。正是这种神经与肌肉的惯性，为跑者提供了人生路途的立足点。村上自己描述自己的性格是“属于比较执拗的性格，假如有什么事情未能做成，就会一直做到成功，否则便抛舍不下，心情也无法平静”，这种执拗与跑步正是相得益彰。</p><p>在一个人做跑步练习时，竞争性的缺乏使人只需关注自身的步调，一步一步，乐得轻松自在。大脑在一天的繁忙中短暂抽离，也可进行一些背诵类的工作——“一边几乎无意识地迈步，一边在大脑中依序排列词语，检验文章的节奏，设想词句的韵律。就这样一面将意识放置于别处，一面放脚奔跑，便能毫不费力地以自然的速度跑很久很久。只不过在脑子里自说自话，有时一不留神做出表情、摆出姿势来，从对面跑过来的人便一脸莫名其妙。”然而，当走上比赛跑道或是为了准备比赛而寻找突破点时，心情就完全不同了。“被别人重重包围时，即使你不想这么做，不由得也会发力。跟着众人一起“预备，跑！”地去赛跑，本是非常愉快，竞争本能却会不知不觉露出锋芒来。”而且不可避免地，无法看到进步可能的挫败感将伴随着突破式训练而来。这或许是任何一种带有目标的旅程都不得不触发和跨越的拐点，比如前面三十分钟还觉得自信满满、精力十足，一旦计时器超过30这个数字，全身就好像再也不听使唤，四肢、关节甚至内脏器官都在叫嚷着要求休息。</p><blockquote><p>在我与跑步之间，这样一种徐缓的倦怠期前来造访了。其间有付出的努力得不到报偿的失望，有理应敞开的门户不知何时却被关上的茫然。我称这些为“跑者蓝调”。</p></blockquote><p>而跑步究竟在追求什么？并不是专业运动员，只为保持体重的话也无需去定什么挑战目标。对长跑选手而言，在跑全程时能否感到自豪或类似自豪的东西，可能才是最重要的。只要能起越过去的自己，哪怕只是一点。尽力，最大程度的忍耐。我最喜欢村上君的一点，大约就是这样尽人事的认真，和知天命的豁达。</p><p>刻意经历痛苦，然后从中发觉活着的事实。这可能是克服一切挫折、挑战，所目指す唯一の根本目標です。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;Pain is inevitable. Suffering is optional. &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;村上春树的文字总是有一种云淡风轻般就能戳中内心深处的力量。特别是作为同款跑者而言，能引发共鸣的思考更多了。当然，就长度
-      
-    
-    </summary>
-    
-    
-      <category term="读万卷书" scheme="https://v-swye.github.io/kanaeba/categories/%E8%AF%BB%E4%B8%87%E5%8D%B7%E4%B9%A6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>读书笔记：乌合之众</title>
-    <link href="https://v-swye.github.io/kanaeba/2019/09/22/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E4%B9%8C%E5%90%88%E4%B9%8B%E4%BC%97/"/>
-    <id>https://v-swye.github.io/kanaeba/2019/09/22/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%9A%E4%B9%8C%E5%90%88%E4%B9%8B%E4%BC%97/</id>
-    <published>2019-09-22T06:34:35.000Z</published>
-    <updated>2019-09-22T07:02:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。</p><blockquote><p>在追求梦想的过程中，从野蛮走向文明，再随着梦想力量的失去，走向衰落和死亡，这就是一个民族的生命循环。</p></blockquote><h2 id="认识群体"><a href="#认识群体" class="headerlink" title="认识群体"></a>认识群体</h2><h3 id="群体概念"><a href="#群体概念" class="headerlink" title="群体概念"></a>群体概念</h3><p>群体是一个与个体相对的概念。个体是理性的，而群体则是非理性的。勒庞认为，种族的文明程度，或者说情绪化程度，决定了群体的非理性程度。这虽然是种族主义的陈旧偏见，但不可否认的是，情绪而非物理存在才是群体定义的本质。群体产生源于思想与情绪的同一导向，与其说在讨论群体，不如说是在讨论心理群体的特征。</p><h3 id="群体的特征"><a href="#群体的特征" class="headerlink" title="群体的特征"></a>群体的特征</h3><ul><li><strong>匿名性</strong>：在群体的掩护下，个人获取了势不可挡的心理感受，使得放纵本能成为可能。这种匿名性显然是群体失控的潜在引子。</li><li><strong>传染性</strong>：传染性决定了群体的倾向，同时推动个体愿意为了集体利益而牺牲、放弃个人利益。</li><li><strong>暗示性</strong>：群体暗示下，个体的行为表现甚至可能与其独处时的表现完全相反。不过，虽然群体智力低于孤立个体，但其情绪和行为所产生的表现形式及后果未必更坏。比如，在群体的号召下，个人可能更愿意慷慨解囊、热心慈善，他们在群体中获得了更高的认同感。</li></ul><h2 id="群体观念"><a href="#群体观念" class="headerlink" title="群体观念"></a>群体观念</h2><p>要明白如何巧妙地“领导”群体，首先要清楚观念如何在群体中传播，特别是基本观念。勒庞将群体观念分为两种，一种是短时的观念，而另一种则是在环境、遗传和舆论等要素影响下形成的基本观念。在观念的形成和传播过程中，群体的力量也在不断被放大。</p><h3 id="观念的传播"><a href="#观念的传播" class="headerlink" title="观念的传播"></a>观念的传播</h3><p>观念传播埋伏于诸如种族、传统、时间、制度和教育等间接因素，而爆发于某个事件或是特殊时间点产生的直接因素。因此，领导者需要意识到，群体只擅长低级推理：将表面关联的事物结合在一起；或是将特殊事件即刻一般化。经年的事故死亡并不比一次具体、详细描述的实验室爆炸更牵动人心。这是因为，与群体极为低下的推理能力相反，群众伟大的想象力可以构筑出强大的“想象共同体”。因而，领导者想要提出的观念必须足够简明、形象，最好以“断言”的形式出现，然后再加以重复和感染，打动和引诱比纯粹理性的公平制度有效得多。而感召力的强弱则主要取决于成功所带来的名望。观念一旦形成，便很难改变，然而却有一点必须时刻注意：一旦失去名望，观念很可能迅速分崩离析。因此，那些历史上长期保持名望的人，为了让群众信仰，总是注意保持距离，维持自身的神秘感。</p><h3 id="教育的力量"><a href="#教育的力量" class="headerlink" title="教育的力量"></a>教育的力量</h3><p>另一点令人印象深刻的是勒庞关于教育的探讨。教育方式影响着人的推理、判断和想象能力，也就是说，也潜在地影响着“一个民族的文明程度”。勒庞对英美社会的教育赞赏有加，而对形成乌合之众的教育方式不以为然：死记硬背的教育只培养出盲目服从的学生，所教授的内容无助于社会，不过是产生持有文凭的失业者。讽刺的是，这种教育下形成的乌合之众，倒的确是更有助于维持稳固的统治。</p><blockquote><p>始终支配着群体心灵的，不是对自由的渴求，而是对被奴役的渴求。</p></blockquote><h2 id="乌合之众"><a href="#乌合之众" class="headerlink" title="乌合之众"></a>乌合之众</h2><p>《乌合之众》对当前“群体无意识行为取代个体有意识行动”的社会流向提供了解释，指出历史上真正的动荡并非那些大事件，而是扎根群众思想底部的观念变化。这自然有助于我们理解历史上的群体性事件，然而到底是止步于此，还是反思个人在群体中所扮演的角色，或是用于钻研运用“大胜利、大奇迹、大罪行、大前景”引导群体的“帝王术”，或是选择更为高尚的道路、寻找人类群体失控与个体孤立之间的平衡点，则是“理性”个体需要自己追寻的答案。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在世界逐渐走向失序的暗潮里，翻出这本16年就沉在Kindle里的书。记得在iBooks还能用的时候，也在苹果上买过一本，名著就是这样，买了一本又一本，也不见得有勇气翻开几次。不过实际上，经典未必都是难啃的大部头，比如这部短小精悍的《乌合之众》。&lt;/p&gt;
-&lt;blockquot
-      
-    
-    </summary>
-    
-    
-      <category term="读万卷书" scheme="https://v-swye.github.io/kanaeba/categories/%E8%AF%BB%E4%B8%87%E5%8D%B7%E4%B9%A6/"/>
-    
-    
-      <category term="社会学" scheme="https://v-swye.github.io/kanaeba/tags/%E7%A4%BE%E4%BC%9A%E5%AD%A6/"/>
     
   </entry>
   
